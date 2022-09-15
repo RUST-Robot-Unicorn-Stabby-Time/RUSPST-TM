@@ -35,9 +35,9 @@ public class InputArbiter : MonoBehaviour, IController
         lightAttackAction.Enable();
         heavyAttackAction.Enable();
 
-        jumpAction.performed += (ctx) => JumpEvent(ctx.ReadValue<float>());
-        lightAttackAction.performed += (ctx) => LightAttackEvent(ctx.ReadValue<float>());
-        heavyAttackAction.performed += (ctx) => HeavyAttackEvent(ctx.ReadValue<float>());
+        jumpAction.performed += (ctx) => JumpEvent?.Invoke(ctx.ReadValue<float>());
+        lightAttackAction.performed += (ctx) => LightAttackEvent?.Invoke(ctx.ReadValue<float>());
+        heavyAttackAction.performed += (ctx) => HeavyAttackEvent?.Invoke(ctx.ReadValue<float>());
     }
 
     private void OnDisable()
@@ -47,9 +47,9 @@ public class InputArbiter : MonoBehaviour, IController
         lightAttackAction.Disable();
         heavyAttackAction.Disable();
 
-        jumpAction.performed -= (ctx) => JumpEvent(ctx.ReadValue<float>());
-        lightAttackAction.performed -= (ctx) => LightAttackEvent(ctx.ReadValue<float>());
-        heavyAttackAction.performed -= (ctx) => HeavyAttackEvent(ctx.ReadValue<float>());
+        jumpAction.performed -= (ctx) => JumpEvent?.Invoke(ctx.ReadValue<float>());
+        lightAttackAction.performed -= (ctx) => LightAttackEvent?.Invoke(ctx.ReadValue<float>());
+        heavyAttackAction.performed -= (ctx) => HeavyAttackEvent?.Invoke(ctx.ReadValue<float>());
     }
 }
 

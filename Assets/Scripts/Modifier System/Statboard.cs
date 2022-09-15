@@ -6,20 +6,64 @@ using System.Collections.Generic;
 [DisallowMultipleComponent]
 public class Statboard : MonoBehaviour
 {
-    public List<Stat> stats;
-    public List<Artifact> artifacts;
+    [SerializeField] List<Stat> stats;
+    [SerializeField] List<Artifact> artifacts;
 
-    public Stat GetStat(string statKey) 
+    public Dictionary<string, float> finalValues = new Dictionary<string, float>();
+
+    public float GetBaseStat(string statKey)
     {
-        foreach (var stat in stats)
+        foreach (Stat stat in stats)
         {
-            if (stat.key.ToLower() == statKey.ToLower())
+            if (stat.key == statKey)
             {
-                return stat;
+                return stat.baseValue;
             }
         }
 
-        throw new System.Exception($"Statboard is missing stat \"{statKey}\"");
+        throw new System.Exception($"Uh oh, Statboard is missing stat: \"{statKey}\"");
+    }
+
+    public float GetStat(string statKey) 
+    {
+        return finalValues[statKey];
+    }
+
+    private void Update()
+    {
+        foreach (Stat stat in stats)
+        {
+            if (!finalValues.ContainsKey(stat.key))
+            {
+                finalValues.Add(stat.key, stat.baseValue);
+            }
+            else
+            {
+                finalValues[stat.key] = stat.baseValue;
+            }
+        }
+
+        foreach (Artifact artifact in artifacts)
+        {
+            if (artifact) 
+                artifact.Apply(this, finalValues);
+        }
+    }
+
+    public void AddArtifact (Artifact artifact)
+    {
+        artifacts.Add(artifact);
+        artifacts.Sort((a, b) => b.priority - a.priority);
+    }
+
+    private void OnValidate()
+    {
+        artifacts.Sort((a, b) =>
+        {
+            if (!b) return -1;
+            if (!a) return 1;
+            return b.priority - a.priority;
+        });
     }
 }
 
@@ -28,17 +72,4 @@ public class Stat
 {
     public string key;
     public float baseValue;
-
-    public Stat() { }
-
-    public float Calculate (GameObject ctx, List<Artifact> artifacts)
-    {
-        float val = baseValue;
-        foreach (var artifact in artifacts)
-        {
-            artifact.Modify(ctx, key, ref val);
-        }
-
-        return val;
-    }
 }

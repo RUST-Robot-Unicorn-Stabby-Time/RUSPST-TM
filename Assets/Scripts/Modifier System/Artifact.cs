@@ -13,8 +13,18 @@ public abstract class Artifact : ScriptableObject
     public string displayName;
     public Sprite icon;
     public Color baseColor;
+    public int priority;
 
-    public abstract void Modify(GameObject ctx, string key, ref float val);
+    [Space]
+    public List<StatModifier> modifiers;
+
+    public abstract void Apply(Statboard ctx, Dictionary<string, float> stats);
+}
+
+public class StatModifier
+{
+    public string stat;
+    public string method;
 }
 
 // Does artifact stuff
