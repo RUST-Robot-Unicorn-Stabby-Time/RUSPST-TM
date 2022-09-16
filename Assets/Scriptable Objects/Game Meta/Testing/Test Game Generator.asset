@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21a8881046baa8419c767051466a49e, type: 3}
+  m_Name: Test Game Generator
+  m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: a8d0d55e35ebb554eae457e63a927ca2, type: 2}
+  roomGroups:
+  - label: Baby
+    selectionCount: 6
+    rooms:
+    - Test - Baby - 1
+    - Test - Baby - 2
+    - Test - Baby - 3
+    - Test - Baby - 4
+    - Test - Baby - 5
+    - Test - Baby - 6
+    - Test - Baby - 7
+    - Test - Baby - 8
+  - label: Hard
+    selectionCount: 2
+    rooms:
+    - Test - Hard - 1
+    - Test - Hard - 2
+    - Test - Hard - 3
+    - Test - Hard - 4
+    - Test - Hard - 5
+    - Test - Hard - 6
+    - Test - Hard - 7
+    - Test - Hard - 8
+  - label: Brutal
+    selectionCount: 1
+    rooms:
+    - Test - Brutal - 1
+    - Test - Brutal - 2
+    - Test - Brutal - 3
+    - Test - Brutal - 4
+    - Test - Brutal - 5
+    - Test - Brutal - 6
+    - Test - Brutal - 7
+    - Test - Brutal - 8
