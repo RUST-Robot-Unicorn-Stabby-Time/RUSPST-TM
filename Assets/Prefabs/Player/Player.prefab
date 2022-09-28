@@ -346,12 +346,13 @@ MonoBehaviour:
   jumpHeight: 3.5
   jumpGravity: 3
   fallingGravity: 6
-  groundCheckStart: 1
-  groundCheckEnd: 0.15
+  groundCheckOffset: 0.2
   groundCheckRadius: 0.35
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 1
+  groundMaxSlope: 35
+  groundLookaheadTime: 1
   groundStickiness: 180
 --- !u!114 &8982604728899771594
 MonoBehaviour:
