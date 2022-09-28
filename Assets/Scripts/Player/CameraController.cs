@@ -10,6 +10,16 @@ public class CameraController : MonoBehaviour
 
     Vector2 ssRotation;
 
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     private void FixedUpdate()
     {
         ApplyMouseMovement();
