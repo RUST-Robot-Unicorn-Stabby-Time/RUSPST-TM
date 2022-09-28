@@ -10,6 +10,9 @@ public class InputArbiter : MonoBehaviour, IController
     // This will most likley change a lot during production depending on what input we require.
     // In that case, press/release actions will use events, and continuous values will be a getter.
 
+    public Transform inputTransform;
+
+    [Space]
     public InputAction moveAction;
     public InputAction jumpAction;
     public InputAction lightAttackAction;
@@ -20,7 +23,7 @@ public class InputArbiter : MonoBehaviour, IController
         get
         {
             Vector2 input = moveAction.ReadValue<Vector2>();
-            return transform.TransformDirection(input.x, 0.0f, input.y);
+            return inputTransform.TransformDirection(input.x, 0.0f, input.y);
         }
     }
     

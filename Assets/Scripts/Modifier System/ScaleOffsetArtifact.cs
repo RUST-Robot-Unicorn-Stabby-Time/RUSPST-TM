@@ -11,16 +11,22 @@ public class ScaleOffsetArtifact : Artifact
     {
         foreach (ScaleOffsetModification modification in modifications)
         {
-            stats[modification.key] *= modification.scale;
-            stats[modification.key] += modification.offset;
+            stats[modification.Key] *= modification.scale;
+            stats[modification.Key] += modification.offset;
         }
     }
+
+    public override void Register(Statboard ctx) { }
+
+    public override void Unregister(Statboard ctx) { }
 }
 
 [System.Serializable]
 public class ScaleOffsetModification
 {
-    public string key = string.Empty;
+    [SerializeField] string key = string.Empty;
     public float scale = 1.0f;
     public float offset = 0.0f;
+
+    public string Key => key.ToLower();
 }

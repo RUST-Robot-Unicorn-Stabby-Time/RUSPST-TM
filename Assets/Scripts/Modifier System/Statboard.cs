@@ -13,9 +13,10 @@ public class Statboard : MonoBehaviour
 
     public float GetBaseStat(string statKey)
     {
+        statKey = statKey.ToLower();
         foreach (Stat stat in stats)
         {
-            if (stat.key == statKey)
+            if (stat.key.ToLower() == statKey.ToLower())
             {
                 return stat.baseValue;
             }
@@ -24,8 +25,24 @@ public class Statboard : MonoBehaviour
         throw new System.Exception($"Uh oh, Statboard is missing stat: \"{statKey}\"");
     }
 
-    public float GetStat(string statKey) 
+    public bool TryGetStat(string statKey, out float value)
     {
+        statKey = statKey.ToLower();
+        if (finalValues.ContainsKey(statKey))
+        {
+            value = finalValues[statKey];
+            return true;
+        }
+        else
+        {
+            value = 0.0f;
+            return false;
+        }
+    }
+
+    public float GetStat(string statKey)
+    {
+        statKey = statKey.ToLower();
         return finalValues[statKey];
     }
 
@@ -33,13 +50,13 @@ public class Statboard : MonoBehaviour
     {
         foreach (Stat stat in stats)
         {
-            if (!finalValues.ContainsKey(stat.key))
+            if (!finalValues.ContainsKey(stat.key.ToLower()))
             {
-                finalValues.Add(stat.key, stat.baseValue);
+                finalValues.Add(stat.key.ToLower(), stat.baseValue);
             }
             else
             {
-                finalValues[stat.key] = stat.baseValue;
+                finalValues[stat.key.ToLower()] = stat.baseValue;
             }
         }
 
@@ -72,4 +89,17 @@ public class Stat
 {
     public string key;
     public float baseValue;
+
+    public float GetFor (MonoBehaviour ctx)
+    {
+        Statboard board = ctx.GetComponent<Statboard>();
+        if (board.TryGetStat(key, out float value))
+        {
+            return value;
+        }
+        else
+        {
+            return baseValue;
+        }
+    }
 }
