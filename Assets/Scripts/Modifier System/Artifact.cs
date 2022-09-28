@@ -19,6 +19,9 @@ public abstract class Artifact : ScriptableObject
     public List<StatModifier> modifiers;
 
     public abstract void Apply(Statboard ctx, Dictionary<string, float> stats);
+
+    public abstract void Register(Statboard ctx);
+    public abstract void Unregister(Statboard ctx);
 }
 
 public class StatModifier
