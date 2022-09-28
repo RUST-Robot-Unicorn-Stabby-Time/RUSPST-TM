@@ -39,9 +39,12 @@ public class PlayerAnimator : MonoBehaviour
         target.SetFloat("speed", speed);
         target.SetBool("falling", !movement.IsGrounded);
 
-        Quaternion targetRotation = Quaternion.LookRotation(planarVelocity, Vector3.up);
-        float angleDelta = Quaternion.Angle(targetRotation, rootRotation);
-        rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, angleDelta * rotationSpeed * speed * Time.deltaTime);
+        if (planarVelocity.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(planarVelocity, Vector3.up);
+            float angleDelta = Quaternion.Angle(targetRotation, rootRotation);
+            rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, angleDelta * rotationSpeed * speed * Time.deltaTime);
+        }
         root.rotation = Quaternion.Inverse(transform.rotation) * rootRotation * root.rotation;
 
         float fSpeed = Vector3.Dot(root.forward, planarVelocity);

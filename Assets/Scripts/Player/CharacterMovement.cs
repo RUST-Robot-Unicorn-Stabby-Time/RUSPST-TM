@@ -17,12 +17,17 @@ public class CharacterMovement : MonoBehaviour
     public float groundCheckOffset;
     public float groundCheckRadius;
     public LayerMask groundCheckMask;
-    public float groundStickyness;
+
+    [Space]
+    public float groundMaxSlope;
+    public float groundLookaheadTime;
+    public float groundStickiness;
     
     IController controller;
     new Rigidbody rigidbody;
 
     public bool IsGrounded { get; private set; }
+    public float JumpForce => Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
 
     private void Awake()
     {
@@ -46,8 +51,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (IsGrounded)
             {
-                float jumpForce = Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
-                rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpForce, rigidbody.velocity.z);
+                rigidbody.velocity = new Vector3(rigidbody.velocity.x, JumpForce, rigidbody.velocity.z);
             }
         }
     }
@@ -58,12 +62,45 @@ public class CharacterMovement : MonoBehaviour
 
         MoveCharacter();
 
-        float gravityScale = fallingGravity;
-        if (rigidbody.velocity.y > 0.0f) gravityScale = jumpGravity;
-        if (IsGrounded) gravityScale = groundStickyness;
+        if (IsGrounded && rigidbody.velocity.y < JumpForce * 0.5f)
+        {
+            StickToGround();
+        }
+        else
+        {
+            float gravityScale = fallingGravity;
+            if (rigidbody.velocity.y > 0.0f) gravityScale = jumpGravity;
 
-        rigidbody.velocity += Physics.gravity * gravityScale * Time.deltaTime;
+            rigidbody.velocity += Physics.gravity * gravityScale * Time.deltaTime;
+        }
         rigidbody.useGravity = false;
+    }
+
+    private void StickToGround()
+    {
+        float moveSpeed = moveSpeedStat.GetFor(this);
+        Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down + rigidbody.velocity / moveSpeed * groundLookaheadTime);
+        Vector3 direction = Vector3.down;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, groundCheckRadius))
+        {
+            float angle = Mathf.Acos(Vector3.Dot(hit.normal, Vector3.up)) * Mathf.Rad2Deg;
+            if (angle < groundMaxSlope)
+            {
+                direction = -hit.normal;
+                Debug.DrawLine(ray.origin, ray.GetPoint(hit.distance), Color.green);
+            }
+            else
+            {
+                Debug.DrawLine(ray.origin, ray.GetPoint(hit.distance), Color.yellow);
+            }
+        }
+        else
+        {
+            Debug.DrawLine(ray.origin, ray.GetPoint(10.0f), Color.red);
+        }
+
+         rigidbody.velocity += direction * groundStickiness * Time.deltaTime;
     }
 
     private bool GetIsGrounded()
