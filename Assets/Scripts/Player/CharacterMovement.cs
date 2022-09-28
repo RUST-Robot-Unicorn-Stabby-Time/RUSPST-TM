@@ -28,6 +28,7 @@ public class CharacterMovement : MonoBehaviour
 
     public bool IsGrounded { get; private set; }
     public float JumpForce => Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
+    public Vector3 LocalVelocity { get; private set; }
 
     private void Awake()
     {
@@ -129,10 +130,12 @@ public class CharacterMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
+        Vector3 referenceFrame = GetGroundVelocity();
+
         float moveSpeed = moveSpeedStat.GetFor(this);
         float acceleration = accelerationStat.GetFor(this);
 
-        Vector3 target = controller.MovementDirection * moveSpeed;
+        Vector3 target = controller.MovementDirection * moveSpeed + referenceFrame;
         Vector3 current = rigidbody.velocity;
 
         Vector3 difference = target - current;
@@ -140,5 +143,21 @@ public class CharacterMovement : MonoBehaviour
 
         Vector3 force = Vector3.ClampMagnitude(difference, moveSpeed) * acceleration;
         rigidbody.velocity += force * Time.deltaTime;
+
+        LocalVelocity = rigidbody.velocity - referenceFrame;
+    }
+
+    private Vector3 GetGroundVelocity()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, groundCheckRadius))
+        {
+            if (hit.rigidbody)
+            {
+                return hit.rigidbody.velocity;
+            }
+        }
+
+        return Vector3.zero;
     }
 }
