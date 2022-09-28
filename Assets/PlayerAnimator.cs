@@ -9,11 +9,12 @@ public class PlayerAnimator : MonoBehaviour
     [Space]
     public Transform root;
     public float rotationSpeed;
-    public float moveTilt;
-    public float turningTilt;
+    public float moveTiltMax;
+    public float moveTiltSlope;
+    public float turningTiltMax;
+    public float turningTiltSlope;
 
     Statboard statboard;
-    new Rigidbody rigidbody;
     CharacterMovement movement;
 
     Quaternion rootRotation = Quaternion.identity;
@@ -21,23 +22,19 @@ public class PlayerAnimator : MonoBehaviour
     private void Awake()
     {
         statboard = GetComponent<Statboard>();
-        rigidbody = GetComponent<Rigidbody>();
         movement = GetComponent<CharacterMovement>();
     }
 
     private void LateUpdate()
     {
-        Vector3 planarVelocity = rigidbody.velocity;
+        Vector3 planarVelocity = movement.LocalVelocity;
         planarVelocity -= transform.up * Vector3.Dot(transform.up, planarVelocity);
 
         float speed = planarVelocity.magnitude;
-        if (statboard.TryGetStat("speed", out float moveSpeed))
-        {
-            speed /= moveSpeed;
-        }
 
         target.SetFloat("speed", speed);
         target.SetBool("falling", !movement.IsGrounded);
+        target.SetFloat("speedMulti", Mathf.Max(statboard.GetBaseStat("speed"), speed));
 
         if (planarVelocity.sqrMagnitude > 0.01f)
         {
@@ -49,7 +46,17 @@ public class PlayerAnimator : MonoBehaviour
 
         float fSpeed = Vector3.Dot(root.forward, planarVelocity);
         float rSpeed = Vector3.Dot(root.right, planarVelocity);
-        Vector3 tilt = new Vector3(fSpeed * moveTilt, 0.0f, -rSpeed * turningTilt);
+        Vector3 tilt = new Vector3
+        {
+            x = TiltInterpolation(fSpeed, moveTiltMax, moveTiltSlope),
+            y = 0.0f,
+            z = TiltInterpolation(-rSpeed, turningTiltMax, turningTiltSlope),
+        };
         root.rotation *= Quaternion.Euler(tilt);
+    }
+
+    public float TiltInterpolation(float x, float max, float slope)
+    {
+        return Mathf.Atan(x * slope) * max * (2.0f / Mathf.PI);
     }
 }
