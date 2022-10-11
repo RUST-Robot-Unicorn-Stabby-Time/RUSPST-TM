@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 [SelectionBase]
 [DisallowMultipleComponent]
-public class InputArbiter : MonoBehaviour, IController
+public class InputArbiter : MonoBehaviour
 {
     // This will most likley change a lot during production depending on what input we require.
     // In that case, press/release actions will use events, and continuous values will be a getter.
@@ -18,6 +18,8 @@ public class InputArbiter : MonoBehaviour, IController
     public InputAction lightAttackAction;
     public InputAction heavyAttackAction;
 
+    CharacterMovement movement;
+
     public Vector3 MovementDirection
     {
         get
@@ -26,10 +28,11 @@ public class InputArbiter : MonoBehaviour, IController
             return inputTransform.TransformDirection(input.x, 0.0f, input.y);
         }
     }
-    
-    public event System.Action<float> JumpEvent;
-    public event System.Action<float> LightAttackEvent;
-    public event System.Action<float> HeavyAttackEvent;
+
+    private void Awake()
+    {
+        movement = GetComponent<CharacterMovement>();
+    }
 
     private void OnEnable()
     {
@@ -37,10 +40,6 @@ public class InputArbiter : MonoBehaviour, IController
         jumpAction.Enable();
         lightAttackAction.Enable();
         heavyAttackAction.Enable();
-
-        jumpAction.performed += (ctx) => JumpEvent?.Invoke(ctx.ReadValue<float>());
-        lightAttackAction.performed += (ctx) => LightAttackEvent?.Invoke(ctx.ReadValue<float>());
-        heavyAttackAction.performed += (ctx) => HeavyAttackEvent?.Invoke(ctx.ReadValue<float>());
     }
 
     private void OnDisable()
@@ -49,10 +48,12 @@ public class InputArbiter : MonoBehaviour, IController
         jumpAction.Disable();
         lightAttackAction.Disable();
         heavyAttackAction.Disable();
+    }
 
-        jumpAction.performed -= (ctx) => JumpEvent?.Invoke(ctx.ReadValue<float>());
-        lightAttackAction.performed -= (ctx) => LightAttackEvent?.Invoke(ctx.ReadValue<float>());
-        heavyAttackAction.performed -= (ctx) => HeavyAttackEvent?.Invoke(ctx.ReadValue<float>());
+    private void Update()
+    {
+        movement.MovementDirection = MovementDirection;
+        movement.Jump = jumpAction.ReadValue<float>() > 0.5f;
     }
 }
 
