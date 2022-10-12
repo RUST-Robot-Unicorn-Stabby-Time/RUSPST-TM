@@ -34,7 +34,7 @@ public class PlayerAnimator : MonoBehaviour
 
         target.SetFloat("speed", speed);
         target.SetBool("falling", !movement.IsGrounded);
-        target.SetFloat("speedMulti", Mathf.Max(statboard.GetBaseStat("speed"), speed));
+        target.SetFloat("speedMulti", Mathf.Max(movement.moveSpeedStat.GetFor(this), speed));
 
         if (planarVelocity.sqrMagnitude > 0.01f)
         {
