@@ -23,32 +23,23 @@ public class CharacterMovement : MonoBehaviour
     public float groundLookaheadTime;
     public float groundStickiness;
     
-    IController controller;
     new Rigidbody rigidbody;
 
     public bool IsGrounded { get; private set; }
     public float JumpForce => Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
     public Vector3 LocalVelocity { get; private set; }
 
+    public Vector3 MovementDirection { get; set; }
+    public bool Jump { get; set; }
+
     private void Awake()
     {
-        controller = GetComponent<IController>();
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
+    private void JumpCharacter()
     {
-        controller.JumpEvent += OnJump;
-    }
-
-    private void OnDisable()
-    {
-        controller.JumpEvent -= OnJump;
-    }
-
-    private void OnJump(float inputValue)
-    {
-        if (inputValue > 0.5f)
+        if (Jump)
         {
             if (IsGrounded)
             {
@@ -62,6 +53,7 @@ public class CharacterMovement : MonoBehaviour
         IsGrounded = GetIsGrounded();
 
         MoveCharacter();
+        JumpCharacter();
 
         if (IsGrounded && rigidbody.velocity.y < JumpForce * 0.5f)
         {
@@ -135,7 +127,7 @@ public class CharacterMovement : MonoBehaviour
         float moveSpeed = moveSpeedStat.GetFor(this);
         float acceleration = accelerationStat.GetFor(this);
 
-        Vector3 target = controller.MovementDirection * moveSpeed + referenceFrame;
+        Vector3 target = MovementDirection * moveSpeed + referenceFrame;
         Vector3 current = rigidbody.velocity;
 
         Vector3 difference = target - current;
