@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private Animation animation;
+    public float cooldown;
+
     void Start()
+    {
+        animation = GetComponent<Animator>();
+    }
+    void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnClick()
     {
-        
+
     }
 }
