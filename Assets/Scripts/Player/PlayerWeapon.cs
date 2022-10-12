@@ -4,40 +4,17 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public float cooldown = 0f;
+    public new Animator animation;
 
-    private Animator animation;
-    public float cooldown = 2f;
-    float lastClickedTime = 0;
-    int numberOfClicks = 0;
+    private float lastClickTime = 0f;
 
-    void Start()
+    public void Attack()
     {
-        animation = GetComponent<Animator>();
-    }
-    void Update()
-    {
-        if (animation.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && animation.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        if (Time.time > lastClickTime + cooldown)
         {
-            animation.SetBool("Attack", false);
-            numberOfClicks = 0;
+            lastClickTime = Time.time;
+            animation.Play("Attack");
         }
-
-        if (Time.time - lastClickedTime > cooldown)
-        {
-
-        }
-    }
-
-    void OnClick()
-    {
-        lastClickedTime = Time.time;
-        numberOfClicks++;
-        if (numberOfClicks == 1)
-        {
-            animation.SetBool("Attack", true);
-        }
-        numberOfClicks = Mathf.Clamp(numberOfClicks, 0, 3);
-
-        //if (numberOfClicks >= 2 && animation.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && animation.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {animation.SetBool("attack", false);}
     }
 }

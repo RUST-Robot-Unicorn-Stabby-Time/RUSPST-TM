@@ -18,6 +18,9 @@ public class InputArbiter : MonoBehaviour
     public InputAction lightAttackAction;
     public InputAction heavyAttackAction;
 
+    [Space]
+    public PlayerWeapon weapon;
+
     CharacterMovement movement;
 
     public Vector3 MovementDirection
@@ -40,6 +43,8 @@ public class InputArbiter : MonoBehaviour
         jumpAction.Enable();
         lightAttackAction.Enable();
         heavyAttackAction.Enable();
+
+        lightAttackAction.performed += (ctx) => weapon.Attack();
     }
 
     private void OnDisable()

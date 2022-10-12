@@ -13,9 +13,12 @@ public class HurtBox : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent(out Health health))
+            if (collider.transform.root != transform.root)
             {
-                health.Damage(new DamageArgs(transform.root.gameObject, damage.GetFor(this)));
+                if (collider.TryGetComponent(out Health health))
+                {
+                    health.Damage(new DamageArgs(transform.root.gameObject, damage.GetFor(this)));
+                }
             }
         }
     }
