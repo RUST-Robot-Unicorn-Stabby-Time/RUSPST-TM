@@ -32,6 +32,8 @@ public class CharacterMovement : MonoBehaviour
     public Vector3 MovementDirection { get; set; }
     public bool Jump { get; set; }
 
+    public bool PauseMovement { get; set; }
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -128,6 +130,12 @@ public class CharacterMovement : MonoBehaviour
         float acceleration = accelerationStat.GetFor(this);
 
         Vector3 target = MovementDirection * moveSpeed + referenceFrame;
+        
+        if (PauseMovement)
+        {
+            target = Vector3.zero;
+        }
+
         Vector3 current = rigidbody.velocity;
 
         Vector3 difference = target - current;

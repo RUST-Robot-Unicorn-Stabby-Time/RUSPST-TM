@@ -6,6 +6,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     public float cooldown = 0f;
     public new Animator animation;
+    public CharacterMovement characterMovement;
 
     private float lastClickTime = 0f;
 
@@ -13,8 +14,18 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (Time.time > lastClickTime + cooldown)
         {
-            lastClickTime = Time.time;
-            animation.Play("Attack");
+            StartCoroutine(AttackRoutine());
         }
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        lastClickTime = Time.time;
+        animation.Play("Attack");
+        characterMovement.PauseMovement = true;
+
+        yield return new WaitForSeconds(cooldown);
+
+        characterMovement.PauseMovement = false;
     }
 }
