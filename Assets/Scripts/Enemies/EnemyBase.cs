@@ -26,6 +26,8 @@ public abstract class EnemyBase : MonoBehaviour
     EnemyHivemind hivemind;
 
     public bool Attacking { get; protected set; }
+    public bool AllowedToAttack { get; set; }
+    public bool ReadyToAttack { get; set; }
 
     public GameObject Target 
     { 

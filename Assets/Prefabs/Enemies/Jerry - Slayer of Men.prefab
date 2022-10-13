@@ -476,6 +476,7 @@ MonoBehaviour:
   goodEnoughDistance: 2
   pathfindInterval: 1
   waitDistance: 5
+  attackDuration: 0
   attackEvent:
     m_PersistentCalls:
       m_Calls:
@@ -532,7 +533,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1304782344313503329}
   - component: {fileID: 1554091362491284935}
-  - component: {fileID: 7582270344511648687}
   m_Layer: 8
   m_Name: Mannequin
   m_TagString: Untagged
@@ -567,7 +567,7 @@ Animator:
   m_GameObject: {fileID: 1824050266391028955}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39078e7ffeb445e4babefdc4269770e6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3bbd227dbea6f754fbe098a75f8a4714, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -576,90 +576,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7582270344511648687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1824050266391028955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 6801442923440440319}
-  - {fileID: 1335970117000548404}
-  - {fileID: 8915153551406324365}
-  - {fileID: 6079609832188557875}
-  - {fileID: 1380844023976051996}
-  - {fileID: 998220720032385552}
-  - {fileID: 1469803424576624538}
-  - {fileID: 3565935768766245329}
-  - {fileID: 1618590674072832704}
-  - {fileID: 2952279686080462392}
-  - {fileID: 5874802479132768303}
-  - {fileID: 1995567152115298006}
-  - {fileID: 1177272874626163366}
-  - {fileID: 8410473128015681471}
-  - {fileID: 8138372079460749983}
-  - {fileID: 9024493628324167777}
-  - {fileID: 101286511262169087}
-  - {fileID: 9107028074712749724}
-  - {fileID: 446503895864023693}
-  - {fileID: 9088618517799895643}
-  - {fileID: 5994644913885894430}
-  - {fileID: 5848963733811311164}
-  - {fileID: 7225591211981304815}
-  - {fileID: 6451962738619961068}
-  - {fileID: 5546101467897777240}
-  - {fileID: 8743815406046514618}
-  - {fileID: 411432928537877298}
-  - {fileID: 3340694286713633147}
-  - {fileID: 1477740175260735372}
-  - {fileID: 700586951675987424}
-  - {fileID: 611323502065080768}
-  - {fileID: 7662490240983128659}
-  - {fileID: 3660237050952886775}
-  - {fileID: 2353663975210233899}
-  - {fileID: 4064927392819898077}
-  - {fileID: 1718916832633384966}
-  - {fileID: 5032186810797503284}
-  - {fileID: 807516505610344258}
-  - {fileID: 167750434101378324}
-  - {fileID: 9169273497605561259}
-  - {fileID: 5796061862941086957}
-  - {fileID: 6322773632575964218}
-  - {fileID: 8026185015656958033}
-  - {fileID: 3708254825764458436}
-  - {fileID: 5292715122505870614}
-  - {fileID: 2421595508575405429}
-  - {fileID: 1539084942114656518}
-  - {fileID: 145895296837982026}
-  - {fileID: 8307293830187187108}
-  - {fileID: 4229507309311124028}
-  - {fileID: 4660142441989574866}
-  - {fileID: 1047194907621703816}
-  - {fileID: 6069138257768997974}
-  - {fileID: 3208963110152131279}
-  - {fileID: 4527741452259543137}
-  - {fileID: 4399067182223333404}
-  - {fileID: 1223995366547553799}
-  - {fileID: 4512281502347076739}
-  - {fileID: 3508259504309470797}
-  - {fileID: 1454200809781657854}
-  - {fileID: 8272059030374431592}
-  - {fileID: 8799993385799605923}
-  - {fileID: 700334452421228360}
-  - {fileID: 5580782787489722764}
-  - {fileID: 7072230114868441337}
 --- !u!1 &2147614281915664132
 GameObject:
   m_ObjectHideFlags: 0
@@ -7352,7 +7268,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 39c4edf18cf380a4d9ca63630cd5f982, type: 2}
+  - {fileID: 2100000, guid: 142ec0e7c87d7f446b64d9b764bb5a9c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
