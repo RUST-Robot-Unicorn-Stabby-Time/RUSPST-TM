@@ -42,7 +42,7 @@ public abstract class EnemyBase : MonoBehaviour
         set => _target = value;
     }
     public CharacterMovement Movement { get; private set; }
-    public Vector3 TargetPosition { get; set; }
+    public Vector3? TargetPosition { get; set; }
 
     protected virtual void Awake()
     {

@@ -16,7 +16,7 @@ public class JerrySlayerOfMen : EnemyBase
     {
         if (Target)
         {
-            PathfindToPoint(TargetPosition);
+            if (TargetPosition.HasValue) PathfindToPoint(TargetPosition.Value);
         }
         else
         {
