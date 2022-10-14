@@ -73,7 +73,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void StickToGround()
     {
-        float moveSpeed = moveSpeedStat.GetFor(this);
         Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down + MovementDirection * groundLookaheadTime);
         Vector3 direction = Vector3.down;
 

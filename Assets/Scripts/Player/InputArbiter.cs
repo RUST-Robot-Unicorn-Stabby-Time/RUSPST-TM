@@ -44,7 +44,7 @@ public class InputArbiter : MonoBehaviour
         lightAttackAction.Enable();
         heavyAttackAction.Enable();
 
-        lightAttackAction.performed += (ctx) => weapon.Attack();
+        if (weapon) lightAttackAction.performed += (ctx) => weapon.Attack();
     }
 
     private void OnDisable()
@@ -53,6 +53,8 @@ public class InputArbiter : MonoBehaviour
         jumpAction.Disable();
         lightAttackAction.Disable();
         heavyAttackAction.Disable();
+
+        if (weapon) lightAttackAction.performed -= (ctx) => weapon.Attack();
     }
 
     private void Update()

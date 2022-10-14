@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Health : MonoBehaviour
-
 {
     public Stat maxHealth;
-    public float currentHealth = 1;
+    [Range(0.0f, 1.0f)] public float currentHealth = 1;
 
-    public void Die(DamageArgs damageArgs)
-    {
-        gameObject.SetActive(false);
-    }
     public void Damage(DamageArgs damageArgs)
     {
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
@@ -21,6 +13,11 @@ public class Health : MonoBehaviour
         {
             Die(damageArgs);
         }
+    }
+
+    public void Die(DamageArgs damageArgs)
+    {
+        gameObject.SetActive(false);
     }
 }
 

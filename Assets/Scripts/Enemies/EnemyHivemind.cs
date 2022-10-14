@@ -18,19 +18,27 @@ public class EnemyHivemind : MonoBehaviour
         {
             Vector3 vectorToPlayer = enemy.transform.position - target.transform.position;
             float distanceToPlayer = vectorToPlayer.magnitude;
-            Vector3 directionToPlayer = vectorToPlayer / distanceToPlayer;
 
             if (distanceToPlayer > waitOuterRadius)
             {
-                if ((enemy.TargetPosition - target.transform.position).magnitude > waitInnerRadius)
+                if (!enemy.TargetPosition.HasValue)
                 {
-                    float a = Random.value * Mathf.PI * 2.0f;
-                    float d = Random.value * waitInnerRadius;
-                    Vector3 offset = new Vector3(Mathf.Cos(a), 0.0f, Mathf.Sin(a)) * d;
-                    enemy.TargetPosition = target.transform.position + offset;
+                    SetRandomPositionForEnemy(enemy);
+                }
+                else if ((enemy.TargetPosition.Value - target.transform.position).magnitude > waitInnerRadius)
+                {
+                    SetRandomPositionForEnemy(enemy);
                 }
             }
         }
+    }
+
+    private void SetRandomPositionForEnemy(EnemyBase enemy)
+    {
+        float a = Random.value * Mathf.PI * 2.0f;
+        float d = Random.value * waitInnerRadius;
+        Vector3 offset = new Vector3(Mathf.Cos(a), 0.0f, Mathf.Sin(a)) * d;
+        enemy.TargetPosition = target.transform.position + offset;
     }
 
     public void Register (EnemyBase enemy)
