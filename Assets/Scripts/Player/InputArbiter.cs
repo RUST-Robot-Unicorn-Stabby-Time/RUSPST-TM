@@ -17,6 +17,7 @@ public class InputArbiter : MonoBehaviour
     public InputAction jumpAction;
     public InputAction lightAttackAction;
     public InputAction heavyAttackAction;
+    public InputAction rageAction;
 
     [Space]
     public PlayerWeapon weapon;
@@ -43,8 +44,14 @@ public class InputArbiter : MonoBehaviour
         jumpAction.Enable();
         lightAttackAction.Enable();
         heavyAttackAction.Enable();
+        rageAction.Enable();
 
         if (weapon) lightAttackAction.performed += (ctx) => weapon.Attack();
+
+        if (TryGetComponent(out Rage rage))
+        {
+            rageAction.performed += (ctx) => rage.UseRage();
+        }
     }
 
     private void OnDisable()
@@ -53,8 +60,14 @@ public class InputArbiter : MonoBehaviour
         jumpAction.Disable();
         lightAttackAction.Disable();
         heavyAttackAction.Disable();
+        rageAction.Enable();
 
         if (weapon) lightAttackAction.performed -= (ctx) => weapon.Attack();
+
+        if (TryGetComponent(out Rage rage))
+        {
+            rageAction.performed += (ctx) => rage.UseRage();
+        }
     }
 
     private void Update()
