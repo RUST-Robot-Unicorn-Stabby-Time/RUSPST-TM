@@ -401,7 +401,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554091361821053757}
-  m_Material: {fileID: 13400000, guid: 0350943609bd58b448eea68245cf1a1b, type: 2}
+  m_Material: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -474,7 +474,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   goodEnoughDistance: 2
-  pathfindInterval: 1
+  pathfindInterval: 0.1
+  enviromentMask:
+    serializedVersion: 2
+    m_Bits: 1
   waitDistance: 5
   attackDuration: 0
   attackEvent:

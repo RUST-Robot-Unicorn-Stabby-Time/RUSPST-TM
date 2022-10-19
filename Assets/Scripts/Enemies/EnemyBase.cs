@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Space]
     public float pathfindInterval;
+    public LayerMask enviromentMask;
 
     NavMeshPath path;
     int pathIndex;
@@ -42,8 +44,7 @@ public abstract class EnemyBase : MonoBehaviour
         set => _target = value;
     }
     public CharacterMovement Movement { get; private set; }
-    public Vector3? TargetPosition { get; set; }
-
+    
     protected virtual void Awake()
     {
         Movement = GetComponent<CharacterMovement>();
@@ -75,11 +76,14 @@ public abstract class EnemyBase : MonoBehaviour
 
     public abstract void Behave();
 
-    protected void PathfindToPoint(Vector3 targetPoint)
+    protected void PathfindToPoint(Vector3 endPoint)
     {
+        Vector3 startPoint = GetPointOnGround(transform.position);
+        endPoint = GetPointOnGround(endPoint);
+
         if (pathfindTimer > pathfindInterval)
         {
-            NavMesh.CalculatePath(transform.position, targetPoint, NavMesh.AllAreas, path);
+            NavMesh.CalculatePath(startPoint, endPoint, NavMesh.AllAreas, path);
             pathIndex = 0;
             pathfindTimer -= pathfindInterval;
         }
@@ -87,14 +91,19 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (path.status != NavMeshPathStatus.PathInvalid && pathIndex < path.corners.Length)
         {
-            targetPoint = path.corners[pathIndex];
-            if ((targetPoint - transform.position).magnitude < goodEnoughDistance)
+            endPoint = path.corners[pathIndex];
+            if ((endPoint - startPoint).magnitude < goodEnoughDistance)
             {
                 pathIndex++;
             }
         }
+        else
+        {
+            Movement.MovementDirection = Vector3.zero;
+            return;
+        }
 
-        Vector3 vectorTo = (targetPoint - transform.position);
+        Vector3 vectorTo = (endPoint - startPoint);
 
         float distance = vectorTo.magnitude;
         Vector3 direction = vectorTo / distance;
@@ -110,5 +119,33 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Movement.Jump = true;
         }
+    }
+
+    private Vector3 GetPointOnGround(Vector3 targetPoint)
+    {
+        Ray ray = new Ray(targetPoint + Vector3.up * 0.1f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, enviromentMask))
+        {
+            Debug.DrawLine(targetPoint, hit.point, Color.red);
+            return hit.point;
+        }
+
+        return targetPoint;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        if (path?.corners.Length > 0)
+        {
+            Gizmos.DrawSphere(path.corners[0], 0.1f);
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                Gizmos.DrawLine(path.corners[i], path.corners[i + 1]);
+                Gizmos.DrawSphere(path.corners[i + 1], 0.1f);
+            }
+        }
+
+        Gizmos.color = Color.white;
     }
 }
