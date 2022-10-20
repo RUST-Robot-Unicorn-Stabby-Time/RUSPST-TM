@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -18,6 +19,12 @@ public class Health : MonoBehaviour
     public void Die(DamageArgs damageArgs)
     {
         gameObject.SetActive(false);
+    }
+
+    public void Revive()
+    {
+        gameObject.SetActive(true);
+        currentHealth = 1.0f;
     }
 }
 
