@@ -32,6 +32,8 @@ public class CharacterMovement : MonoBehaviour
     public Vector3 MovementDirection { get; set; }
     public bool Jump { get; set; }
 
+    public bool PauseMovement { get; set; }
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -71,8 +73,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void StickToGround()
     {
-        float moveSpeed = moveSpeedStat.GetFor(this);
-        Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down + rigidbody.velocity / moveSpeed * groundLookaheadTime);
+        Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down + MovementDirection * groundLookaheadTime);
         Vector3 direction = Vector3.down;
 
         if (Physics.Raycast(ray, out RaycastHit hit, groundCheckRadius))
@@ -128,6 +129,12 @@ public class CharacterMovement : MonoBehaviour
         float acceleration = accelerationStat.GetFor(this);
 
         Vector3 target = MovementDirection * moveSpeed + referenceFrame;
+        
+        if (PauseMovement)
+        {
+            target = Vector3.zero;
+        }
+
         Vector3 current = rigidbody.velocity;
 
         Vector3 difference = target - current;
