@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 public class Rage : MonoBehaviour
@@ -19,6 +20,10 @@ public class Rage : MonoBehaviour
     public float baseSize;
     public float flacidSize;
     public float errectSize;
+
+    [Space]
+    public UnityEvent RageEnterEvent;
+    public UnityEvent RageExitEvent;
 
     float rageVel;
 
@@ -80,6 +85,8 @@ public class Rage : MonoBehaviour
     {
         raging = true;
 
+        RageEnterEvent.Invoke();
+
         float upTime = 0.0f;
         while (ragePercent > 0.0f)
         {
@@ -91,5 +98,7 @@ public class Rage : MonoBehaviour
 
         ragePercent = 0.0f;
         raging = false;
+
+        RageExitEvent.Invoke();
     }
 }

@@ -17,17 +17,3 @@ public class EnemyHivemind : MonoBehaviour
         RegisteredEnemies.Remove(enemy);
     }
 }
-
-[System.Serializable]
-public struct Ring
-{
-    public float radius;
-    public int capacity;
-    public bool allowedToAttack;
-}
-
-public enum EnemyDirective
-{
-    Attack,
-    Hover,
-}

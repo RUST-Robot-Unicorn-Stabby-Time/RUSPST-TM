@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public class JerrySlayerOfMen : EnemyBase
 {
-    public float waitDistance;
+    public float minWaitDistance;
+    public float maxWaitDistance;
 
     [Space]
     public float attackDuration;
@@ -16,7 +17,18 @@ public class JerrySlayerOfMen : EnemyBase
     {
         if (Target)
         {
-            PathfindToPoint(Target.transform.position);
+            if (Attacking) return;
+
+            float distance = (Target.transform.position - transform.position).magnitude;
+
+            if (WantsToAttack)
+            {
+                if (distance > maxWaitDistance) WantsToAttack = false;
+            }
+            else
+            {
+                PathfindToPoint(Target.transform.position);
+            }
         }
         else
         {
@@ -24,7 +36,14 @@ public class JerrySlayerOfMen : EnemyBase
         }
     }
 
-    private IEnumerator Attack()
+    public override void Attack()
+    {
+        base.Attack();
+
+        StartCoroutine(AttackRoutine());
+    }
+
+    private IEnumerator AttackRoutine()
     {
         Attacking = true;
         attackEvent?.Invoke();
@@ -32,5 +51,13 @@ public class JerrySlayerOfMen : EnemyBase
         yield return new WaitForSeconds(attackDuration);
 
         Attacking = false;
+    }
+
+    protected override void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, minWaitDistance);
+
+        base.OnDrawGizmosSelected();
     }
 }

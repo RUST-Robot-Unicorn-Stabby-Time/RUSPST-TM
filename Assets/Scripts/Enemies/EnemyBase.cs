@@ -20,28 +20,28 @@ public abstract class EnemyBase : MonoBehaviour
     public float pathfindInterval;
     public LayerMask enviromentMask;
 
+    [Space]
+    public float agroRange;
+
     NavMeshPath path;
     int pathIndex;
     float pathfindTimer;
 
-    GameObject _target;
-    EnemyHivemind hivemind;
+    EnemyTarget _target;
 
+    public bool WantsToAttack { get; protected set; }
     public bool Attacking { get; protected set; }
-    public bool AllowedToAttack { get; set; }
-    public bool ReadyToAttack { get; set; }
+    public float LastAttackTime { get; private set; }
 
-    public GameObject Target 
-    { 
-        get
+    public EnemyTarget Target 
+    {
+        get => _target;
+        set
         {
-            if (!_target)
-            {
-                _target = FindObjectOfType<InputArbiter>().gameObject;
-            }
-            return _target;
+            if (_target) _target.DeregisterAttacker(this);
+            _target = value;
+            if (_target) _target.RegisterAttacker(this);
         }
-        set => _target = value;
     }
     public CharacterMovement Movement { get; private set; }
     
@@ -52,25 +52,20 @@ public abstract class EnemyBase : MonoBehaviour
         path = new NavMeshPath();
     }
 
-    private void OnEnable()
-    {
-        hivemind = GetComponentInParent<EnemyHivemind>();
-        if (hivemind)
-        {
-            hivemind.Register(this);
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (hivemind)
-        {
-            hivemind.Deregister(this);
-        }
-    }
-
     private void Update()
     {
+        if (!Target)
+        {
+            foreach (var target in EnemyTarget.Targets)
+            {
+                if ((target.transform.position - transform.position).sqrMagnitude < agroRange * agroRange)
+                {
+                    Target = target;
+                    break;
+                }
+            }
+        }
+
         Behave();
     }
 
@@ -96,11 +91,6 @@ public abstract class EnemyBase : MonoBehaviour
             {
                 pathIndex++;
             }
-        }
-        else
-        {
-            Movement.MovementDirection = Vector3.zero;
-            return;
         }
 
         Vector3 vectorTo = (endPoint - startPoint);
@@ -133,8 +123,16 @@ public abstract class EnemyBase : MonoBehaviour
         return targetPoint;
     }
 
-    private void OnDrawGizmosSelected()
+    public virtual void Attack()
     {
+        LastAttackTime = Time.time;
+    }
+
+    protected virtual void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, agroRange);
+
         Gizmos.color = Color.yellow;
         if (path?.corners.Length > 0)
         {

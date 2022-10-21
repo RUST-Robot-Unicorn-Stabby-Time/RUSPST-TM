@@ -7,6 +7,11 @@ public class PlayerWeapon : MonoBehaviour
     public float cooldown = 0f;
     public new Animator animation;
     public CharacterMovement characterMovement;
+    public bool freezeMovement;
+
+    [Space]
+    public string attackAnimName;
+    public int attackAnimLayer;
 
     private float lastClickTime = 0f;
 
@@ -21,11 +26,11 @@ public class PlayerWeapon : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         lastClickTime = Time.time;
-        animation.Play("Attack");
-        characterMovement.PauseMovement = true;
+        animation.Play("Attack", attackAnimLayer, 0.0f);
+        if (freezeMovement) characterMovement.PauseMovement = true;
 
         yield return new WaitForSeconds(cooldown);
 
-        characterMovement.PauseMovement = false;
+        if (freezeMovement) characterMovement.PauseMovement = false;
     }
 }

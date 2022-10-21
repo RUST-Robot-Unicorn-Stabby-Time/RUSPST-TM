@@ -28,6 +28,11 @@ public class PlayerAnimator : MonoBehaviour
 
     private void LateUpdate()
     {
+        UpdatePlayerModel();
+    }
+
+    private void UpdatePlayerModel()
+    {
         Vector3 planarVelocity = movement.LocalVelocity;
         planarVelocity -= transform.up * Vector3.Dot(transform.up, planarVelocity);
 
