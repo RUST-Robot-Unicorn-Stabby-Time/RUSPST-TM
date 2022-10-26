@@ -1,77 +1,40 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-	public Stat maxHealth;
-	[Range(0.0f, 1.0f)] public float currentHealth = 1;
+    public Stat maxHealth;
+    [Range(0.0f, 1.0f)] public float currentHealth = 1;
 
-	public float healingTimer = 6;
-	[Range(0.0f, 1.0f)] public float healPercentage = 0.2f;
-	private float hitTime;
-	[HideInInspector]public float damageTaken;
-
-	public float decaySpeed = 0;
-
-    private void Update()
+    public void Damage(DamageArgs damageArgs)
     {
-		if (Time.time > hitTime + healingTimer)
-		{
-			if (damageTaken >= 0)
-			{
-				damageTaken -= decaySpeed * Time.deltaTime;
-			}
-            else
-            {
-				damageTaken = 0;
-            }
-		}
-	}
+        currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
-	[ContextMenu("OnDealDamage")]
-	public void OnDealDamage() => OnDealDamage(new DamageArgs(null, 20.0f));
-    public void OnDealDamage(DamageArgs damageArgs)
-    {
-		currentHealth += (damageTaken * healPercentage) / maxHealth.GetFor(this);
-		damageTaken -= damageTaken * healPercentage;
+        if (currentHealth <= 0)
+        {
+            Die(damageArgs);
+        }
     }
 
-	public void Damage(DamageArgs damageArgs)
-	{
-		damageTaken = damageArgs.damage;
-		currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
-
-		if (currentHealth >= 0)
-		{
-			hitTime = Time.time;
-		}
-		else
-		{
-			Die(damageArgs);
-		}
-	}
-
-	public void Die(DamageArgs damageArgs)
-	{
-		gameObject.SetActive(false);
-	}
-
-	[ContextMenu("TakeDamage")]
-	public void TakeDamageTest()
+    public void Die(DamageArgs damageArgs)
     {
-
-		Damage(new DamageArgs(null, 20));
+        gameObject.SetActive(false);
     }
 
-
+    public void Revive()
+    {
+        gameObject.SetActive(true);
+        currentHealth = 1.0f;
+    }
 }
 
 public struct DamageArgs
 {
-	public GameObject damager;
-	public float damage;
-	public DamageArgs(GameObject damager, float damage)
-	{
-		this.damager = damager;
-		this.damage = damage;
-	}
+    public GameObject damager;
+    public float damage;
+    public DamageArgs(GameObject damager, float damage)
+    {
+        this.damager = damager;
+        this.damage = damage;
+    }
 }

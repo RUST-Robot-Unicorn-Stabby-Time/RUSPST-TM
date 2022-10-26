@@ -10,6 +10,8 @@ public class Statboard : MonoBehaviour
     [SerializeField] List<Artifact> artifacts;
 
     public Dictionary<string, float> finalValues = new Dictionary<string, float>();
+    public event StatModification StatPreProcess;
+    public event StatModification StatPostProcess;
 
     public float GetBaseStat(string statKey)
     {
@@ -60,10 +62,27 @@ public class Statboard : MonoBehaviour
             }
         }
 
+        List<string> keys = new List<string>(finalValues.Keys);
+        foreach (var key in keys)
+        {
+            if (StatPreProcess != null)
+            {
+                finalValues[key] = StatPreProcess(key, finalValues[key]);
+            }
+        }
+
         foreach (Artifact artifact in artifacts)
         {
             if (artifact) 
                 artifact.Apply(this, finalValues);
+        }
+
+        foreach (var key in keys)
+        {
+            if (StatPostProcess != null)
+            {
+                finalValues[key] = StatPostProcess(key, finalValues[key]);
+            }
         }
     }
 
@@ -83,6 +102,8 @@ public class Statboard : MonoBehaviour
         });
     }
 }
+
+public delegate float StatModification(string key, float value);
 
 [System.Serializable]
 public class Stat
