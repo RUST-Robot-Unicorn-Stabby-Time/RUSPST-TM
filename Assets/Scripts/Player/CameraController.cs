@@ -8,6 +8,10 @@ public class CameraController : MonoBehaviour
     public Transform cameraTarget;
     public Vector2 verticalRotationClamp;
 
+    [Space]
+    public Transform modelFacing;
+    public TransformWeight[] lookBones;
+
     Vector2 ssRotation;
 
     private void Awake()
@@ -41,6 +45,16 @@ public class CameraController : MonoBehaviour
         TransformTarget();
     }
 
+    private void LateUpdate()
+    {
+        float angleDiff = Mathf.DeltaAngle(ssRotation.x, modelFacing.eulerAngles.y);
+
+        foreach (var bone in lookBones)
+        {
+            bone.bone.rotation *= Quaternion.Euler(Vector3.up * -angleDiff * bone.weight);
+        }
+    }
+
     private void TransformTarget()
     {
         ssRotation.y = Mathf.Clamp(ssRotation.y, verticalRotationClamp.x, verticalRotationClamp.y);
@@ -52,4 +66,11 @@ public class CameraController : MonoBehaviour
     {
         ssRotation += Mouse.current.delta.ReadValue() * mouseSensitivity;
     }
+}
+
+[System.Serializable]
+public class TransformWeight
+{
+    public Transform bone;
+    public float weight;
 }

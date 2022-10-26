@@ -1,33 +1,29 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-//[CreateAssetMenu(menuName = "Scriptable Objects/Artifacts/Artifact Name")]
-public abstract class Artifact : ScriptableObject
+public abstract class Artifact : MonoBehaviour
 {
-    // These will not be instanced per statboard, so they should be 'stateless'
-    // As per request from the designers, this script will be extended to make various relics, this
-    // does not necessarily mean 1 script per artifact, they can be shared. But for specific modifications this
-    // can be extended.
-
     public string displayName;
     public Sprite icon;
     public Color baseColor;
     public int priority;
 
-    [Space]
-    public List<StatModifier> modifiers;
+    protected Statboard Statboard { get; private set; }
 
-    public abstract void Apply(Statboard ctx, Dictionary<string, float> stats);
+    public List<StatModification> modifications = new List<StatModification>();
 
-    public abstract void Register(Statboard ctx);
-    public abstract void Unregister(Statboard ctx);
+    protected virtual void Awake()
+    {
+        Statboard = GetComponentInParent<Statboard>();
+    }
+
+    protected virtual void OnEnable ()
+    {
+        Statboard.RegisterModifications(modifications);
+    }
+
+    protected virtual void OnDisable()
+    {
+        Statboard.DeregisterModifications(modifications);
+    }
 }
-
-public class StatModifier
-{
-    public string stat;
-    public string method;
-}
-
-// Does artifact stuff

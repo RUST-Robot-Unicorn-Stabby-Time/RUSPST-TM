@@ -32,6 +32,15 @@ public abstract class EnemyBase : MonoBehaviour
     public bool WantsToAttack { get; protected set; }
     public bool Attacking { get; protected set; }
     public float LastAttackTime { get; private set; }
+    public Vector3 MovementDirection
+    {
+        get => Movement.MovementDirection;
+        set
+        {
+            Movement.MovementDirection = value;
+            if (value.magnitude > 0.001f) transform.forward = new Vector3(value.x, 0.0f, value.z);
+        }
+    }
 
     public EnemyTarget Target 
     {
@@ -98,14 +107,14 @@ public abstract class EnemyBase : MonoBehaviour
         float distance = vectorTo.magnitude;
         Vector3 direction = vectorTo / distance;
 
-        Movement.MovementDirection = direction;
+        MovementDirection = direction;
         if (distance < goodEnoughDistance)
         {
-            Movement.MovementDirection = Vector3.zero;
+            MovementDirection = Vector3.zero;
         }
 
         Movement.Jump = false;
-        if (Physics.Raycast(transform.position + Vector3.up * jumpVerticalOffset, Movement.MovementDirection, jumpLookahead, lookaheadMask))
+        if (Physics.Raycast(transform.position + Vector3.up * jumpVerticalOffset, MovementDirection, jumpLookahead, lookaheadMask))
         {
             Movement.Jump = true;
         }

@@ -23,8 +23,7 @@ public class CharacterMovement : MonoBehaviour
     public float groundLookaheadTime;
     public float groundStickiness;
     
-    new Rigidbody rigidbody;
-
+    public new Rigidbody rigidbody { get; private set; }
     public bool IsGrounded { get; private set; }
     public float JumpForce => Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
     public Vector3 LocalVelocity { get; private set; }

@@ -7,9 +7,10 @@ using UnityEngine.Rendering;
 
 public class Rage : MonoBehaviour
 {
-    public float maxRage;
+    public Stat maxRage;
     [Range(0.0f, 1.0f)] public float ragePercent;
     public AnimationCurve rageDecay;
+    public Stat rageGain;
 
     [Space]
     public Volume rageVolume;
@@ -26,24 +27,33 @@ public class Rage : MonoBehaviour
     public UnityEvent RageExitEvent;
 
     float rageVel;
+    public bool canGainRageInRage = true;
 
-    Dictionary<string, float> statScaling = new Dictionary<string, float>()
-    {
-        { "damage", 2.0f },
-        { "speed", 2.0f },
-        { "attackspeed", 2.0f },
-    };
     Statboard statboard;
     bool raging;
+
+    List<StatModification> statMods;
 
     private void Awake()
     {
         statboard = GetComponent<Statboard>();
+
+        statMods = new List<StatModification>()
+        {
+            new StatModification("damage", v => v * (raging ? 2.0f : 1.0f)),
+            new StatModification("speed", v => v * (raging ? 2.0f : 1.0f)),
+            new StatModification("attackspeed", v => v * (raging ? 2.0f : 1.0f)),
+        };
     }
 
     private void OnEnable()
     {
-        statboard.StatPreProcess += ApplyRage;
+        statboard.RegisterModifications(statMods);
+    }
+
+    private void OnDisable()
+    {
+        statboard.DeregisterModifications(statMods);
     }
 
     private void Update()
@@ -52,24 +62,11 @@ public class Rage : MonoBehaviour
         horn.localScale = new Vector3(baseSize, baseSize, Mathf.Lerp(flacidSize, errectSize, rageVolume.weight));
     }
 
-    private float ApplyRage(string key, float value)
-    {
-        if (raging && statScaling.ContainsKey(key))
-        {
-            return statScaling[key] * value;
-        }
-
-        return value;
-    }
-
-    private void OnDisable()
-    {
-        statboard.StatPreProcess -= ApplyRage;
-    }
-
     public void AddRage(float amount)
     {
-        ragePercent += amount;
+        if (!canGainRageInRage && raging) return;
+
+        ragePercent += amount * rageGain.GetFor(this);
         ragePercent = Mathf.Clamp01(ragePercent);
     }
 
@@ -90,7 +87,7 @@ public class Rage : MonoBehaviour
         float upTime = 0.0f;
         while (ragePercent > 0.0f)
         {
-            ragePercent -= rageDecay.Evaluate(upTime) / maxRage * Time.deltaTime;
+            ragePercent -= rageDecay.Evaluate(upTime) / maxRage.GetFor(this) * Time.deltaTime;
 
             upTime += Time.deltaTime;
             yield return null;

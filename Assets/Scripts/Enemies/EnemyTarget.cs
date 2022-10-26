@@ -6,24 +6,25 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class EnemyTarget : MonoBehaviour
 {
-    public int concurrentAttackers;
-    public float delay;
+    public float delayBetweenAttackers;
+
+    float lastAttackTime;
 
     public static HashSet<EnemyTarget> Targets { get; private set; } = new HashSet<EnemyTarget>();
 
     private HashSet<EnemyBase> attackers = new HashSet<EnemyBase>();
 
-    public void OnEnable ()
+    public void OnEnable()
     {
         Targets.Add(this);
     }
 
-    public void OnDisable ()
+    public void OnDisable()
     {
         Targets.Remove(this);
     }
 
-    public void RegisterAttacker (EnemyBase attacker)
+    public void RegisterAttacker(EnemyBase attacker)
     {
         attackers.Add(attacker);
     }
@@ -33,21 +34,30 @@ public class EnemyTarget : MonoBehaviour
         attackers.Remove(attacker);
     }
 
-    public void Update ()
+    public void Update()
     {
-        List<EnemyBase> validAttackers = new List<EnemyBase>();
-        int currentAttackers = 0;
+        if (Time.time < lastAttackTime + delayBetweenAttackers) return;
+
+        EnemyBase bestAttacker = null;
         foreach (var attacker in attackers)
         {
-            if (attacker.WantsToAttack) validAttackers.Add(attacker);
-            if (attacker.Attacking) currentAttackers++;
+            if (attacker.WantsToAttack && !attacker.Attacking)
+            {
+                if (!bestAttacker)
+                {
+                    bestAttacker = attacker;
+                }
+                else if (attacker.LastAttackTime < bestAttacker.LastAttackTime)
+                {
+                    bestAttacker = attacker;
+                }
+            }
         }
 
-        validAttackers.Sort((a, b) => Util.Sign(a.LastAttackTime - b.LastAttackTime));
-
-        for (int i = 0; i < concurrentAttackers - currentAttackers && i < validAttackers.Count; i++)
+        if (bestAttacker)
         {
-            validAttackers[i].Attack();
+            bestAttacker.Attack();
+            lastAttackTime = Time.time;
         }
     }
 }

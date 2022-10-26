@@ -10,6 +10,8 @@ public class HurtBox : MonoBehaviour
 
     HashSet<Collider> hitObjects = new HashSet<Collider>();
 
+    public event System.Action<GameObject, DamageArgs> HitEvent;
+
     private void OnEnable()
     {
         hitObjects.Clear();
@@ -17,7 +19,7 @@ public class HurtBox : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position + damageBounds.center, damageBounds.extents / 2, transform.rotation);
+        Collider[] colliders = Physics.OverlapBox(transform.position + transform.rotation * damageBounds.center, damageBounds.extents / 2, transform.rotation);
 
         foreach (Collider collider in colliders)
         {
@@ -26,7 +28,9 @@ public class HurtBox : MonoBehaviour
 
             if (collider.TryGetComponent(out Health health))
             {
-                health.Damage(new DamageArgs(transform.root.gameObject, damage.GetFor(this)));
+                DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this));
+                health.Damage(args);
+                HitEvent?.Invoke(collider.gameObject, args);
             }
 
             hitObjects.Add(collider);

@@ -16,12 +16,12 @@ public static class BonerHelper
             Vector3 b = selection.transform.GetChild(0).position;
 
             Vector3 offset = (a - b) / 2.0f;
-            float distance = Vector3.Dot(selection.transform.forward, offset);
-            offset = selection.transform.forward * distance;
+            float distance = Vector3.Dot(selection.transform.up, offset) * 2.0f;
+            offset = selection.transform.up * distance;
 
             CapsuleCollider collider = selection.GetOrAddComponent<CapsuleCollider>();
             collider.center = offset;
-            collider.height = distance;
+            collider.height = Mathf.Abs(distance);
             collider.radius = 0.02f;
         }
     }
