@@ -10,6 +10,20 @@ public class CameraController : MonoBehaviour
 
     Vector2 ssRotation;
 
+    private void Awake()
+    {
+        PauseMenu.pauseEvent += OnPause;
+    }
+
+    private void OnDestroy()
+    {
+        PauseMenu.pauseEvent -= OnPause;
+    }
+
+    private void OnPause(bool isPaused)
+    {
+        enabled = !isPaused;
+    }
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.Locked;

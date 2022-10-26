@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HurtBox : MonoBehaviour
 {
     public Stat damage;
     public Bounds damageBounds;
+
+    public UnityEvent<DamageArgs> hitEvent;
 
     private void FixedUpdate()
     {
@@ -17,7 +20,9 @@ public class HurtBox : MonoBehaviour
             {
                 if (collider.TryGetComponent(out Health health))
                 {
-                    health.Damage(new DamageArgs(transform.root.gameObject, damage.GetFor(this)));
+                    DamageArgs damageArgs = new DamageArgs(transform.root.gameObject, damage.GetFor(this));
+                    health.Damage(damageArgs);
+                    hitEvent.Invoke(damageArgs);
                 }
             }
         }
