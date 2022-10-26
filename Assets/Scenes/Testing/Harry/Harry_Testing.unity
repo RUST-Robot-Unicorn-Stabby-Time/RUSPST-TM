@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2157.5947, g: 2260.8691, b: 3298.1836, a: 1}
+  m_IndirectSpecularColor: {r: 2154.3984, g: 2258.4316, b: 3297.3203, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &121150448 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 1066311735}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,67 +339,6 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
---- !u!1001 &175342101
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.9099996
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 16.529999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (7)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
 --- !u!1 &218989106
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +351,7 @@ GameObject:
   - component: {fileID: 218989110}
   - component: {fileID: 218989109}
   - component: {fileID: 218989108}
+  - component: {fileID: 218989111}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -500,67 +435,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218989106}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &337703597
-PrefabInstance:
+--- !u!54 &218989111
+Rigidbody:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218989106}
   serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.8599997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (10)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
+  m_Mass: 0.01
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &432432459
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,16 +527,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1288250681}
-  - {fileID: 121150448}
-  - {fileID: 1969691624}
-  - {fileID: 542369695}
-  - {fileID: 1146661682}
-  - {fileID: 825312538}
-  - {fileID: 1292016134}
-  - {fileID: 1528116809}
-  - {fileID: 1094937251}
-  - {fileID: 912782005}
+  - {fileID: 785039137}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -663,75 +544,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1178221310}
-  maxConcurrentAttackers: 3
-  waitOuterRadius: 18
-  waitInnerRadius: 12
---- !u!1001 &509765721
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2600002
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 13.839999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (8)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!4 &542369695 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 1110321216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &587959113
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,24 +639,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587959113}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &591415632
+--- !u!1001 &785039136
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 490372373}
     m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.89999986
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -852,7 +660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.739999
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -860,15 +668,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -884,75 +692,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
       propertyPath: m_Name
-      value: Jerry - Slayer of Men (5)
+      value: Jerry - Slayer of Men
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!1001 &671318823
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 9.349999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (6)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!4 &825312538 stripped
+--- !u!4 &785039137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 671318823}
+  m_PrefabInstance: {fileID: 785039136}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &883698287
 GameObject:
@@ -1049,204 +796,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883698287}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &912782005 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 337703597}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1066311735
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 11.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!1001 &1083794296
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 14.909999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!4 &1094937251 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 1470990860}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1110321216
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.5699997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 10.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (4)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!4 &1146661682 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 591415632}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1153870789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,240 +896,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8982604728899771598, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
   m_PrefabInstance: {fileID: 8982604729308100885}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1178221311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178221310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f36ef0ea336034d9042e409accec81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth:
-    key: Health
-    baseValue: 100
-  currentHealth: 1
---- !u!4 &1288250681 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 1083794296}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1292016134 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 175342101}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1387767703
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1387767704}
-  - component: {fileID: 1387767707}
-  - component: {fileID: 1387767706}
-  - component: {fileID: 1387767705}
-  - component: {fileID: 1387767708}
-  - component: {fileID: 1387767709}
-  m_Layer: 0
-  m_Name: Cube (10)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1387767704
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387767703}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18, y: 1.6135726, z: 20.458439}
-  m_LocalScale: {x: 3, y: 1, z: 3}
-  m_Children: []
-  m_Father: {fileID: 1392542285}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1387767705
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387767703}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1387767706
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387767703}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 39c4edf18cf380a4d9ca63630cd5f982, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1387767707
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387767703}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1387767708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387767703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65fc1aa650b83834faa023d4271a8f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points:
-  - position: {x: 18, y: 1.6135726, z: 20.458439}
-    moveTime: 5
-    holdTime: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  - position: {x: 4.38, y: 1.6135726, z: 20.458439}
-    moveTime: 5
-    holdTime: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  - position: {x: 11.19, y: 1.6135726, z: 39.35}
-    moveTime: 5
-    holdTime: 2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  index: 0
---- !u!54 &1387767709
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387767703}
-  serializedVersion: 2
-  m_Mass: 1e+9
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!1 &1392542284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +935,6 @@ Transform:
   - {fileID: 2083956849}
   - {fileID: 1716500719}
   - {fileID: 2020308572}
-  - {fileID: 1387767704}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1654,72 +968,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: c7cead78df068814e8c8714ec4a8d0c8, type: 2}
   m_BuildHeightMesh: 0
---- !u!1001 &1470990860
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.6499996
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.569999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (9)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
---- !u!4 &1528116809 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 509765721}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1610291469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,11 +1486,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941697774}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1969691624 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-  m_PrefabInstance: {fileID: 2124133869}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1972437114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,67 +1912,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083956848}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &2124133869
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 490372373}
-    m_Modifications:
-    - target: {fileID: 1554091361821053700, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 2a839e7c40212eb4a8daab1d8f5802a4, type: 2}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.4599998
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 13.739999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053752, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1554091361821053757, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
-      propertyPath: m_Name
-      value: Jerry - Slayer of Men (3)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 27cec65f22297654892e1aa16f69a4cf, type: 3}
 --- !u!1001 &8982604729308100885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2737,33 +1919,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.4949322
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.0025179
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99999684
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.0025307017
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1.704385e-21
-      objectReference: {fileID: 0}
-    - target: {fileID: 8982604728619544174, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -6.734808e-19
+    - target: {fileID: 1178221312, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
+      propertyPath: ragePercent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8982604728899771595, guid: b0634dbb54cbc614f91ff407329fb6fa, type: 3}
       propertyPath: m_RootOrder
