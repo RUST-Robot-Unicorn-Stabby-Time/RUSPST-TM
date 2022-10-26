@@ -36,6 +36,17 @@ public class InputArbiter : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<CharacterMovement>();
+        PauseMenu.pauseEvent += OnPause;
+    }
+
+    private void OnDestroy()
+    {
+        PauseMenu.pauseEvent -= OnPause;
+    }
+
+    private void OnPause(bool isPaused)
+    {
+        enabled = !isPaused;
     }
 
     private void OnEnable()
