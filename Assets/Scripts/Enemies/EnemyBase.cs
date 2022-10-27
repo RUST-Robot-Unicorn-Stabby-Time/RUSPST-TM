@@ -20,57 +20,76 @@ public abstract class EnemyBase : MonoBehaviour
     public float pathfindInterval;
     public LayerMask enviromentMask;
 
+    [Space]
+    public float agroRange;
+
     NavMeshPath path;
+    PlayerAnimator playerAnimator;
     int pathIndex;
     float pathfindTimer;
 
-    GameObject _target;
-    EnemyHivemind hivemind;
+    EnemyTarget _target;
 
+    public bool WantsToAttack { get; protected set; }
     public bool Attacking { get; protected set; }
-    public bool AllowedToAttack { get; set; }
-    public bool ReadyToAttack { get; set; }
-
-    public GameObject Target 
-    { 
-        get
+    public float LastAttackTime { get; private set; }
+    public Vector3 MovementDirection
+    {
+        get => Movement.MovementDirection;
+        set
         {
-            if (!_target)
-            {
-                _target = FindObjectOfType<InputArbiter>().gameObject;
-            }
-            return _target;
+            Movement.MovementDirection = value;
+            if (value.magnitude > 0.001f) transform.forward = new Vector3(value.x, 0.0f, value.z);
         }
-        set => _target = value;
+    }
+    public Vector3? Facing
+    {
+        get => playerAnimator.DirectionLock;
+        set => playerAnimator.DirectionLock = value;
+    }
+
+    public EnemyTarget Target 
+    {
+        get => _target;
+        set
+        {
+            if (_target) _target.DeregisterAttacker(this);
+            _target = value;
+            if (_target) _target.RegisterAttacker(this);
+        }
     }
     public CharacterMovement Movement { get; private set; }
     
     protected virtual void Awake()
     {
+        playerAnimator = GetComponent<PlayerAnimator>();
         Movement = GetComponent<CharacterMovement>();
 
         path = new NavMeshPath();
     }
 
-    private void OnEnable()
-    {
-        hivemind = GetComponentInParent<EnemyHivemind>();
-        if (hivemind)
-        {
-            hivemind.Register(this);
-        }
-    }
-
     private void OnDisable()
     {
-        if (hivemind)
+        if (Target)
         {
-            hivemind.Deregister(this);
+            Target.DeregisterAttacker(this);
         }
     }
 
     private void Update()
     {
+        if (!Target)
+        {
+            foreach (var target in EnemyTarget.Targets)
+            {
+                if ((target.transform.position - transform.position).sqrMagnitude < agroRange * agroRange)
+                {
+                    Target = target;
+                    break;
+                }
+            }
+        }
+
         Behave();
     }
 
@@ -97,25 +116,20 @@ public abstract class EnemyBase : MonoBehaviour
                 pathIndex++;
             }
         }
-        else
-        {
-            Movement.MovementDirection = Vector3.zero;
-            return;
-        }
 
         Vector3 vectorTo = (endPoint - startPoint);
 
         float distance = vectorTo.magnitude;
         Vector3 direction = vectorTo / distance;
 
-        Movement.MovementDirection = direction;
+        MovementDirection = direction;
         if (distance < goodEnoughDistance)
         {
-            Movement.MovementDirection = Vector3.zero;
+            MovementDirection = Vector3.zero;
         }
 
         Movement.Jump = false;
-        if (Physics.Raycast(transform.position + Vector3.up * jumpVerticalOffset, Movement.MovementDirection, jumpLookahead, lookaheadMask))
+        if (Physics.Raycast(transform.position + Vector3.up * jumpVerticalOffset, MovementDirection, jumpLookahead, lookaheadMask))
         {
             Movement.Jump = true;
         }
@@ -133,8 +147,16 @@ public abstract class EnemyBase : MonoBehaviour
         return targetPoint;
     }
 
-    private void OnDrawGizmosSelected()
+    public virtual void Attack()
     {
+        LastAttackTime = Time.time;
+    }
+
+    protected virtual void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, agroRange);
+
         Gizmos.color = Color.yellow;
         if (path?.corners.Length > 0)
         {

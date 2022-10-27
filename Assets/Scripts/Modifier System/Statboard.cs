@@ -7,11 +7,10 @@ using System.Collections.Generic;
 public class Statboard : MonoBehaviour
 {
     [SerializeField] List<Stat> stats;
-    [SerializeField] List<Artifact> artifacts;
 
-    public Dictionary<string, float> finalValues = new Dictionary<string, float>();
-    public event StatModification StatPreProcess;
-    public event StatModification StatPostProcess;
+    List<StatModification> statModifications = new List<StatModification>();
+
+    public Dictionary<string, float> FinalValues { get; private set; } = new Dictionary<string, float>();
 
     public float GetBaseStat(string statKey)
     {
@@ -30,9 +29,9 @@ public class Statboard : MonoBehaviour
     public bool TryGetStat(string statKey, out float value)
     {
         statKey = statKey.ToLower();
-        if (finalValues.ContainsKey(statKey))
+        if (FinalValues.ContainsKey(statKey))
         {
-            value = finalValues[statKey];
+            value = FinalValues[statKey];
             return true;
         }
         else
@@ -45,65 +44,79 @@ public class Statboard : MonoBehaviour
     public float GetStat(string statKey)
     {
         statKey = statKey.ToLower();
-        return finalValues[statKey];
+        return FinalValues[statKey];
     }
 
     private void Update()
     {
         foreach (Stat stat in stats)
         {
-            if (!finalValues.ContainsKey(stat.key.ToLower()))
+            if (!FinalValues.ContainsKey(stat.key.ToLower()))
             {
-                finalValues.Add(stat.key.ToLower(), stat.baseValue);
+                FinalValues.Add(stat.key.ToLower(), stat.baseValue);
             }
             else
             {
-                finalValues[stat.key.ToLower()] = stat.baseValue;
+                FinalValues[stat.key.ToLower()] = stat.baseValue;
             }
         }
 
-        List<string> keys = new List<string>(finalValues.Keys);
-        foreach (var key in keys)
-        {
-            if (StatPreProcess != null)
-            {
-                finalValues[key] = StatPreProcess(key, finalValues[key]);
-            }
-        }
+        statModifications.Sort((a, b) => Util.Sign(b.priority - a.priority));
 
-        foreach (Artifact artifact in artifacts)
+        List<string> statKeys = new List<string>(FinalValues.Keys);
+        foreach (var key in statKeys)
         {
-            if (artifact) 
-                artifact.Apply(this, finalValues);
-        }
-
-        foreach (var key in keys)
-        {
-            if (StatPostProcess != null)
+            foreach (var modification in statModifications)
             {
-                finalValues[key] = StatPostProcess(key, finalValues[key]);
+                if (modification.key.ToLower() != key.ToLower()) continue;
+
+                FinalValues[key] = modification.modification(FinalValues[key]);
             }
         }
     }
 
-    public void AddArtifact (Artifact artifact)
+    public void RegisterModifications(IEnumerable<StatModification> modifications)
     {
-        artifacts.Add(artifact);
-        artifacts.Sort((a, b) => b.priority - a.priority);
+        statModifications.AddRange(modifications);
     }
 
-    private void OnValidate()
+    public void DeregisterModifications(IEnumerable<StatModification> modifications)
     {
-        artifacts.Sort((a, b) =>
+        statModifications.RemoveAll(q =>
         {
-            if (!b) return -1;
-            if (!a) return 1;
-            return b.priority - a.priority;
+            foreach (var modification in modifications)
+            {
+                if (q == modification) return true;
+            }
+            return false;
         });
+    }
+
+    public void RegisterModification(StatModification modification)
+    {
+        statModifications.Add(modification);
+    }
+
+    public void DeregisterModification(StatModification modification)
+    {
+        statModifications.Remove(modification);
     }
 }
 
-public delegate float StatModification(string key, float value);
+//public delegate float StatModification(string key, float value);
+public class StatModification
+{
+    public System.Func<float, float> modification;
+    public string key;
+    public float priority;
+
+    public StatModification(string key, System.Func<float, float> modification, float priority = 0.0f)
+    {
+        this.modification = modification;
+        this.key = key;
+        this.priority = priority;
+    }
+}
 
 [System.Serializable]
 public class Stat

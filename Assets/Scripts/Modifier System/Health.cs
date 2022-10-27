@@ -13,6 +13,8 @@ public class Health : MonoBehaviour
 
     public float decaySpeed = 0;
 
+    public event System.Action<DamageArgs> DamageEvent;
+
     private void Update()
     {
         if (Time.time > hitTime + healingTimer)
@@ -38,6 +40,8 @@ public class Health : MonoBehaviour
 
     public void Damage(DamageArgs damageArgs)
     {
+        DamageEvent?.Invoke(damageArgs);
+
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
