@@ -12,4 +12,10 @@ public static class Extenstion
         }
         else return gameObject.AddComponent<T>();
     }
+
+    public static bool TryGetComponentInParent <T> (this Component gameObject, out T component) where T : Component
+    {
+        component = gameObject.GetComponentInParent<T>();
+        return component;
+    }
 }
