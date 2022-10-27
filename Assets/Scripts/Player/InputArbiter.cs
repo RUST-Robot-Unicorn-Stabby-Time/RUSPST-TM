@@ -18,11 +18,15 @@ public class InputArbiter : MonoBehaviour
     public InputAction lightAttackAction;
     public InputAction heavyAttackAction;
     public InputAction rageAction;
+    public InputAction lockAction;
+    public InputAction switchLockAction;
+    public InputAction dashAction;
 
     [Space]
     public PlayerWeapon weapon;
 
     CharacterMovement movement;
+    LockOnController lockOn;
 
     public Vector3 MovementDirection
     {
@@ -36,6 +40,8 @@ public class InputArbiter : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<CharacterMovement>();
+        lockOn = GetComponent<LockOnController>();
+
         PauseMenu.pauseEvent += OnPause;
     }
 
@@ -56,13 +62,23 @@ public class InputArbiter : MonoBehaviour
         lightAttackAction.Enable();
         heavyAttackAction.Enable();
         rageAction.Enable();
+        lockAction.Enable();
+        switchLockAction.Enable();
+        dashAction.Enable();
 
         if (weapon) lightAttackAction.performed += (ctx) => weapon.Attack();
+        if (lockOn)
+        {
+            lockAction.performed += (ctx) => lockOn.ToggleTarget();
+            switchLockAction.performed += (ctx) => lockOn.SwitchTarget(ctx.ReadValue<float>() > 0.0f ? 1 : -1);
+        }
 
         if (TryGetComponent(out Rage rage))
         {
             rageAction.performed += (ctx) => rage.UseRage();
         }
+
+        dashAction.performed += (ctx) => movement.Dash();
     }
 
     private void OnDisable()
@@ -71,14 +87,24 @@ public class InputArbiter : MonoBehaviour
         jumpAction.Disable();
         lightAttackAction.Disable();
         heavyAttackAction.Disable();
-        rageAction.Enable();
+        rageAction.Disable();
+        lockAction.Disable();
+        switchLockAction.Disable();
+        dashAction.Disable();
 
         if (weapon) lightAttackAction.performed -= (ctx) => weapon.Attack();
+        if (lockOn)
+        {
+            lockAction.performed -= (ctx) => lockOn.ToggleTarget();
+            switchLockAction.performed -= (ctx) => lockOn.SwitchTarget(ctx.ReadValue<float>() > 0.0f ? 1 : -1);
+        }
 
         if (TryGetComponent(out Rage rage))
         {
             rageAction.performed += (ctx) => rage.UseRage();
         }
+
+        dashAction.performed -= (ctx) => movement.Dash();
     }
 
     private void Update()

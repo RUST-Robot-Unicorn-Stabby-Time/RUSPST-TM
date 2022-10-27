@@ -22,7 +22,15 @@ public class CharacterMovement : MonoBehaviour
     public float groundMaxSlope;
     public float groundLookaheadTime;
     public float groundStickiness;
-    
+
+    [Space]
+    public float dashForce;
+    public float dashCounter;
+    public float dashFreeze;
+
+    PlayerAnimator playerAnimator;
+    bool dashing;
+
     public new Rigidbody rigidbody { get; private set; }
     public bool IsGrounded { get; private set; }
     public float JumpForce => Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
@@ -36,6 +44,7 @@ public class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     private void JumpCharacter()
@@ -51,6 +60,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (dashing) return;
+             
         IsGrounded = GetIsGrounded();
 
         MoveCharacter();
@@ -157,5 +168,27 @@ public class CharacterMovement : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void Dash ()
+    {
+        StartCoroutine(DashRoutine());
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        if (dashing) yield break;
+        if (playerAnimator ? !playerAnimator.DirectionLock.HasValue : true) yield break;
+
+        dashing = true;
+
+        Vector3 direction = MovementDirection;
+        rigidbody.velocity = direction * dashForce;
+
+        yield return new WaitForSeconds(dashFreeze);
+
+        rigidbody.velocity -= direction * dashCounter;
+
+        dashing = false;
     }
 }

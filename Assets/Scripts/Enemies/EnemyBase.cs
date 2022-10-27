@@ -24,6 +24,7 @@ public abstract class EnemyBase : MonoBehaviour
     public float agroRange;
 
     NavMeshPath path;
+    PlayerAnimator playerAnimator;
     int pathIndex;
     float pathfindTimer;
 
@@ -41,6 +42,11 @@ public abstract class EnemyBase : MonoBehaviour
             if (value.magnitude > 0.001f) transform.forward = new Vector3(value.x, 0.0f, value.z);
         }
     }
+    public Vector3? Facing
+    {
+        get => playerAnimator.DirectionLock;
+        set => playerAnimator.DirectionLock = value;
+    }
 
     public EnemyTarget Target 
     {
@@ -56,9 +62,18 @@ public abstract class EnemyBase : MonoBehaviour
     
     protected virtual void Awake()
     {
+        playerAnimator = GetComponent<PlayerAnimator>();
         Movement = GetComponent<CharacterMovement>();
 
         path = new NavMeshPath();
+    }
+
+    private void OnDisable()
+    {
+        if (Target)
+        {
+            Target.DeregisterAttacker(this);
+        }
     }
 
     private void Update()

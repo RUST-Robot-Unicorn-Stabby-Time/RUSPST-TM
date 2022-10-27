@@ -16,11 +16,16 @@ public class JerrySlayerOfMen : EnemyBase
 
     public override void Behave()
     {
+        MovementDirection = Vector3.zero;
+        Facing = null;
+
         if (Target)
         {
             if (Attacking)
             {
-                MovementDirection = (Target.transform.position - transform.position).normalized;
+                Vector3 direction = (Target.transform.position - transform.position).normalized;
+                MovementDirection = direction;
+                Facing = direction;
                 return;
             }
 
@@ -31,17 +36,15 @@ public class JerrySlayerOfMen : EnemyBase
                 if (distance > maxWaitDistance) WantsToAttack = false;
 
                 MovementDirection = Vector3.zero;
+                Facing = Target.transform.position - transform.position;
             }
             else
             {
                 if (distance < minWaitDistance) WantsToAttack = true;
 
                 PathfindToPoint(Target.transform.position);
+                Facing = Target.transform.position - transform.position;
             }
-        }
-        else
-        {
-            MovementDirection = Vector3.zero;
         }
     }
 
