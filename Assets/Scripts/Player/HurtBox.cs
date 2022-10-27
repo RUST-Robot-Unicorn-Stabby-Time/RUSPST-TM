@@ -32,7 +32,7 @@ public class HurtBox : MonoBehaviour
             if (rootMask != (rootMask | (1 << collider.transform.root.gameObject.layer))) continue;
             if (hitObjects.Contains(collider)) continue;
 
-            if (collider.TryGetComponent(out Health health))
+            if (collider.TryGetComponentInParent(out Health health))
             {
                 DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this));
                 health.Damage(args);
