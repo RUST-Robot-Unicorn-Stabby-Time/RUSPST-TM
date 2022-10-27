@@ -20,7 +20,7 @@ public class StatboardEditor : Editor
             int indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel++;
 
-            foreach (var pair in statboard.finalValues)
+            foreach (var pair in statboard.FinalValues)
             {
                 EditorGUILayout.LabelField(pair.Key, pair.Value.ToString());
             }
