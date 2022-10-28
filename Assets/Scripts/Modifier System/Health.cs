@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     private float hitTime;
     [HideInInspector] public float damageTaken;
 
-    public float decaySpeed = 0;
+    public float decaySpeed = 2;
 
     private void Update()
     {
