@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
-        if (currentHealth >= 0)
+        if (currentHealth > 0)
         {
             hitTime = Time.time;
         }
