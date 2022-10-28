@@ -15,18 +15,24 @@ public class PlayerAnimator : MonoBehaviour
     public float turningTiltMax;
     public float turningTiltSlope;
 
-    Statboard statboard;
     CharacterMovement movement;
 
+    Quaternion targetRotation = Quaternion.identity;
     Quaternion rootRotation = Quaternion.identity;
+
+    public Vector3? DirectionLock { get; set; }
 
     private void Awake()
     {
-        statboard = GetComponent<Statboard>();
         movement = GetComponent<CharacterMovement>();
     }
 
     private void LateUpdate()
+    {
+        UpdatePlayerModel();
+    }
+
+    private void UpdatePlayerModel()
     {
         Vector3 planarVelocity = movement.LocalVelocity;
         planarVelocity -= transform.up * Vector3.Dot(transform.up, planarVelocity);
@@ -37,13 +43,23 @@ public class PlayerAnimator : MonoBehaviour
         target.SetBool("falling", !movement.IsGrounded);
         target.SetFloat("speedMulti", Mathf.Max(movement.moveSpeedStat.GetFor(this), speed));
 
-        if (planarVelocity.sqrMagnitude > 0.01f)
+        if (planarVelocity.sqrMagnitude > 0.01f || DirectionLock.HasValue)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(planarVelocity, Vector3.up);
+            Quaternion targetRotation;
+            if (DirectionLock.HasValue)
+            {
+                targetRotation = Quaternion.LookRotation(DirectionLock.Value, transform.up);
+            }
+            else
+            {
+                targetRotation = Quaternion.LookRotation(planarVelocity, Vector3.up);
+            }
+
             float angleDelta = Quaternion.Angle(targetRotation, rootRotation);
             rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, angleDelta * rotationSpeed * speed * Time.deltaTime);
         }
-        root.rotation = Quaternion.Inverse(transform.rotation) * rootRotation * root.rotation;
+
+        root.rotation = rootRotation;
 
         float fSpeed = Vector3.Dot(root.forward, planarVelocity);
         float rSpeed = Vector3.Dot(root.right, planarVelocity);

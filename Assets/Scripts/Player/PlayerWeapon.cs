@@ -7,8 +7,23 @@ public class PlayerWeapon : MonoBehaviour
     public float cooldown = 0f;
     public new Animator animation;
     public CharacterMovement characterMovement;
+    public bool freezeMovement;
+    public Vector3 impulseForce;
+
+    [Space]
+    public string attackAnimName;
+    public int attackAnimLayer;
 
     private float lastClickTime = 0f;
+
+    PlayerAnimator playerAnimator;
+
+    public event System.Action BeginAttackEvent;
+
+    public void Awake()
+    {
+        playerAnimator = transform.root.GetComponentInChildren<PlayerAnimator>();
+    }
 
     public void Attack()
     {
@@ -20,12 +35,25 @@ public class PlayerWeapon : MonoBehaviour
 
     private IEnumerator AttackRoutine()
     {
+        BeginAttackEvent?.Invoke();
+
         lastClickTime = Time.time;
-        animation.Play("Attack");
-        characterMovement.PauseMovement = true;
+        animation.Play("Attack", attackAnimLayer, 0.0f);
+        if (freezeMovement) characterMovement.PauseMovement = true;
+
+        if (TryGetComponent(out Rigidbody rigidbody))
+        {
+            rigidbody.velocity += transform.TransformVector(impulseForce);
+        }
+
+        if (playerAnimator)
+        {
+            playerAnimator.DirectionLock = transform.forward;
+        }
 
         yield return new WaitForSeconds(cooldown);
 
-        characterMovement.PauseMovement = false;
+        playerAnimator.DirectionLock = null;
+        if (freezeMovement) characterMovement.PauseMovement = false;
     }
 }
