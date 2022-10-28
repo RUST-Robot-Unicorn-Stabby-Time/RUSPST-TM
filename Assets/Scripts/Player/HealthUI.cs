@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
-    public Image previousHealthBar;
     public Image healthBar;
+    public Image previousHealthBar;
 
     private Health health;
 
@@ -17,5 +17,11 @@ public class HealthUI : MonoBehaviour
     {
         healthBar.fillAmount = health.currentHealth;
         previousHealthBar.fillAmount = health.currentHealth + (health.damageTaken / health.maxHealth.GetFor(this));
+
+        if (health.currentHealth <= 0)
+        {
+            healthBar.fillAmount = 0;
+            previousHealthBar.fillAmount = 0;
+        }
     }
 }
