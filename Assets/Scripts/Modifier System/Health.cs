@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     private float hitTime;
     [HideInInspector] public float damageTaken;
 
-    public float decaySpeed = 0;
+    public float decaySpeed = 2;
 
     public event System.Action<DamageArgs> DamageEvent;
 
@@ -45,7 +45,7 @@ public class Health : MonoBehaviour
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
-        if (currentHealth >= 0)
+        if (currentHealth > 0)
         {
             hitTime = Time.time;
         }
