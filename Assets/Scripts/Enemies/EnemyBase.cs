@@ -45,7 +45,7 @@ public abstract class EnemyBase : MonoBehaviour
     public Vector3? Facing
     {
         get => playerAnimator.DirectionLock;
-        set => playerAnimator.DirectionLock = value;
+        set => playerAnimator.DirectionLock = value.HasValue ? new Vector3(value.Value.x, 0.0f, value.Value.z).normalized : (Vector3?)null;
     }
 
     public EnemyTarget Target 
@@ -74,6 +74,8 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Target.DeregisterAttacker(this);
         }
+
+        Attacking = false;
     }
 
     private void Update()
