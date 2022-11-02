@@ -56,7 +56,8 @@ public class PlayerAnimator : MonoBehaviour
             }
 
             float angleDelta = Quaternion.Angle(targetRotation, rootRotation);
-            rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, angleDelta * rotationSpeed * speed * Time.deltaTime);
+            float rotationSpeed = angleDelta * this.rotationSpeed * (DirectionLock.HasValue ? 10.0f : speed);
+            rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         root.rotation = rootRotation;

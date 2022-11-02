@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
     public float decaySpeed = 2;
 
     public event System.Action<DamageArgs> DamageEvent;
+    public event System.Action<DamageArgs> DeathEvent;
 
     private void Update()
     {
@@ -57,6 +58,8 @@ public class Health : MonoBehaviour
 
     public void Die(DamageArgs damageArgs)
     {
+        DeathEvent?.Invoke(damageArgs);
+
         gameObject.SetActive(false);
     }
 
