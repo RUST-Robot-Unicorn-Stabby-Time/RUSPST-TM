@@ -21,6 +21,7 @@ public class InputArbiter : MonoBehaviour
     public InputAction lockAction;
     public InputAction switchLockAction;
     public InputAction dashAction;
+    public InputAction grappleAction;
 
     [Space]
     public PlayerWeapon weapon;
@@ -65,6 +66,7 @@ public class InputArbiter : MonoBehaviour
         lockAction.Enable();
         switchLockAction.Enable();
         dashAction.Enable();
+        grappleAction.Enable();
 
         if (weapon) lightAttackAction.performed += (ctx) => weapon.Attack();
         if (lockOn)
@@ -79,6 +81,11 @@ public class InputArbiter : MonoBehaviour
         }
 
         dashAction.performed += (ctx) => movement.Dash();
+
+        if (TryGetComponent(out GrappleHook grappleHook))
+        {
+            grappleAction.performed += (ctx) => grappleHook.ToggleGrapple();
+        }
     }
 
     private void OnDisable()
@@ -91,6 +98,7 @@ public class InputArbiter : MonoBehaviour
         lockAction.Disable();
         switchLockAction.Disable();
         dashAction.Disable();
+        grappleAction.Disable();
 
         if (weapon) lightAttackAction.performed -= (ctx) => weapon.Attack();
         if (lockOn)
@@ -105,6 +113,11 @@ public class InputArbiter : MonoBehaviour
         }
 
         dashAction.performed -= (ctx) => movement.Dash();
+
+        if (TryGetComponent(out GrappleHook grappleHook))
+        {
+            grappleAction.performed -= (ctx) => grappleHook.ToggleGrapple();
+        }
     }
 
     private void Update()

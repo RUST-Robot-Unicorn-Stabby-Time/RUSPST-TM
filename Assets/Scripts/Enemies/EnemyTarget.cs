@@ -47,7 +47,7 @@ public class EnemyTarget : MonoBehaviour
                 {
                     bestAttacker = attacker;
                 }
-                else if (attacker.LastAttackTime < bestAttacker.LastAttackTime)
+                else if (attacker.LastAttackTime > bestAttacker.LastAttackTime)
                 {
                     bestAttacker = attacker;
                 }
