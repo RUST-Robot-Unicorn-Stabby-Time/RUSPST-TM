@@ -5251,17 +5251,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage:
     key: Damage
-    baseValue: 1
+    baseValue: 25
   damageBounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0.15, z: 0.15}
+    m_Extent: {x: 0.75, y: 0.15, z: 0.15}
   collisionMask:
     serializedVersion: 2
     m_Bits: 1024
   rootMask:
     serializedVersion: 2
     m_Bits: 1207
-  hitFXPrefab: {fileID: 0}
+  hitFXPrefab: {fileID: 4665379811712820334, guid: e7704a68e9c2ec24fa26b85eaf7d629f, type: 3}
 --- !u!65 &6926136828401473220
 BoxCollider:
   m_ObjectHideFlags: 0
