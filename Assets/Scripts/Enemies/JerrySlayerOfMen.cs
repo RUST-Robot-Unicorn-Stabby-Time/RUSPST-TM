@@ -12,6 +12,7 @@ public class JerrySlayerOfMen : EnemyBase
     [Space]
     public float attackDuration;
     public float attackDistance;
+    public float tooCloseDistance;
     public UnityEvent attackEvent;
 
     public override void Behave()
@@ -26,24 +27,38 @@ public class JerrySlayerOfMen : EnemyBase
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
                 MovementDirection = direction;
                 Facing = direction;
-                return;
-            }
-
-            float distance = (Target.transform.position - transform.position).magnitude;
-
-            if (WantsToAttack)
-            {
-                if (distance > maxWaitDistance) WantsToAttack = false;
-
-                MovementDirection = Vector3.zero;
-                Facing = Target.transform.position - transform.position;
             }
             else
             {
-                if (distance < minWaitDistance) WantsToAttack = true;
+                float distance = (Target.transform.position - transform.position).magnitude;
 
-                PathfindToPoint(Target.transform.position);
-                Facing = Target.transform.position - transform.position;
+                if (WantsToAttack)
+                {
+                    if (distance > maxWaitDistance) WantsToAttack = false;
+
+                    MovementDirection = Vector3.zero;
+                    Facing = Target.transform.position - transform.position;
+                }
+                else
+                {
+                    if (distance < minWaitDistance) WantsToAttack = true;
+
+                    if (distance < attackDistance)
+                    {
+                        MovementDirection = Vector3.zero;
+                    }
+                    else
+                    {
+                        PathfindToPoint(Target.transform.position);
+                    }
+
+                    Facing = Target.transform.position - transform.position;
+                }
+
+                if ((Target.transform.position - transform.position).sqrMagnitude < tooCloseDistance * tooCloseDistance)
+                {
+                    MovementDirection = (transform.position - Target.transform.position).normalized;
+                }
             }
         }
     }
@@ -69,6 +84,11 @@ public class JerrySlayerOfMen : EnemyBase
         while ((point - transform.position).sqrMagnitude > attackDistance * attackDistance)
         {
             MovementDirection = (point - transform.position).normalized;
+            if ((point - transform.position).sqrMagnitude < tooCloseDistance * tooCloseDistance)
+            {
+                MovementDirection = -MovementDirection;
+            }
+
             yield return null;
         }
 
