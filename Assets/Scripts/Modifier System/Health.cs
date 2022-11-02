@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -15,6 +16,26 @@ public class Health : MonoBehaviour
 
     public event System.Action<DamageArgs> DamageEvent;
     public event System.Action<DamageArgs> DeathEvent;
+
+    public HashSet<HurtBox> hurtBoxes;
+
+    private void OnEnable()
+    {
+        hurtBoxes = new HashSet<HurtBox>(GetComponentsInChildren<HurtBox>());
+
+        foreach (var hurtbox in hurtBoxes)
+        {
+            hurtbox.HitEvent += (g, a) => OnDealDamage(a);
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var hurtbox in hurtBoxes)
+        {
+            hurtbox.HitEvent -= (g, a) => OnDealDamage(a);
+        }
+    }
 
     private void Update()
     {
@@ -66,7 +87,6 @@ public class Health : MonoBehaviour
     [ContextMenu("TakeDamage")]
     public void TakeDamageTest()
     {
-
         Damage(new DamageArgs(null, 20));
     }
 
