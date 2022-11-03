@@ -6,6 +6,8 @@ using UnityEngine;
 public class HurtBox : MonoBehaviour
 {
     public Stat damage;
+    public Stat knockback;
+    public Vector3 knockbackDirection;
     public Bounds damageBounds;
     public LayerMask collisionMask;
     public LayerMask rootMask;
@@ -14,12 +16,14 @@ public class HurtBox : MonoBehaviour
     public GameObject hitFXPrefab;
 
     HashSet<Collider> hitObjects = new HashSet<Collider>();
+    HashSet<Health> hurtObjects = new HashSet<Health>();
 
     public event System.Action<GameObject, DamageArgs> HitEvent;
 
     private void OnEnable()
     {
         hitObjects.Clear();
+        hurtObjects.Clear();
     }
 
     private void FixedUpdate()
@@ -34,9 +38,17 @@ public class HurtBox : MonoBehaviour
 
             if (collider.TryGetComponentInParent(out Health health))
             {
+                if (hurtObjects.Contains(health)) continue;
+                hurtObjects.Add(health);
+
                 DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this));
                 health.Damage(args);
                 HitEvent?.Invoke(collider.gameObject, args);
+            }
+
+            if (collider.attachedRigidbody)
+            {
+                collider.attachedRigidbody.velocity += transform.TransformDirection(knockbackDirection).normalized * knockback.GetFor(this);
             }
 
             Vector3 direction = (collider.transform.position - transform.position).normalized;
