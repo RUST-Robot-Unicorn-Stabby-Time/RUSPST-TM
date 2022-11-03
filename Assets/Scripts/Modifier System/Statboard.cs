@@ -126,7 +126,7 @@ public class Stat
 
     public float GetFor (MonoBehaviour ctx)
     {
-        Statboard board = ctx.GetComponent<Statboard>();
+        Statboard board = ctx.GetComponentInParent<Statboard>();
         float value = baseValue;
         if (board ? board.TryGetStat(key, out value) : false)
         {

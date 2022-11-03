@@ -51,9 +51,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (hitReact ? hitReact.Stunned : false) return;
-
-        movement.MovementDirection = MovementDirection;
+        if (hitReact ? !hitReact.Stunned : true)
+        {
+            movement.MovementDirection = MovementDirection;
+        }
+        else
+        {
+            movement.MovementDirection = Vector3.zero;
+        }
     }
 
     private void SetStateOnComponent<T> (System.Action<T, bool> action, InputValue value)
