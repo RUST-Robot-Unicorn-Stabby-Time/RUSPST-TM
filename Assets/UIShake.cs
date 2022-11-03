@@ -10,14 +10,17 @@ public class UIShake : MonoBehaviour
     Vector2 offset;
     Vector2 velocity;
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        RectTransform transform = this.transform as RectTransform;
-
         velocity -= velocity * damping * Time.deltaTime;
         velocity -= offset * recenter * Time.deltaTime;
 
         offset += velocity * Time.deltaTime;
+    }
+
+    private void LateUpdate()
+    {
+        RectTransform transform = this.transform as RectTransform;
         transform.anchoredPosition = offset;
     }
 
