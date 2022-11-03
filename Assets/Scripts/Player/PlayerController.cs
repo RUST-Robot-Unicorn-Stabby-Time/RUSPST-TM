@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 [SelectionBase]
 [DisallowMultipleComponent]
-public class InputArbiter : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // This will most likley change a lot during production depending on what input we require.
     // In that case, press/release actions will use events, and continuous values will be a getter.
