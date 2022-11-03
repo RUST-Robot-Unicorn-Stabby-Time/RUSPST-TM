@@ -7,6 +7,7 @@ public class SoundProfile : ScriptableObject
     public AudioClip[] clips;
     public Vector2 volumeRange = Vector2.one;
     public Vector2 pitchRange = Vector2.one;
+    public float delay;
 
     int lastIndex;
 
@@ -37,7 +38,7 @@ public class SoundProfile : ScriptableObject
         source.volume = Random.Range(volumeRange.x, volumeRange.y);
         source.pitch = Random.Range(pitchRange.x, pitchRange.y);
 
-        source.Play();
+        source.PlayDelayed(delay);
 
         if (Application.isPlaying)
         {

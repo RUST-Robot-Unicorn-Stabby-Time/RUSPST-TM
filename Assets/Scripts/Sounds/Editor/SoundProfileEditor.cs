@@ -24,6 +24,8 @@ public class SoundProfileEditor : Editor
         profile.pitchRange.y = EditorGUILayout.FloatField("max", profile.pitchRange.y);
         EditorGUILayout.EndHorizontal();
 
+        profile.delay = EditorGUILayout.FloatField("Delay (s)", profile.delay);
+
         if (GUILayout.Button("Play"))
         {
             profile.Play();
