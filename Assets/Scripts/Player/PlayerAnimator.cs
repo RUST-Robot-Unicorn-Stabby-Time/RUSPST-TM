@@ -27,6 +27,21 @@ public class PlayerAnimator : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
     }
 
+    private void OnEnable()
+    {
+        movement.JumpEvent += OnJump;
+    }
+
+    private void OnJump()
+    {
+        target.Play("Jump", 0, 0.0f);
+    }
+
+    private void OnDisable()
+    {
+        movement.JumpEvent -= OnJump;
+    }
+
     private void LateUpdate()
     {
         UpdatePlayerModel();
