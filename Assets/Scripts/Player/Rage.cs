@@ -72,6 +72,7 @@ public class Rage : MonoBehaviour
         ragePercent = Mathf.Clamp01(ragePercent);
     }
 
+    [ContextMenu("UseRage")]
     public void UseRage()
     {
         if (ragePercent < 0.999f) return;
