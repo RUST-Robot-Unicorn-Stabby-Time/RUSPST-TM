@@ -15,12 +15,21 @@ public class JerrySlayerOfMen : EnemyBase
     public float tooCloseDistance;
     public UnityEvent attackEvent;
 
+    HitReact hitReact;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        hitReact = GetComponent<HitReact>();
+    }
+
     public override void Behave()
     {
         MovementDirection = Vector3.zero;
         Facing = null;
 
-        if (Target)
+        if (Target && !hitReact.Stunned)
         {
             if (Attacking)
             {
