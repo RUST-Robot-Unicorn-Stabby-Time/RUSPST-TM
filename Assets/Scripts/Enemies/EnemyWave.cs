@@ -23,9 +23,10 @@ public class EnemyWave : MonoBehaviour
         enemiesLeft = passCount;
         trackedEnemies = new HashSet<Health>();
 
-        for (int i = 0; i < transform.childCount; i++)
+        //for (int i = 0; i < transform.childCount; i++)
+        while(transform.childCount > 0)
         {
-            GameObject enemy = transform.GetChild(i).gameObject;
+            GameObject enemy = transform.GetChild(0).gameObject;
             enemy.SetActive(true);
             enemy.transform.SetParent(null);
 
@@ -51,6 +52,8 @@ public class EnemyWave : MonoBehaviour
 
     private void AdvanceWave()
     {
+        if (!nextWave) return;
+
         nextWave.gameObject.SetActive(true);
         Destroy(gameObject);
     }
