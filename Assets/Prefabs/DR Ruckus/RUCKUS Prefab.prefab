@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9069190671242657066
 Transform:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7049006873975097726}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cdc7d0881d44e448aec69d77aaa2301, type: 3}
   m_Name: 
@@ -349,8 +349,8 @@ MonoBehaviour:
     key: Damage
     baseValue: 25
   damageBounds:
-    m_Center: {x: 0, y: -0.6, z: 0}
-    m_Extent: {x: 0.5, y: 0.26, z: 0.23}
+    m_Center: {x: 0, y: 0.18, z: 0}
+    m_Extent: {x: 0.5, y: 1, z: 0.23}
   collisionMask:
     serializedVersion: 2
     m_Bits: 1024
