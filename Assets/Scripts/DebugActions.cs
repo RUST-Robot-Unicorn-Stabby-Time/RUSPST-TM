@@ -39,6 +39,14 @@ public class DebugActions : MonoBehaviour
                 player.GetComponent<Rage>().ragePercent = 1.0f;
             }
         }
+
+        if (Keyboard.current.numpad5Key.wasPressedThisFrame)
+        {
+            foreach (var player in FindObjectsOfType<InputArbiter>(true))
+            {
+                player.GetComponent<Health>().Damage(new DamageArgs(null, 0));
+            }
+        }
     }
 
     private void OnGUI()
