@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2b5b5795c4c894e8d1090b512b7a64, type: 3}
+  m_Name: Ruckus Deal damage
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 4e1bcebb30f38e34b94f81573b1445a8, type: 3}
+  - {fileID: 8300000, guid: 3de47c9bc78d10343860f2a3b80ce4e1, type: 3}
+  - {fileID: 8300000, guid: cc8b03612ee92044eb3535982f07aaf0, type: 3}
+  - {fileID: 8300000, guid: dd9b68b8039411f4397fb09db5ddba25, type: 3}
+  volumeRange: {x: 0.5, y: 0.5}
+  pitchRange: {x: 0.5, y: 1}
+  delay: 0.25
