@@ -34,7 +34,6 @@ public class JerrySlayerOfMen : EnemyBase
             if (Attacking)
             {
                 Vector3 direction = (Target.transform.position - transform.position).normalized;
-                MovementDirection = direction;
                 Facing = direction;
             }
             else
