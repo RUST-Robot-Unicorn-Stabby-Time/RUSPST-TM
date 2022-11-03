@@ -22,10 +22,6 @@ public class Rage : MonoBehaviour
     public float flacidSize;
     public float errectSize;
 
-    [Space]
-    public UnityEvent RageEnterEvent;
-    public UnityEvent RageExitEvent;
-
     float rageVel;
     public bool canGainRageInRage = true;
 
@@ -33,6 +29,9 @@ public class Rage : MonoBehaviour
     bool raging;
 
     List<StatModification> statMods;
+
+    public event System.Action RageEnterEvent;
+    public event System.Action RageExitEvent;
 
     private void Awake()
     {
