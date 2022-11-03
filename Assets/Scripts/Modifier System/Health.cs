@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -11,9 +12,30 @@ public class Health : MonoBehaviour
     private float hitTime;
     [HideInInspector] public float damageTaken;
 
-    public float decaySpeed = 0;
+    public float decaySpeed = 2;
 
     public event System.Action<DamageArgs> DamageEvent;
+    public event System.Action<DamageArgs> DeathEvent;
+
+    public HashSet<HurtBox> hurtBoxes;
+
+    private void OnEnable()
+    {
+        hurtBoxes = new HashSet<HurtBox>(GetComponentsInChildren<HurtBox>());
+
+        foreach (var hurtbox in hurtBoxes)
+        {
+            hurtbox.HitEvent += (g, a) => OnDealDamage(a);
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var hurtbox in hurtBoxes)
+        {
+            hurtbox.HitEvent -= (g, a) => OnDealDamage(a);
+        }
+    }
 
     private void Update()
     {
@@ -45,7 +67,7 @@ public class Health : MonoBehaviour
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
-        if (currentHealth >= 0)
+        if (currentHealth > 0)
         {
             hitTime = Time.time;
         }
@@ -57,13 +79,14 @@ public class Health : MonoBehaviour
 
     public void Die(DamageArgs damageArgs)
     {
+        DeathEvent?.Invoke(damageArgs);
+
         gameObject.SetActive(false);
     }
 
     [ContextMenu("TakeDamage")]
     public void TakeDamageTest()
     {
-
         Damage(new DamageArgs(null, 20));
     }
 

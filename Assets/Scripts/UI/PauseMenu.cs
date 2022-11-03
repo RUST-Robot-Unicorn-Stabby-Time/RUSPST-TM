@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public static event System.Action<bool> pauseEvent;
 
     public GameObject pauseMenuUI;
+    public GameObject OptionsMenu;
 
     void Update()
     {
@@ -24,20 +25,43 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-    void Resume()
+    //Pause and Play
+    public void Resume()
     {
         pauseEvent.Invoke(false);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
-
     void Pause()
     {
         pauseEvent.Invoke(true);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
+    }
+
+    //OptionsMenu
+    public void OpenOptions()
+    {
+        pauseMenuUI.SetActive(false);
+        OptionsMenu.SetActive(true);
+    }
+
+    //Back To Menu
+    public void BackToMenu()
+    {
+
+    }
+
+    //Quit
+    public void Quit()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #else
+        Application.Quit();
+    #endif
     }
 
 }

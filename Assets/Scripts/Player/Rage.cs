@@ -22,10 +22,6 @@ public class Rage : MonoBehaviour
     public float flacidSize;
     public float errectSize;
 
-    [Space]
-    public UnityEvent RageEnterEvent;
-    public UnityEvent RageExitEvent;
-
     float rageVel;
     public bool canGainRageInRage = true;
 
@@ -33,6 +29,9 @@ public class Rage : MonoBehaviour
     bool raging;
 
     List<StatModification> statMods;
+
+    public event System.Action RageEnterEvent;
+    public event System.Action RageExitEvent;
 
     private void Awake()
     {
@@ -59,7 +58,10 @@ public class Rage : MonoBehaviour
     private void Update()
     {
         rageVolume.weight = Mathf.SmoothDamp(rageVolume.weight, raging ? 1.0f : 0.0f, ref rageVel, rageFXSmoothTime);
-        horn.localScale = new Vector3(baseSize, baseSize, Mathf.Lerp(flacidSize, errectSize, rageVolume.weight));
+        if (horn)
+        {
+            horn.localScale = new Vector3(baseSize, baseSize, Mathf.Lerp(flacidSize, errectSize, rageVolume.weight));
+        }
     }
 
     public void AddRage(float amount)
@@ -70,6 +72,7 @@ public class Rage : MonoBehaviour
         ragePercent = Mathf.Clamp01(ragePercent);
     }
 
+    [ContextMenu("UseRage")]
     public void UseRage()
     {
         if (ragePercent < 0.999f) return;

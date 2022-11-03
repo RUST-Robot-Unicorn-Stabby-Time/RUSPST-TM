@@ -27,6 +27,21 @@ public class PlayerAnimator : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
     }
 
+    private void OnEnable()
+    {
+        movement.JumpEvent += OnJump;
+    }
+
+    private void OnJump()
+    {
+        target.Play("Jump", 0, 0.0f);
+    }
+
+    private void OnDisable()
+    {
+        movement.JumpEvent -= OnJump;
+    }
+
     private void LateUpdate()
     {
         UpdatePlayerModel();
@@ -56,7 +71,8 @@ public class PlayerAnimator : MonoBehaviour
             }
 
             float angleDelta = Quaternion.Angle(targetRotation, rootRotation);
-            rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, angleDelta * rotationSpeed * speed * Time.deltaTime);
+            float rotationSpeed = angleDelta * this.rotationSpeed * (DirectionLock.HasValue ? 10.0f : speed);
+            rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         root.rotation = rootRotation;

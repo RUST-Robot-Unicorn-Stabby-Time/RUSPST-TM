@@ -41,6 +41,8 @@ public class CharacterMovement : MonoBehaviour
 
     public bool PauseMovement { get; set; }
 
+    public event System.Action JumpEvent;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -54,6 +56,7 @@ public class CharacterMovement : MonoBehaviour
             if (IsGrounded)
             {
                 rigidbody.velocity = new Vector3(rigidbody.velocity.x, JumpForce, rigidbody.velocity.z);
+                JumpEvent?.Invoke();
             }
         }
     }
