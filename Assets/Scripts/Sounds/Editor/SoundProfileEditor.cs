@@ -10,8 +10,8 @@ public class SoundProfileEditor : Editor
     {
         SoundProfile profile = target as SoundProfile;
 
-        profile.clip = EditorGUILayout.ObjectField("clip", profile.clip, typeof(AudioClip), false) as AudioClip;
-
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("clips"));
+        
         EditorGUILayout.MinMaxSlider("Volume", ref profile.volumeRange.x, ref profile.volumeRange.y, 0.0f, 1.0f);
         EditorGUILayout.BeginHorizontal();
         profile.volumeRange.x = EditorGUILayout.FloatField("min", profile.volumeRange.x);
