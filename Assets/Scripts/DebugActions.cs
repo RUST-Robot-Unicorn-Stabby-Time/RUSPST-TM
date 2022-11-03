@@ -9,7 +9,7 @@ public class DebugActions : MonoBehaviour
     {
         if (Keyboard.current.numpad7Key.wasPressedThisFrame)
         {
-            foreach (var player in FindObjectsOfType<InputArbiter>(true))
+            foreach (var player in FindObjectsOfType<PlayerController>(true))
             {
                 player.GetComponent<Health>().Revive();
             }
@@ -25,7 +25,7 @@ public class DebugActions : MonoBehaviour
 
         if (Keyboard.current.numpad9Key.wasPressedThisFrame)
         {
-            foreach (var player in FindObjectsOfType<InputArbiter>(true))
+            foreach (var player in FindObjectsOfType<PlayerController>(true))
             {
                 player.transform.position = Vector3.zero;
                 player.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -34,7 +34,7 @@ public class DebugActions : MonoBehaviour
 
         if (Keyboard.current.numpad4Key.wasPressedThisFrame)
         {
-            foreach (var player in FindObjectsOfType<InputArbiter>(true))
+            foreach (var player in FindObjectsOfType<PlayerController>(true))
             {
                 player.GetComponent<Rage>().ragePercent = 1.0f;
             }
@@ -42,7 +42,7 @@ public class DebugActions : MonoBehaviour
 
         if (Keyboard.current.numpad5Key.wasPressedThisFrame)
         {
-            foreach (var player in FindObjectsOfType<InputArbiter>(true))
+            foreach (var player in FindObjectsOfType<PlayerController>(true))
             {
                 player.GetComponent<Health>().Damage(new DamageArgs(null, 0));
             }

@@ -1,47 +1,30 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
-using System.Collections.Generic;
 
 [SelectionBase]
 [DisallowMultipleComponent]
 public class PlayerController : MonoBehaviour
 {
-    // This will most likley change a lot during production depending on what input we require.
-    // In that case, press/release actions will use events, and continuous values will be a getter.
-
     public Transform inputTransform;
-
-    [Space]
-    public InputAction moveAction;
-    public InputAction jumpAction;
-    public InputAction lightAttackAction;
-    public InputAction heavyAttackAction;
-    public InputAction rageAction;
-    public InputAction lockAction;
-    public InputAction switchLockAction;
-    public InputAction dashAction;
 
     [Space]
     public PlayerWeapon weapon;
 
+    Vector2 moveInput;
     CharacterMovement movement;
-    LockOnController lockOn;
-
+    
     public Vector3 MovementDirection
     {
         get
         {
-            Vector2 input = moveAction.ReadValue<Vector2>();
-            return inputTransform.TransformDirection(input.x, 0.0f, input.y);
+            return inputTransform.TransformDirection(moveInput.x, 0.0f, moveInput.y);
         }
     }
 
     private void Awake()
     {
         movement = GetComponent<CharacterMovement>();
-        lockOn = GetComponent<LockOnController>();
-
+        
         PauseMenu.pauseEvent += OnPause;
     }
 
@@ -55,63 +38,41 @@ public class PlayerController : MonoBehaviour
         enabled = !isPaused;
     }
 
-    private void OnEnable()
-    {
-        moveAction.Enable();
-        jumpAction.Enable();
-        lightAttackAction.Enable();
-        heavyAttackAction.Enable();
-        rageAction.Enable();
-        lockAction.Enable();
-        switchLockAction.Enable();
-        dashAction.Enable();
-
-        if (weapon) lightAttackAction.performed += (ctx) => weapon.Attack();
-        if (lockOn)
-        {
-            lockAction.performed += (ctx) => lockOn.ToggleTarget();
-            switchLockAction.performed += (ctx) => lockOn.SwitchTarget(ctx.ReadValue<float>() > 0.0f ? 1 : -1);
-        }
-
-        if (TryGetComponent(out Rage rage))
-        {
-            rageAction.performed += (ctx) => rage.UseRage();
-        }
-
-        dashAction.performed += (ctx) => movement.Dash();
-    }
-
-    private void OnDisable()
-    {
-        moveAction.Disable();
-        jumpAction.Disable();
-        lightAttackAction.Disable();
-        heavyAttackAction.Disable();
-        rageAction.Disable();
-        lockAction.Disable();
-        switchLockAction.Disable();
-        dashAction.Disable();
-
-        if (weapon) lightAttackAction.performed -= (ctx) => weapon.Attack();
-        if (lockOn)
-        {
-            lockAction.performed -= (ctx) => lockOn.ToggleTarget();
-            switchLockAction.performed -= (ctx) => lockOn.SwitchTarget(ctx.ReadValue<float>() > 0.0f ? 1 : -1);
-        }
-
-        if (TryGetComponent(out Rage rage))
-        {
-            rageAction.performed += (ctx) => rage.UseRage();
-        }
-
-        dashAction.performed -= (ctx) => movement.Dash();
-    }
+    public void OnMove(InputValue value) => moveInput = value.Get<Vector2>();
+    public void OnJump(InputValue value) => SetStateOnComponent<CharacterMovement>((c, s) => c.Jump = s, value);
+    public void OnLightAttack() => weapon.Attack();
+    public void OnHeavyAttack() { }
+    public void OnRage() => CallMethodOnComponemt<Rage>(r => r.UseRage());
+    public void OnLock() => CallMethodOnComponemt<LockOnController>(r => r.ToggleTarget());
+    public void OnSwitchLock(InputValue value) => SetAxisOnComponent<LockOnController>((r, v) => r.SwitchTarget(Util.Sign(v)), value);
+    public void OnDash(InputValue value) => CallMethodOnComponemt<CharacterMovement>(c => c.Dash());
 
     private void Update()
     {
         movement.MovementDirection = MovementDirection;
-        movement.Jump = jumpAction.ReadValue<float>() > 0.5f;
+    }
+
+    private void SetStateOnComponent<T> (System.Action<T, bool> action, InputValue value)
+    {
+        if (TryGetComponent<T>(out T component))
+        {
+            action(component, value.Get<float>() > 0.5f);
+        }
+    }
+
+    private void SetAxisOnComponent<T>(System.Action<T, float> action, InputValue value)
+    {
+        if (TryGetComponent<T>(out T component))
+        {
+            action(component, value.Get<float>());
+        }
+    }
+
+    private void CallMethodOnComponemt<T>(System.Action<T> action)
+    {
+        if (TryGetComponent<T>(out T component))
+        {
+            action(component);
+        }
     }
 }
-
-// acts as arbiter between the new input system and genertic bipedal components.
