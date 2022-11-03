@@ -31,16 +31,22 @@ public class EventHook : MonoBehaviour
             hurtbox.HitEvent += (go, args) => dealDamageEvent?.Invoke();
         }
 
-        weapon = GetComponent<PlayerWeapon>();
-        weapon.BeginAttackEvent += swingEvent.Invoke;
+        if (TryGetComponent(out weapon))
+        {
+            weapon.BeginAttackEvent += swingEvent.Invoke;
+        }
 
-        health = GetComponent<Health>();
-        health.DamageEvent += (args) => takeDamageEvent?.Invoke();
-        health.DeathEvent += (args) => deathEvent?.Invoke();
+        if (TryGetComponent(out health))
+        {
+            health.DamageEvent += (args) => takeDamageEvent?.Invoke();
+            health.DeathEvent += (args) => deathEvent?.Invoke();
+        }
 
-        rage = GetComponent<Rage>();
-        rage.RageEnterEvent += enterRageEvent.Invoke;
-        rage.RageExitEvent += exitRangeEvent.Invoke;
+        if (TryGetComponent(out rage))
+        {
+            rage.RageEnterEvent += enterRageEvent.Invoke;
+            rage.RageExitEvent += exitRangeEvent.Invoke;
+        }
     }
     
     private void OnDisable()
@@ -50,12 +56,21 @@ public class EventHook : MonoBehaviour
             hurtbox.HitEvent -= (go, args) => dealDamageEvent?.Invoke();
         }
 
-        weapon.BeginAttackEvent -= swingEvent.Invoke;
+        if (weapon)
+        {
+            weapon.BeginAttackEvent -= swingEvent.Invoke;
+        }
 
-        health.DamageEvent -= (args) => takeDamageEvent?.Invoke();
-        health.DeathEvent -= (args) => deathEvent?.Invoke();
+        if (health)
+        {
+            health.DamageEvent -= (args) => takeDamageEvent?.Invoke();
+            health.DeathEvent -= (args) => deathEvent?.Invoke();
+        }
 
-        rage.RageEnterEvent -= enterRageEvent.Invoke;
-        rage.RageExitEvent -= exitRangeEvent.Invoke;
+        if (rage)
+        {
+            rage.RageEnterEvent -= enterRageEvent.Invoke;
+            rage.RageExitEvent -= exitRangeEvent.Invoke;
+        }
     }
 }
