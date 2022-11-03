@@ -58,7 +58,10 @@ public class Rage : MonoBehaviour
     private void Update()
     {
         rageVolume.weight = Mathf.SmoothDamp(rageVolume.weight, raging ? 1.0f : 0.0f, ref rageVel, rageFXSmoothTime);
-        horn.localScale = new Vector3(baseSize, baseSize, Mathf.Lerp(flacidSize, errectSize, rageVolume.weight));
+        if (horn)
+        {
+            horn.localScale = new Vector3(baseSize, baseSize, Mathf.Lerp(flacidSize, errectSize, rageVolume.weight));
+        }
     }
 
     public void AddRage(float amount)
