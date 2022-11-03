@@ -11,8 +11,18 @@ public class SoundProfileEditor : Editor
         SoundProfile profile = target as SoundProfile;
 
         profile.clip = EditorGUILayout.ObjectField("clip", profile.clip, typeof(AudioClip), false) as AudioClip;
+
         EditorGUILayout.MinMaxSlider("Volume", ref profile.volumeRange.x, ref profile.volumeRange.y, 0.0f, 1.0f);
-        EditorGUILayout.MinMaxSlider("Pitch", ref profile.pitchRange.x, ref profile.pitchRange.y, 0.0f, 1.0f);
+        EditorGUILayout.BeginHorizontal();
+        profile.volumeRange.x = EditorGUILayout.FloatField("min", profile.volumeRange.x);
+        profile.volumeRange.y = EditorGUILayout.FloatField("max", profile.volumeRange.y);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.MinMaxSlider("Pitch", ref profile.pitchRange.x, ref profile.pitchRange.y, 0.0f, 2.0f);
+        EditorGUILayout.BeginHorizontal();
+        profile.pitchRange.x = EditorGUILayout.FloatField("min", profile.pitchRange.x);
+        profile.pitchRange.y = EditorGUILayout.FloatField("max", profile.pitchRange.y);
+        EditorGUILayout.EndHorizontal();
 
         if (GUILayout.Button("Play"))
         {

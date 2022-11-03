@@ -28,6 +28,8 @@ public class SoundProfile : ScriptableObject
 
         AudioSource source = new GameObject("Temp Audio Source").AddComponent<AudioSource>();
 
+        source.transform.position = position;
+
         source.clip = clip;
         source.volume = Random.Range(volumeRange.x, volumeRange.y);
         source.pitch = Random.Range(pitchRange.x, pitchRange.y);
