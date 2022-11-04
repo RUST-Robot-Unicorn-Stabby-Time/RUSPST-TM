@@ -25,6 +25,8 @@ public class GameGenerator : ScriptableObject
                 pool.Remove(room);
             }
         }
+
+        gameData.LoadNextLevel();
     }
 }
 
