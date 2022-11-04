@@ -32,12 +32,12 @@ public class CameraController : MonoBehaviour
     {
         playerAnimator = GetComponent<PlayerAnimator>();
 
-        PauseMenu.pauseEvent += OnPause;
+        PlayerController.ReleaseControlEvent += OnPause;
     }
 
     private void OnDestroy()
     {
-        PauseMenu.pauseEvent -= OnPause;
+        PlayerController.ReleaseControlEvent -= OnPause;
     }
 
     private void OnPause(bool isPaused)
@@ -47,6 +47,16 @@ public class CameraController : MonoBehaviour
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+
+        //Load settings and update camera related settings
+        OptionsData.LoadOptions();//temp move to start screen
+        if (vCam && OptionsData.instance != null)
+        {
+            vCam.m_Lens.FieldOfView = OptionsData.instance.fov;
+        }
+
+        mouseSensitivity = OptionsData.instance.sensitivity;
     }
 
     private void OnDisable()
@@ -83,12 +93,7 @@ public class CameraController : MonoBehaviour
             bone.bone.rotation *= Quaternion.Euler(Vector3.up * -angleDiff * bone.weight);
         }
 
-        if (vCam && OptionsData.instance != null)
-        {
-            vCam.m_Lens.FieldOfView = OptionsData.instance.fov;
-        }
 
-        mouseSensitivity = OptionsData.instance.sensitivity;
     }
 
     private void TransformTarget()
