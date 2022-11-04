@@ -2170,7 +2170,6 @@ MonoBehaviour:
   cooldown: 1
   animation: {fileID: 4628135342083806340}
   characterMovement: {fileID: 8982604728899771637}
-  freezeMovement: 0
   impulseForce: {x: 0, y: 0, z: 0}
   attackAnimName: Attack
   attackAnimLayer: 1
@@ -2327,6 +2326,7 @@ MonoBehaviour:
   stunDuration: 1.0666667
   animator: {fileID: 4628135342083806340}
   hitAnimName: Hit
+  hitParameterName: stunned
 --- !u!1 &8982604729565034577
 GameObject:
   m_ObjectHideFlags: 0

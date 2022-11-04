@@ -171,7 +171,7 @@ MonoBehaviour:
   enviromentMask:
     serializedVersion: 2
     m_Bits: 1
-  agroRange: 16
+  agroRange: 50
   minWaitDistance: 7
   maxWaitDistance: 12
   attackDuration: 2.5
@@ -239,7 +239,6 @@ MonoBehaviour:
   cooldown: 2.5
   animation: {fileID: 1238709611342763734}
   characterMovement: {fileID: 1930406527230750633}
-  freezeMovement: 1
   impulseForce: {x: 0, y: 0, z: 0}
   attackAnimName: Attack
   attackAnimLayer: 0
@@ -271,6 +270,7 @@ MonoBehaviour:
   stunDuration: 0.5
   animator: {fileID: 1238709611342763734}
   hitAnimName: Hit
+  hitParameterName: stunned
 --- !u!65 &1938854235926116403
 BoxCollider:
   m_ObjectHideFlags: 0

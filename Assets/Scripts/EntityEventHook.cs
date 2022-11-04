@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EventHook : MonoBehaviour
+public class EntityEventHook : MonoBehaviour
 {
     public UnityEvent dealDamageEvent;
     public UnityEvent hitObjectEvent;
