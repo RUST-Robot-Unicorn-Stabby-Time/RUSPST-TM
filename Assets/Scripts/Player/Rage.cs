@@ -29,6 +29,7 @@ public class Rage : MonoBehaviour
     bool raging;
 
     List<StatModification> statMods;
+    HashSet<HurtBox> hurtBoxes;
 
     public event System.Action RageEnterEvent;
     public event System.Action RageExitEvent;
@@ -48,11 +49,21 @@ public class Rage : MonoBehaviour
     private void OnEnable()
     {
         statboard.RegisterModifications(statMods);
+        
+        hurtBoxes = new HashSet<HurtBox>(GetComponentsInChildren<HurtBox>());
+        foreach (var hurtBox in hurtBoxes)
+        {
+            hurtBox.HitEvent += (g, args) => AddRage();
+        }
     }
 
     private void OnDisable()
     {
         statboard.DeregisterModifications(statMods);
+        foreach (var hurtBox in hurtBoxes)
+        {
+            hurtBox.HitEvent -= (g, args) => AddRage();
+        }
     }
 
     private void Update()
@@ -64,11 +75,11 @@ public class Rage : MonoBehaviour
         }
     }
 
-    public void AddRage(float amount)
+    public void AddRage()
     {
         if (!canGainRageInRage && raging) return;
 
-        ragePercent += amount * rageGain.GetFor(this);
+        ragePercent += rageGain.GetFor(this) / maxRage.GetFor(this);
         ragePercent = Mathf.Clamp01(ragePercent);
     }
 

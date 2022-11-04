@@ -8,8 +8,6 @@ public class EnemyWave : MonoBehaviour
     public int passCount;
     public EnemyWave nextWave;
 
-    HashSet<Health> trackedEnemies;
-
     static int enemiesLeft;
     static event System.Action nextWaveEvent;
 
@@ -21,19 +19,13 @@ public class EnemyWave : MonoBehaviour
     private void OnEnable()
     {
         enemiesLeft = passCount;
-        trackedEnemies = new HashSet<Health>();
-
-        for (int i = 0; i < transform.childCount; i++)
+        EnemyBase.EnemyDiedEvent += EnemyDeathEvent;
+        
+        while(transform.childCount > 0)
         {
-            GameObject enemy = transform.GetChild(i).gameObject;
+            GameObject enemy = transform.GetChild(0).gameObject;
             enemy.SetActive(true);
             enemy.transform.SetParent(null);
-
-            if (enemy.TryGetComponent(out Health health))
-            {
-                health.DeathEvent += OnEnemyDeathEvent;
-                trackedEnemies.Add(health);
-            }
         }
 
         nextWaveEvent += AdvanceWave;
@@ -41,21 +33,19 @@ public class EnemyWave : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach (var enemy in trackedEnemies)
-        {
-            enemy.DeathEvent -= OnEnemyDeathEvent;
-        }
-
         nextWaveEvent -= AdvanceWave;
+        EnemyBase.EnemyDiedEvent -= EnemyDeathEvent;
     }
 
     private void AdvanceWave()
     {
+        if (!nextWave) return;
+
         nextWave.gameObject.SetActive(true);
         Destroy(gameObject);
     }
 
-    public static void OnEnemyDeathEvent (DamageArgs args)
+    public static void EnemyDeathEvent (EnemyBase enemy)
     {
         enemiesLeft--;
 

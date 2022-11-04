@@ -59,7 +59,11 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
     public CharacterMovement Movement { get; private set; }
-    
+
+    public static HashSet<EnemyBase> AliveEnemies { get; } = new HashSet<EnemyBase>();
+    public static event System.Action AllEnemiesDeadEvent;
+    public static event System.Action<EnemyBase> EnemyDiedEvent;
+
     protected virtual void Awake()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
@@ -68,12 +72,21 @@ public abstract class EnemyBase : MonoBehaviour
         path = new NavMeshPath();
     }
 
+    private void OnEnable()
+    {
+        AliveEnemies.Add(this);
+    }
+
     private void OnDisable()
     {
         if (Target)
         {
             Target.DeregisterAttacker(this);
         }
+
+        AliveEnemies.Remove(this);
+        EnemyDiedEvent?.Invoke(this);
+        if (AliveEnemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
 
         Attacking = false;
     }
