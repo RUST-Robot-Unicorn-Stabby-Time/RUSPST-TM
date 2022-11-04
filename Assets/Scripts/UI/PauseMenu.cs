@@ -15,13 +15,16 @@ public class PauseMenu : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if (gameIsPaused == true)
+            if (OptionsMenu.activeSelf == false)
             {
-                Resume();
-            }
-            else
-            {
-                Pause();
+                if (gameIsPaused == true)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
         }
     }
@@ -51,7 +54,7 @@ public class PauseMenu : MonoBehaviour
     //Back To Menu
     public void BackToMenu()
     {
-
+        //scene manager
     }
 
     //Quit

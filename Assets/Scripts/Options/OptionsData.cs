@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class OptionsData
 {
-    public float fov = 90;
+    public float fov = 82;
     public float sensitivity = 0.3f;
 
     public float maxVolume = 1;

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class CameraController : MonoBehaviour
 
     [Space]
     public float smoothTime;
+
+    [Space]
+    public CinemachineVirtualCamera vCam;
 
     PlayerAnimator playerAnimator;
     Vector2 ssRotation;
@@ -78,6 +82,13 @@ public class CameraController : MonoBehaviour
         {
             bone.bone.rotation *= Quaternion.Euler(Vector3.up * -angleDiff * bone.weight);
         }
+
+        if (vCam && OptionsData.instance != null)
+        {
+            vCam.m_Lens.FieldOfView = OptionsData.instance.fov;
+        }
+
+        mouseSensitivity = OptionsData.instance.sensitivity;
     }
 
     private void TransformTarget()
