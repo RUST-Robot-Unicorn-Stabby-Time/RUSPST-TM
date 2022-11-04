@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -26,7 +27,6 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Text masterVolumeText;
     public TMP_Text musicVolumeText;
     public TMP_Text SFXVolume;
-    public TMP_Text resolution;
 
     [Header("Resolution Dropdown")]
     public TMP_Dropdown resolutionDropdown;
@@ -90,7 +90,12 @@ public class OptionsMenu : MonoBehaviour
         //Display Slider
         AudioListener.volume = masterVolume.value;
 
-        //Update here for more volume
+        //Change Setting
+        OptionsData.instance.fov = fovSlider.value;
+        OptionsData.instance.sensitivity = SensetivitySlider.value;
+        OptionsData.instance.maxVolume = masterVolume.value;
+        OptionsData.instance.musicVolume = musicVolume.value;
+        OptionsData.instance.sfxFloat = fxVolume.value;
     }
 
     public void OnDisable()

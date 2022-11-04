@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public static HashSet<PlayerController> AlivePlayers { get; } = new HashSet<PlayerController>();
     public static event System.Action AllPlayersDeadEvent;
 
+    public static event System.Action<bool> ReleaseControlEvent;
+
     public Vector3 MovementDirection
     {
         get
@@ -26,17 +28,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public static void ReleaseControl (bool state)
+    {
+        ReleaseControlEvent?.Invoke(state);
+    }
+
     private void Awake()
     {
         movement = GetComponent<CharacterMovement>();
         hitReact = GetComponent<HitReact>();
 
-        PauseMenu.pauseEvent += OnPause;
+        ReleaseControlEvent += OnPause;
     }
 
     private void OnDestroy()
     {
-        PauseMenu.pauseEvent -= OnPause;
+        ReleaseControlEvent -= OnPause;
     }
 
     private void OnPause(bool isPaused)
