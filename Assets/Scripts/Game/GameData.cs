@@ -30,6 +30,11 @@ public class GameData : ScriptableObject
         }
     }
 
+    private void Awake()
+    {
+        currentLevel = 0;
+    }
+
     public void LoadNextLevel()
     {
         string levelPath;
