@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class EnemySpawner : MonoBehaviour
 
     [Space]
     [SerializeField] GameObject enemyPrefab;
+
+    [Space]
+    [SerializeField] UnityEvent landEvent;
 
     Vector3? rootOffset;
 
@@ -49,6 +53,8 @@ public class EnemySpawner : MonoBehaviour
         rootOffset = null;
         root.transform.position = transform.position;
         animator.Play(landAnimation);
+
+        landEvent?.Invoke();
 
         float time = 0.0f;
         while (time < postDelay)
