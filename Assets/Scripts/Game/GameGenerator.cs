@@ -10,6 +10,8 @@ public class GameGenerator : ScriptableObject
 
     public void GenerateGame () 
     {
+        if (gameData.levelList == null) gameData.levelList = new List<string>();
+
         gameData.levelList.Clear();
 
         foreach (RoomGroup roomGroup in roomGroups)

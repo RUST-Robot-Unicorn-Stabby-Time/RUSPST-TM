@@ -10,6 +10,7 @@ public class HitReact : MonoBehaviour
     public float stunDuration;
     public Animator animator;
     public string hitAnimName;
+    public string hitParameterName;
 
     float lastDamageTime;
 
@@ -32,6 +33,11 @@ public class HitReact : MonoBehaviour
     private void OnDisable()
     {
         health.DamageEvent -= OnDamage;
+    }
+
+    private void Update()
+    {
+        animator.SetBool(hitParameterName, Stunned);
     }
 
     private void OnDamage(DamageArgs obj)

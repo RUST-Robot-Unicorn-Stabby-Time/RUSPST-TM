@@ -7,7 +7,6 @@ public class PlayerWeapon : MonoBehaviour
     public float cooldown = 0f;
     public new Animator animation;
     public CharacterMovement characterMovement;
-    public bool freezeMovement;
     public Vector3 impulseForce;
 
     [Space]
@@ -17,12 +16,14 @@ public class PlayerWeapon : MonoBehaviour
     private float lastClickTime = 0f;
 
     PlayerAnimator playerAnimator;
+    HitReact hitReact;
 
     public event System.Action BeginAttackEvent;
 
     public void Awake()
     {
         playerAnimator = transform.root.GetComponentInChildren<PlayerAnimator>();
+        hitReact = GetComponent<HitReact>();
     }
 
     public void Attack()
@@ -39,7 +40,6 @@ public class PlayerWeapon : MonoBehaviour
 
         lastClickTime = Time.time;
         animation.Play("Attack", attackAnimLayer, 0.0f);
-        if (freezeMovement) characterMovement.PauseMovement = true;
 
         if (TryGetComponent(out Rigidbody rigidbody))
         {
@@ -51,9 +51,18 @@ public class PlayerWeapon : MonoBehaviour
             playerAnimator.DirectionLock = transform.forward;
         }
 
-        yield return new WaitForSeconds(cooldown);
+        float time = 0.0f;
+        while (time < cooldown)
+        {
+            if (hitReact.Stunned)
+            {
+                break;
+            }
+
+            time += Time.deltaTime;
+            yield return null;
+        }
 
         playerAnimator.DirectionLock = null;
-        if (freezeMovement) characterMovement.PauseMovement = false;
     }
 }
