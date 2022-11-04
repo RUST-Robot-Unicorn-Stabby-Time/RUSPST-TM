@@ -12,6 +12,9 @@ public class Health : MonoBehaviour
     private float hitTime;
     [HideInInspector] public float damageTaken;
 
+    [Space]
+    public GameObject deadBody;
+
     public float decaySpeed = 2;
 
     public event System.Action<DamageArgs> DamageEvent;
@@ -80,6 +83,8 @@ public class Health : MonoBehaviour
     public void Die(DamageArgs damageArgs)
     {
         DeathEvent?.Invoke(damageArgs);
+
+        if (deadBody) Instantiate(deadBody, transform.position, transform.rotation);
 
         gameObject.SetActive(false);
     }
