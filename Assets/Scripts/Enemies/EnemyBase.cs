@@ -62,6 +62,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     public static HashSet<EnemyBase> AliveEnemies { get; } = new HashSet<EnemyBase>();
     public static event System.Action AllEnemiesDeadEvent;
+    public static event System.Action<EnemyBase> EnemyDiedEvent;
 
     protected virtual void Awake()
     {
@@ -84,6 +85,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
 
         AliveEnemies.Remove(this);
+        EnemyDiedEvent?.Invoke(this);
         if (AliveEnemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
 
         Attacking = false;
