@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class AurgmentRandom : MonoBehaviour
 {
 	[SerializeField] Transform artifacts;
+	public GameObject AugmentationUI;
 
 	[SerializeField] Image arg1;
 	[SerializeField] Image arg2;
@@ -16,6 +17,8 @@ public class AurgmentRandom : MonoBehaviour
 
     void OnEnable()
 	{
+		Time.timeScale = 0f;
+
 		foreach (Transform artifact in artifacts)
 		{
 			list.Add(artifact.GetComponent<Artifact>());
@@ -63,5 +66,8 @@ public class AurgmentRandom : MonoBehaviour
     {
 		ArtifactSelector.ActiveArtifacts.Add(selectedArtifact[choice]);
 		ArtifactSelector.UpdateArtifacts();
+		AugmentationUI.SetActive(false);
+		PlayerController.ReleaseControl(false);
+		Time.timeScale = 1f;
 	}
 }
