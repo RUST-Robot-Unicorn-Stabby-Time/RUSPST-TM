@@ -24,9 +24,16 @@ public class HurtBox : MonoBehaviour
     {
         hitObjects.Clear();
         hurtObjects.Clear();
+
+        CheckForDamage();
     }
 
     private void FixedUpdate()
+    {
+        CheckForDamage();
+    }
+
+    private void CheckForDamage()
     {
         Collider[] colliders = Physics.OverlapBox(transform.position + transform.rotation * damageBounds.center, damageBounds.extents / 2, transform.rotation, collisionMask);
 
