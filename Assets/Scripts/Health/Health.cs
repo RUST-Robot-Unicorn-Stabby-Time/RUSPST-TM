@@ -13,6 +13,7 @@ public class Health : MonoBehaviour
     [HideInInspector] public float damageTaken;
 
     [Space]
+    public GameObject hitFX;
     public GameObject deadBody;
 
     public float decaySpeed = 2;
@@ -69,6 +70,8 @@ public class Health : MonoBehaviour
 
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
+
+        if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
 
         if (currentHealth > 0)
         {
