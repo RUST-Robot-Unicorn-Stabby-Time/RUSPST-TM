@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,10 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     CharacterMovement movement;
     HitReact hitReact;
-    
+
+    public static HashSet<PlayerController> AlivePlayers { get; } = new HashSet<PlayerController>();
+    public static event System.Action AllPlayersDeadEvent;
+
     public Vector3 MovementDirection
     {
         get
@@ -38,6 +42,17 @@ public class PlayerController : MonoBehaviour
     private void OnPause(bool isPaused)
     {
         enabled = !isPaused;
+    }
+
+    private void OnEnable()
+    {
+        AlivePlayers.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        AlivePlayers.Remove(this);
+        if (AlivePlayers.Count == 0) AllPlayersDeadEvent?.Invoke();
     }
 
     public void OnMove(InputValue value) => moveInput = value.Get<Vector2>();

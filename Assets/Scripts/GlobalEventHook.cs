@@ -6,15 +6,17 @@ using UnityEngine.Events;
 public class GlobalEventHook : MonoBehaviour
 {
     public UnityEvent onAllEnemiesDead;
+    public UnityEvent onAllPlayersDead;
 
     private void OnEnable()
     {
         EnemyBase.AllEnemiesDeadEvent += onAllEnemiesDead.Invoke;
-        EnemyBase.AllEnemiesDeadEvent += () => print("you did it :)");
+        PlayerController.AllPlayersDeadEvent += onAllPlayersDead.Invoke;
     }
 
     private void OnDisable()
     {
         EnemyBase.AllEnemiesDeadEvent -= onAllEnemiesDead.Invoke;
+        PlayerController.AllPlayersDeadEvent -= onAllPlayersDead.Invoke;
     }
 }

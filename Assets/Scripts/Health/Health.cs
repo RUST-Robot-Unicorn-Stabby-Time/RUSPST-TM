@@ -12,6 +12,10 @@ public class Health : MonoBehaviour
     private float hitTime;
     [HideInInspector] public float damageTaken;
 
+    [Space]
+    public GameObject hitFX;
+    public GameObject deadBody;
+
     public float decaySpeed = 2;
 
     public event System.Action<DamageArgs> DamageEvent;
@@ -67,6 +71,8 @@ public class Health : MonoBehaviour
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
+        if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
+
         if (currentHealth > 0)
         {
             hitTime = Time.time;
@@ -80,6 +86,8 @@ public class Health : MonoBehaviour
     public void Die(DamageArgs damageArgs)
     {
         DeathEvent?.Invoke(damageArgs);
+
+        if (deadBody) Instantiate(deadBody, transform.position, transform.rotation);
 
         gameObject.SetActive(false);
     }
