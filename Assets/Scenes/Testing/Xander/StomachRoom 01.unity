@@ -2378,6 +2378,10 @@ PrefabInstance:
       propertyPath: artifacts
       value: 
       objectReference: {fileID: 896868339}
+    - target: {fileID: 8667349055559301637, guid: f6f57ec10ee97fc459acf0afd134cb29, type: 3}
+      propertyPath: AugmentationUI
+      value: 
+      objectReference: {fileID: 740798325}
     - target: {fileID: 8667349055848362038, guid: f6f57ec10ee97fc459acf0afd134cb29, type: 3}
       propertyPath: m_Name
       value: argumentationUI
@@ -16584,6 +16588,11 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &740798325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8667349055848362038, guid: f6f57ec10ee97fc459acf0afd134cb29, type: 3}
+  m_PrefabInstance: {fileID: 104402728}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &740962569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28618,7 +28627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3620726238756828748, guid: 83fd1bcc58c27c54c809edfcf66bda2c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3620726238756828748, guid: 83fd1bcc58c27c54c809edfcf66bda2c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -48323,7 +48332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3620726238756828748, guid: 83fd1bcc58c27c54c809edfcf66bda2c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3620726238756828748, guid: 83fd1bcc58c27c54c809edfcf66bda2c, type: 3}
       propertyPath: m_LocalPosition.x
