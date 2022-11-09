@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1707622744094596554}
   - component: {fileID: 1707622744094596555}
   m_Layer: 0
-  m_Name: Global Event Hook
+  m_Name: Exit_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,6 +238,9 @@ MonoBehaviour:
   triggerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &7490925646147511947
 PrefabInstance:
   m_ObjectHideFlags: 0

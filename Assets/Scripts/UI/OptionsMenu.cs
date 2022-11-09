@@ -37,9 +37,7 @@ public class OptionsMenu : MonoBehaviour
     //Resolution List
     public static readonly Vector2Int[] Resolutions = new Vector2Int[]
     {
-        new Vector2Int (1280, 720),
-        new Vector2Int (1920, 1080),
-        new Vector2Int (2560, 1440),
+        new Vector2Int (1920, 1080)
     };
 
     //Open Options
