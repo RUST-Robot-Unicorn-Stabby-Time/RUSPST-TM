@@ -8,6 +8,7 @@ public class EndScreen : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.ReleaseControl(true);
+        transform.SetParent(null);
     }
 
     private void OnDisable()
