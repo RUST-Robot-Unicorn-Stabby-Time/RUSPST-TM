@@ -15,11 +15,15 @@ public class QuickActions : EditorWindow
         CreateWindow<QuickActions>("Quick Actions");
     }
 
+    Vector2 scrollPos;
+
     private void OnGUI()
     {
         GUIStyle s = new GUIStyle();
         s.richText = true;
         s.normal.textColor = Color.white;
+
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
         EditorGUILayout.LabelField("<b>Scenes</b>", s);
 
@@ -89,6 +93,8 @@ public class QuickActions : EditorWindow
                 System.Diagnostics.Process.Start("https://trello.com/b/oytF4wo5/ruckus-file-registry");
             }
         }
+
+        EditorGUILayout.EndScrollView();
     }
 
     readonly List<string> SignificantPrefabs = new List<string>()
