@@ -28,7 +28,7 @@ public class HurtBox : MonoBehaviour
         CheckForDamage();
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         CheckForDamage();
     }
