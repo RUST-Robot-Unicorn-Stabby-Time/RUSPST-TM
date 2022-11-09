@@ -317,8 +317,8 @@ MonoBehaviour:
   agroRange: 12
   armBone: {fileID: 1717545818598942884}
   rotationOffset: {x: -45, y: 90, z: 0}
-  shootTime: 0.8
-  idleTime: 2
+  shootTime: 0.5
+  idleTime: 5
   weapon: {fileID: 1011767041470926787}
   aimOffset: {x: 0, y: 1, z: 0}
 --- !u!114 &1011767041470926787
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2937961944503402293, guid: 8609b54804ed29140ba831973bf7871d, type: 3}
   muzzle: {fileID: 1495382274513653177}
-  firerate: 300
+  firerate: 350
 --- !u!65 &3445814062195597831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6277,6 +6277,18 @@ PrefabInstance:
     - target: {fileID: 6427192888100147771, guid: 4315d7c97de12314d99d0eed55dbe1cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 87.31705
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938112413698371101, guid: 4315d7c97de12314d99d0eed55dbe1cb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3561
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938112413698371101, guid: 4315d7c97de12314d99d0eed55dbe1cb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3561
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938112413698371101, guid: 4315d7c97de12314d99d0eed55dbe1cb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3561
       objectReference: {fileID: 0}
     - target: {fileID: 6938112413698371101, guid: 4315d7c97de12314d99d0eed55dbe1cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
