@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3125260256410314230
+--- !u!1 &2539333247608167129
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2311744129178795852}
-  - component: {fileID: 1710009535420494057}
-  - component: {fileID: 3485746345075278883}
+  - component: {fileID: 7412370959275666449}
+  - component: {fileID: 4473841190390618567}
+  - component: {fileID: 4089638145903526019}
   m_Layer: 0
-  m_Name: Pipe_Cork
+  m_Name: Pipe_Cross_X3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2311744129178795852
+--- !u!4 &7412370959275666449
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3125260256410314230}
+  m_GameObject: {fileID: 2539333247608167129}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.5149446, y: 5, z: 7.527175}
-  m_LocalScale: {x: 0.001521653, y: 0.0011906627, z: 0.001521653}
+  m_LocalPosition: {x: -922.72345, y: -866.39545, z: 336.96976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 4301357153937708361}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1710009535420494057
+--- !u!33 &4473841190390618567
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3125260256410314230}
-  m_Mesh: {fileID: -5706770521698121814, guid: 54839a20307c80947af8f8d21a2f9dd0, type: 3}
---- !u!23 &3485746345075278883
+  m_GameObject: {fileID: 2539333247608167129}
+  m_Mesh: {fileID: 1102258449326106369, guid: d0a388583e5b671468318d1526a22dec, type: 3}
+--- !u!23 &4089638145903526019
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3125260256410314230}
+  m_GameObject: {fileID: 2539333247608167129}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 54839a20307c80947af8f8d21a2f9dd0, type: 3}
+  - {fileID: 6034957751646507721, guid: d0a388583e5b671468318d1526a22dec, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,3 +81,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3529323637359939571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4301357153937708361}
+  m_Layer: 0
+  m_Name: Pipe_Cross_X3.Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4301357153937708361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3529323637359939571}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.39, y: 11.753481, z: -38.46}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_Children:
+  - {fileID: 7412370959275666449}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
