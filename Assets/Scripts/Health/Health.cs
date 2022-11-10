@@ -83,7 +83,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void Die() => Die(new DamageArgs(null, 0.0f));
+    public void Die() => Die(new DamageArgs(null, 0.0f, false));
     public void Die(DamageArgs damageArgs)
     {
         DeathEvent?.Invoke(damageArgs);
