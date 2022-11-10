@@ -19,6 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     HitReact hitReact;
 
     public event System.Action BeginAttackEvent;
+    public event System.Action FinishAttackEvent;
 
     public void Awake()
     {
@@ -64,5 +65,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         playerAnimator.DirectionLock = null;
+
+        FinishAttackEvent?.Invoke();
     }
 }

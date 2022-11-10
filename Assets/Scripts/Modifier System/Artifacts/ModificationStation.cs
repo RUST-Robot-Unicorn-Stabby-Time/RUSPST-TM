@@ -41,6 +41,6 @@ public class ModificationStation : Artifact
 
     private bool StandingStill()
     {
-        return (movement.rigidbody.velocity - movement.LocalVelocity).magnitude < threshold;
+        return movement.GetComponent<Rigidbody>().velocity.magnitude < threshold;
     }
 }

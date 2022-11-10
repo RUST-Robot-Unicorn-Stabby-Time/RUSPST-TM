@@ -46,7 +46,7 @@ public class Projectile : MonoBehaviour
 
         if (hit.transform.TryGetComponentInParent(out Health health))
         {
-            health.Damage(new DamageArgs(null, damage));
+            health.Damage(new DamageArgs(null, damage, false));
         }
     }
 }

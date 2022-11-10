@@ -57,7 +57,7 @@ public class Health : MonoBehaviour
     }
 
     [ContextMenu("OnDealDamage")]
-    public void OnDealDamage() => OnDealDamage(new DamageArgs(null, 20.0f));
+    public void OnDealDamage() => OnDealDamage(new DamageArgs(null, 20.0f, true));
     public void OnDealDamage(DamageArgs damageArgs)
     {
         currentHealth += (damageTaken * healPercentage) / maxHealth.GetFor(this);
@@ -96,7 +96,7 @@ public class Health : MonoBehaviour
     [ContextMenu("TakeDamage")]
     public void TakeDamageTest()
     {
-        Damage(new DamageArgs(null, 20));
+        Damage(new DamageArgs(null, 20, true));
     }
 
     public void Revive()
@@ -110,9 +110,12 @@ public struct DamageArgs
 {
     public GameObject damager;
     public float damage;
-    public DamageArgs(GameObject damager, float damage)
+    public bool stun;
+
+    public DamageArgs(GameObject damager, float damage, bool stun)
     {
         this.damager = damager;
         this.damage = damage;
+        this.stun = stun;
     }
 }
