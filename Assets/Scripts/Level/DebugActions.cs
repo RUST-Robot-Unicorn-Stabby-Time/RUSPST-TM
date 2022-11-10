@@ -47,6 +47,14 @@ public class DebugActions : MonoBehaviour
                 player.GetComponent<Health>().Damage(new DamageArgs(null, 0, false));
             }
         }
+
+        if (Keyboard.current.numpad6Key.wasPressedThisFrame)
+        {
+            foreach (var enemy in FindObjectsOfType<EnemyBase>())
+            {
+                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0));
+            }
+        }
     }
 
     private void OnGUI()
