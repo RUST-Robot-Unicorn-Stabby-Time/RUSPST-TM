@@ -5,6 +5,8 @@ using UnityEngine;
 public class ExitDoor : MonoBehaviour
 {
     [SerializeField] GameObject[] enableOnExit;
+    [SerializeField] float distance;
+    [SerializeField] GameData data;
 
     private void OnEnable()
     {
@@ -21,6 +23,18 @@ public class ExitDoor : MonoBehaviour
         foreach (var go in enableOnExit)
         {
             go.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        foreach (var player in PlayerController.AlivePlayers)
+        {
+            if ((player.transform.position - transform.position).sqrMagnitude < distance * distance)
+            {
+                data.LoadNextLevel();
+                enabled = false;
+            }
         }
     }
 
