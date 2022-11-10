@@ -49,14 +49,14 @@ public class PlayerAnimator : MonoBehaviour
 
     private void UpdatePlayerModel()
     {
-        Vector3 planarVelocity = movement.LocalVelocity;
+        Vector3 planarVelocity = movement.DrivingRigidbody.velocity;
         planarVelocity -= transform.up * Vector3.Dot(transform.up, planarVelocity);
 
         float speed = planarVelocity.magnitude;
 
         target.SetFloat("speed", speed);
         target.SetBool("falling", !movement.IsGrounded);
-        target.SetFloat("speedMulti", Mathf.Max(movement.moveSpeedStat.GetFor(this), speed));
+        target.SetFloat("speedMulti", Mathf.Max(movement.MoveSpeed.GetFor(this), speed));
 
         if (planarVelocity.sqrMagnitude > 0.01f || DirectionLock.HasValue)
         {

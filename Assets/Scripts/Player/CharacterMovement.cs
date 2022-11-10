@@ -1,197 +1,146 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+[SelectionBase]
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody))]
+public sealed class CharacterMovement : MonoBehaviour
 {
-    public Stat moveSpeedStat;
-    public Stat accelerationStat;
+    [SerializeField] Stat moveSpeed = new Stat("Speed", 10.0f);
+    [SerializeField] Stat groundAcceleration = new Stat("Acceleration", 80.0f);
 
     [Space]
-    public float jumpHeight;
-    public float jumpGravity;
-    public float fallingGravity;
+    [SerializeField] float airMoveForce = 8.0f;
 
     [Space]
-    public float groundCheckOffset;
-    public float groundCheckRadius;
-    public LayerMask groundCheckMask;
+    [SerializeField] float jumpHeight = 3.5f;
+    [SerializeField] float upGravity = 2.0f;
+    [SerializeField] float downGravity = 3.0f;
+    [SerializeField] float jumpSpringPauseTime = 0.1f;
 
     [Space]
-    public float groundMaxSlope;
-    public float groundLookaheadTime;
-    public float groundStickiness;
+    [SerializeField] float springDistance = 1.2f;
+    [SerializeField] float springForce = 250.0f;
+    [SerializeField] float springDamper = 15.0f;
+    [SerializeField] float groundCheckRadius = 0.2f;
+    [SerializeField] LayerMask groundCheckMask = 0b1;
 
-    [Space]
-    public float dashForce;
-    public float dashCounter;
-    public float dashFreeze;
-
-    PlayerAnimator playerAnimator;
-    bool dashing;
-
-    public new Rigidbody rigidbody { get; private set; }
-    public bool IsGrounded { get; private set; }
-    public float JumpForce => Mathf.Sqrt(2.0f * -Physics.gravity.y * jumpGravity * jumpHeight);
-    public Vector3 LocalVelocity { get; private set; }
-
-    public Vector3 MovementDirection { get; set; }
-    public bool Jump { get; set; }
-
-    public bool PauseMovement { get; set; }
+    bool previousJumpState;
+    float lastJumpTime;
 
     public event System.Action JumpEvent;
 
+    public Stat MoveSpeed => moveSpeed;
+    public Rigidbody DrivingRigidbody { get; private set; }
+
+    public Vector3 MoveDirection { get; set; }
+    public bool JumpState { get; set; }
+    public float DistanceToGround { get; private set; }
+    public bool IsGrounded => DistanceToGround < springDistance;
+
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        playerAnimator = GetComponent<PlayerAnimator>();
-    }
-
-    private void JumpCharacter()
-    {
-        if (Jump)
-        {
-            if (IsGrounded)
-            {
-                rigidbody.velocity = new Vector3(rigidbody.velocity.x, JumpForce, rigidbody.velocity.z);
-                JumpEvent?.Invoke();
-            }
-        }
+        DrivingRigidbody = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        if (dashing) return;
-             
-        IsGrounded = GetIsGrounded();
+        DistanceToGround = GetDistanceToGround();
 
         MoveCharacter();
-        JumpCharacter();
 
-        if (IsGrounded && rigidbody.velocity.y < JumpForce * 0.5f)
+        if (JumpState && !previousJumpState)
         {
-            StickToGround();
+            Jump();
         }
-        else
-        {
-            float gravityScale = fallingGravity;
-            if (rigidbody.velocity.y > 0.0f) gravityScale = jumpGravity;
+        previousJumpState = JumpState;
 
-            rigidbody.velocity += Physics.gravity * gravityScale * Time.deltaTime;
-        }
-        rigidbody.useGravity = false;
+        ApplySpring();
+        ApplyGravity();
     }
 
-    private void StickToGround()
+    private void ApplySpring()
     {
-        Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down + MovementDirection * groundLookaheadTime);
-        Vector3 direction = Vector3.down;
-
-        if (Physics.Raycast(ray, out RaycastHit hit, groundCheckRadius))
+        if (IsGrounded && Time.time > lastJumpTime + jumpSpringPauseTime)
         {
-            float angle = Mathf.Acos(Vector3.Dot(hit.normal, Vector3.up)) * Mathf.Rad2Deg;
-            if (angle < groundMaxSlope)
-            {
-                direction = -hit.normal;
-                Debug.DrawLine(ray.origin, ray.GetPoint(hit.distance), Color.green);
-            }
-            else
-            {
-                Debug.DrawLine(ray.origin, ray.GetPoint(hit.distance), Color.yellow);
-            }
+            float contraction = 1.0f - (DistanceToGround / springDistance);
+            DrivingRigidbody.velocity += Vector3.up * contraction * springForce * Time.deltaTime;
+            DrivingRigidbody.velocity -= Vector3.up * DrivingRigidbody.velocity.y * springDamper * Time.deltaTime;
         }
-        else
-        {
-            Debug.DrawLine(ray.origin, ray.GetPoint(10.0f), Color.red);
-        }
-
-         rigidbody.velocity += direction * groundStickiness * Time.deltaTime;
     }
 
-    private bool GetIsGrounded()
+    private void ApplyGravity()
     {
-        Collider[] queryList = new Collider[2];
-        Physics.OverlapSphereNonAlloc(transform.position + Vector3.up * groundCheckOffset, groundCheckRadius, queryList, groundCheckMask);
-        foreach (var query in queryList)
-        {
-            if (query)
-            {
-                if (query.transform.root != transform.root)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = GetIsGrounded() ? Color.green : Color.red;
-        Gizmos.DrawSphere(transform.position + Vector3.up * groundCheckOffset, groundCheckRadius);
-        Gizmos.color = Color.white;
+        DrivingRigidbody.useGravity = false;
+        DrivingRigidbody.velocity += GetGravity() * Time.deltaTime;
     }
 
     private void MoveCharacter()
     {
-        Vector3 referenceFrame = GetGroundVelocity();
-
-        float moveSpeed = moveSpeedStat.GetFor(this);
-        float acceleration = accelerationStat.GetFor(this);
-
-        Vector3 target = MovementDirection * moveSpeed + referenceFrame;
-        
-        if (PauseMovement)
+        if (IsGrounded)
         {
-            target = Vector3.zero;
+            float moveSpeed = this.moveSpeed.GetFor(this);
+            Vector3 target = MoveDirection * moveSpeed;
+            Vector3 current = DrivingRigidbody.velocity;
+
+            Vector3 delta = Vector3.ClampMagnitude(target - current, moveSpeed);
+            delta.y = 0.0f;
+
+            Vector3 force = delta / moveSpeed * groundAcceleration.GetFor(this);
+
+            DrivingRigidbody.velocity += force * Time.deltaTime;
+        }
+        else
+        {
+            DrivingRigidbody.velocity += MoveDirection * airMoveForce * Time.deltaTime;
+        }
+    }
+
+    private void Jump()
+    {
+        if (IsGrounded)
+        {
+            float gravity = Vector3.Dot(Vector3.down, GetGravity());
+            float jumpForce = Mathf.Sqrt(2.0f * gravity * jumpHeight);
+            DrivingRigidbody.velocity = new Vector3(DrivingRigidbody.velocity.x, jumpForce, DrivingRigidbody.velocity.z);
+
+            lastJumpTime = Time.time;
+
+            JumpEvent?.Invoke();
+        }
+    }
+
+    private Vector3 GetGravity()
+    {
+        float scale = upGravity;
+        if (!JumpState)
+        {
+            scale = downGravity;
+        }
+        else if (DrivingRigidbody.velocity.y < 0.0f)
+        {
+            scale = downGravity;
         }
 
-        Vector3 current = rigidbody.velocity;
-
-        Vector3 difference = target - current;
-        difference.y = 0.0f;
-
-        Vector3 force = Vector3.ClampMagnitude(difference, moveSpeed) * acceleration;
-        rigidbody.velocity += force * Time.deltaTime;
-
-        LocalVelocity = rigidbody.velocity - referenceFrame;
+        return Physics.gravity * scale;
     }
 
-    private Vector3 GetGroundVelocity()
+    public float GetDistanceToGround()
     {
-        Ray ray = new Ray(transform.position + Vector3.up * groundCheckOffset, Vector3.down);
-        if (Physics.Raycast(ray, out RaycastHit hit, groundCheckRadius))
+        if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * groundCheckRadius, groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
         {
-            if (hit.rigidbody)
-            {
-                return hit.rigidbody.velocity;
-            }
+            return hit.distance;
         }
-
-        return Vector3.zero;
+        else return float.PositiveInfinity;
     }
 
-    public void Dash ()
+    private void OnDrawGizmosSelected()
     {
-        StartCoroutine(DashRoutine());
-    }
+        if (!DrivingRigidbody) DrivingRigidbody = GetComponent<Rigidbody>();
+        float dist = GetDistanceToGround();
+        Gizmos.color = dist < springDistance ? Color.green : Color.red;
 
-    private IEnumerator DashRoutine()
-    {
-        if (dashing) yield break;
-        if (playerAnimator ? !playerAnimator.DirectionLock.HasValue : true) yield break;
+        Gizmos.DrawRay(transform.position, Vector3.down * dist);
 
-        dashing = true;
-
-        Vector3 direction = MovementDirection;
-        rigidbody.velocity = direction * dashForce;
-
-        yield return new WaitForSeconds(dashFreeze);
-
-        rigidbody.velocity -= direction * dashCounter;
-
-        dashing = false;
+        Gizmos.color = Color.white;
     }
 }

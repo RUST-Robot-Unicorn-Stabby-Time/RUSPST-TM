@@ -124,6 +124,18 @@ public class Stat
     public string key;
     public float baseValue;
 
+    public Stat ()
+    {
+        key = string.Empty;
+        baseValue = 0.0f;
+    }
+
+    public Stat (string key, float baseValue)
+    {
+        this.key = key;
+        this.baseValue = baseValue;
+    }
+
     public float GetFor (MonoBehaviour ctx)
     {
         Statboard board = ctx.GetComponentInParent<Statboard>();
