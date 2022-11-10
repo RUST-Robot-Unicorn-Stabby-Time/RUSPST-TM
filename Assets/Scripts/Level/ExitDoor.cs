@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ExitDoor : MonoBehaviour
 {
     [SerializeField] GameObject[] enableOnExit;
     [SerializeField] float distance;
-    [SerializeField] GameData data;
-    [SerializeField] GameGenerator generator;
+    public FinishAction action;
+    [HideInInspector] public GameData data;
+    [HideInInspector] public GameGenerator generator;
+    [HideInInspector] public UnityEvent finishEvent;
 
     private void OnEnable()
     {
@@ -33,8 +36,20 @@ public class ExitDoor : MonoBehaviour
         {
             if ((player.transform.position - transform.position).sqrMagnitude < distance * distance)
             {
-                if (generator) generator.GenerateGame();
-                else data.LoadNextLevel();
+                switch (action)
+                {
+                    case FinishAction.NextRoom:
+                        data.LoadNextLevel();
+                        break;
+                    case FinishAction.GenerateGame:
+                        generator.GenerateGame();
+                        break;
+                    case FinishAction.Custom:
+                    default:
+                        finishEvent?.Invoke();
+                        break;
+                }
+
                 enabled = false;
             }
         }
@@ -46,5 +61,12 @@ public class ExitDoor : MonoBehaviour
         {
             go.SetActive(true);
         }
+    }
+
+    public enum FinishAction
+    {
+        NextRoom,
+        GenerateGame,
+        Custom
     }
 }
