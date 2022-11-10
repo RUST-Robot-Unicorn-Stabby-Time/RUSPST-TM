@@ -55,10 +55,7 @@ public class PlayerWeapon : MonoBehaviour
         float time = 0.0f;
         while (time < cooldown)
         {
-            if (hitReact.Stunned)
-            {
-                break;
-            }
+
 
             time += Time.deltaTime;
             yield return null;
