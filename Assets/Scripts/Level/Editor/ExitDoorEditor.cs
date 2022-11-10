@@ -14,10 +14,11 @@ public class ExitDoorEditor : Editor
         switch (door.action)
         {
             case ExitDoor.FinishAction.NextRoom:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("data"));
+                door.data = EditorGUILayout.ObjectField(door.data , typeof(GameData), false) as GameData;
                 break;
             case ExitDoor.FinishAction.GenerateGame:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("generator"));
+
+                door.generator = EditorGUILayout.ObjectField(door.generator, typeof(GameGenerator), false) as GameGenerator;
                 break;
             case ExitDoor.FinishAction.Custom:
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("finishEvent"));
