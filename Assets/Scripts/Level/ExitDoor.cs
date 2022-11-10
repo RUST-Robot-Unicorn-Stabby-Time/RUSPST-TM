@@ -7,6 +7,7 @@ public class ExitDoor : MonoBehaviour
     [SerializeField] GameObject[] enableOnExit;
     [SerializeField] float distance;
     [SerializeField] GameData data;
+    [SerializeField] GameGenerator generator;
 
     private void OnEnable()
     {
@@ -32,7 +33,8 @@ public class ExitDoor : MonoBehaviour
         {
             if ((player.transform.position - transform.position).sqrMagnitude < distance * distance)
             {
-                data.LoadNextLevel();
+                if (generator) generator.GenerateGame();
+                else data.LoadNextLevel();
                 enabled = false;
             }
         }
