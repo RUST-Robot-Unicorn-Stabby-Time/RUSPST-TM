@@ -99,7 +99,7 @@ public class QuickActions : EditorWindow
 
     readonly List<string> SignificantPrefabs = new List<string>()
     {
-        "Assets/Prefabs/DR Ruckus/RUCKUS Prefab.prefab",
+        "Assets/Prefabs/Player/RUCKUS Prefab.prefab",
         "Assets/Prefabs/Enemies/Medium Enemy.prefab",
     };
 }

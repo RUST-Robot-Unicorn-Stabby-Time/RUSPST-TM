@@ -10,13 +10,13 @@ public class GlobalEventHook : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyBase.AllEnemiesDeadEvent += onAllEnemiesDead.Invoke;
+        EnemyActions.AllEnemiesDeadEvent += onAllEnemiesDead.Invoke;
         PlayerController.AllPlayersDeadEvent += onAllPlayersDead.Invoke;
     }
 
     private void OnDisable()
     {
-        EnemyBase.AllEnemiesDeadEvent -= onAllEnemiesDead.Invoke;
+        EnemyActions.AllEnemiesDeadEvent -= onAllEnemiesDead.Invoke;
         PlayerController.AllPlayersDeadEvent -= onAllPlayersDead.Invoke;
     }
 }

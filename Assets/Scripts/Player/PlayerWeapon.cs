@@ -19,6 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     HitReact hitReact;
 
     public event System.Action BeginAttackEvent;
+    public event System.Action FinishAttackEvent;
 
     public void Awake()
     {
@@ -39,7 +40,7 @@ public class PlayerWeapon : MonoBehaviour
         BeginAttackEvent?.Invoke();
 
         lastClickTime = Time.time;
-        animation.Play("Attack", attackAnimLayer, 0.0f);
+        animation.Play(attackAnimName, attackAnimLayer, 0.0f);
 
         if (TryGetComponent(out Rigidbody rigidbody))
         {
@@ -54,15 +55,14 @@ public class PlayerWeapon : MonoBehaviour
         float time = 0.0f;
         while (time < cooldown)
         {
-            if (hitReact.Stunned)
-            {
-                break;
-            }
+
 
             time += Time.deltaTime;
             yield return null;
         }
 
         playerAnimator.DirectionLock = null;
+
+        FinishAttackEvent?.Invoke();
     }
 }

@@ -17,7 +17,7 @@ public class DebugActions : MonoBehaviour
 
         if (Keyboard.current.numpad8Key.wasPressedThisFrame)
         {
-            foreach (var enemy in FindObjectsOfType<EnemyBase>(true))
+            foreach (var enemy in FindObjectsOfType<EnemyActions>(true))
             {
                 enemy.GetComponent<Health>().Revive();
             }
@@ -44,15 +44,15 @@ public class DebugActions : MonoBehaviour
         {
             foreach (var player in FindObjectsOfType<PlayerController>(true))
             {
-                player.GetComponent<Health>().Damage(new DamageArgs(null, 0));
+                player.GetComponent<Health>().Damage(new DamageArgs(null, 0, false));
             }
         }
 
         if (Keyboard.current.numpad6Key.wasPressedThisFrame)
         {
-            foreach (var enemy in FindObjectsOfType<EnemyBase>())
+            foreach (var enemy in FindObjectsOfType<EnemyActions>())
             {
-                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0));
+                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0, false));
             }
         }
     }

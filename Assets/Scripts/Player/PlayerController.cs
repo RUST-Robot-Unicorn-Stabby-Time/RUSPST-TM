@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Transform inputTransform;
 
     [Space]
-    public PlayerWeapon weapon;
+    public PlayerWeapon[] weapons;
 
     Vector2 moveInput;
     CharacterMovement movement;
@@ -63,23 +63,32 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMove(InputValue value) => moveInput = value.Get<Vector2>();
-    public void OnJump(InputValue value) => SetStateOnComponent<CharacterMovement>((c, s) => c.Jump = s, value);
-    public void OnLightAttack() => weapon.Attack();
-    public void OnHeavyAttack() { }
+    public void OnJump(InputValue value) => SetStateOnComponent<CharacterMovement>((c, s) => c.JumpState = s, value);
+    public void OnLightAttack()
+    {
+        if (weapons.Length >= 1)
+            weapons[0].Attack();
+    }
+
+    public void OnHeavyAttack()
+    {
+        if (weapons.Length >= 2)
+            weapons[1].Attack();
+    }
+
     public void OnRage() => CallMethodOnComponent<Rage>(r => r.UseRage());
     public void OnLock() => CallMethodOnComponent<LockOnController>(r => r.ToggleTarget());
     public void OnSwitchLock(InputValue value) => SetAxisOnComponent<LockOnController>((r, v) => r.SwitchTarget(Util.Sign(v)), value);
-    public void OnDash(InputValue value) => CallMethodOnComponent<CharacterMovement>(c => c.Dash());
-
+    
     private void Update()
     {
         if (hitReact ? !hitReact.Stunned : true)
         {
-            movement.MovementDirection = MovementDirection;
+            movement.MoveDirection = MovementDirection;
         }
         else
         {
-            movement.MovementDirection = Vector3.zero;
+            movement.MoveDirection = Vector3.zero;
         }
     }
 
