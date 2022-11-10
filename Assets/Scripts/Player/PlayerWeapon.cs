@@ -40,7 +40,7 @@ public class PlayerWeapon : MonoBehaviour
         BeginAttackEvent?.Invoke();
 
         lastClickTime = Time.time;
-        animation.Play("Attack", attackAnimLayer, 0.0f);
+        animation.Play(attackAnimName, attackAnimLayer, 0.0f);
 
         if (TryGetComponent(out Rigidbody rigidbody))
         {
