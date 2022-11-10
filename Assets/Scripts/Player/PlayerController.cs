@@ -66,13 +66,13 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputValue value) => SetStateOnComponent<CharacterMovement>((c, s) => c.JumpState = s, value);
     public void OnLightAttack()
     {
-        if (weapons.Length > 1)
+        if (weapons.Length >= 1)
             weapons[0].Attack();
     }
 
     public void OnHeavyAttack()
     {
-        if (weapons.Length > 2)
+        if (weapons.Length >= 2)
             weapons[1].Attack();
     }
 
