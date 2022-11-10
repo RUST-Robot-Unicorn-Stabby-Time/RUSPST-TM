@@ -62,7 +62,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             if (time > shakeDelay && !shooketh)
             {
-                shakeSource.GenerateImpulse();
+                if (shakeSource) shakeSource.GenerateImpulse();
                 shooketh = true;
             }
 
