@@ -30,7 +30,7 @@ public class GameData : ScriptableObject
         }
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         currentLevel = 0;
     }
