@@ -14,6 +14,7 @@ public class ConveyorBuilder : MonoBehaviour
     [SerializeField] float shrink;
     [SerializeField] float uvOffset = 0.9142822f;
     [SerializeField] int repeatX;
+    [SerializeField] bool reverse;
 
     private void OnValidate()
     {
@@ -94,7 +95,9 @@ public class ConveyorBuilder : MonoBehaviour
 
                 foreach (var uv in segment.uv)
                 {
-                    uvs.Add(uv + Vector2.right * uvOffset * j);
+                    Vector2 val = uv + Vector2.right * uvOffset * j;
+                    if (reverse) val.x = 1.0f - val.x;
+                    uvs.Add(val);
                 }
             }
         }
