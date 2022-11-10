@@ -50,9 +50,9 @@ public class DebugActions : MonoBehaviour
 
         if (Keyboard.current.numpad6Key.wasPressedThisFrame)
         {
-            foreach (var enemy in FindObjectsOfType<EnemyBase>())
+            foreach (var enemy in FindObjectsOfType<EnemyActions>())
             {
-                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0));
+                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0, false));
             }
         }
     }
