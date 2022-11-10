@@ -13,6 +13,10 @@ public class PlayerWeapon : MonoBehaviour
     public string attackAnimName;
     public int attackAnimLayer;
 
+    [Space]
+    [SerializeField] Cinemachine.CinemachineCollisionImpulseSource shakeSource;
+    [SerializeField] float shakeDelay;
+
     private float lastClickTime = 0f;
 
     PlayerAnimator playerAnimator;
@@ -52,10 +56,15 @@ public class PlayerWeapon : MonoBehaviour
             playerAnimator.DirectionLock = transform.forward;
         }
 
+        bool shooketh = false;
         float time = 0.0f;
         while (time < cooldown)
         {
-
+            if (time > shakeDelay && !shooketh)
+            {
+                if (shakeSource) shakeSource.GenerateImpulse();
+                shooketh = true;
+            }
 
             time += Time.deltaTime;
             yield return null;

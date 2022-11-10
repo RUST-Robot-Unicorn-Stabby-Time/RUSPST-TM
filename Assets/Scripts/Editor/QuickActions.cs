@@ -38,7 +38,10 @@ public class QuickActions : EditorWindow
 
                 if (GUILayout.Button(content, GUILayout.MaxHeight(30.0f)))
                 {
-                    EditorSceneManager.OpenScene(relPath);
+                    if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                    {
+                        EditorSceneManager.OpenScene(relPath);
+                    }
                 }
             }
         }
