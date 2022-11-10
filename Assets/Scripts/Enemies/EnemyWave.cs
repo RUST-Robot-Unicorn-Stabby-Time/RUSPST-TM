@@ -19,7 +19,7 @@ public class EnemyWave : MonoBehaviour
     private void OnEnable()
     {
         enemiesLeft = passCount;
-        EnemyBase.EnemyDiedEvent += EnemyDeathEvent;
+        EnemyActions.EnemyDiedEvent += EnemyDeathEvent;
         
         while(transform.childCount > 0)
         {
@@ -34,7 +34,7 @@ public class EnemyWave : MonoBehaviour
     private void OnDisable()
     {
         nextWaveEvent -= AdvanceWave;
-        EnemyBase.EnemyDiedEvent -= EnemyDeathEvent;
+        EnemyActions.EnemyDiedEvent -= EnemyDeathEvent;
     }
 
     private void AdvanceWave()
@@ -45,7 +45,7 @@ public class EnemyWave : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public static void EnemyDeathEvent (EnemyBase enemy)
+    public static void EnemyDeathEvent (EnemyActions enemy)
     {
         enemiesLeft--;
 

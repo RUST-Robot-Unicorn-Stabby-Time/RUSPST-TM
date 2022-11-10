@@ -48,7 +48,7 @@ public class HurtBox : MonoBehaviour
                 if (hurtObjects.Contains(health)) continue;
                 hurtObjects.Add(health);
 
-                DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this));
+                DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this), true);
                 health.Damage(args);
                 HitEvent?.Invoke(collider.gameObject, args);
             }

@@ -19,6 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     HitReact hitReact;
 
     public event System.Action BeginAttackEvent;
+    public event System.Action FinishAttackEvent;
 
     public void Awake()
     {
@@ -54,15 +55,14 @@ public class PlayerWeapon : MonoBehaviour
         float time = 0.0f;
         while (time < cooldown)
         {
-            if (hitReact.Stunned)
-            {
-                break;
-            }
+
 
             time += Time.deltaTime;
             yield return null;
         }
 
         playerAnimator.DirectionLock = null;
+
+        FinishAttackEvent?.Invoke();
     }
 }
