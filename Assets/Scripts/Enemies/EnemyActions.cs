@@ -16,7 +16,7 @@ public class EnemyActions : MonoBehaviour
 
     public static event System.Action<EnemyActions> EnemyDiedEvent;
     public static event System.Action AllEnemiesDeadEvent;
-    public static HashSet<EnemyActions> Enemies;
+    public static HashSet<EnemyActions> Enemies = new HashSet<EnemyActions>();
 
     public Vector3 FaceDirection { get; set; }
     public static int EnemiesAttacking { get; set; }

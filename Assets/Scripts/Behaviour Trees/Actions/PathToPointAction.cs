@@ -23,6 +23,7 @@ public class PathToPointAction : BehaviourBase
 
         if ((lastQueriedPoint - point).sqrMagnitude > goodEnoughDistance * goodEnoughDistance || path == null)
         {
+            if (path == null) path = new NavMeshPath();
             NavMesh.CalculatePath(Actions.transform.position - Vector3.up, point, 0, path);
             corner = 0;
             lastQueriedPoint = point;
