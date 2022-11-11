@@ -7,6 +7,9 @@ public class EnemyActions : MonoBehaviour
     [SerializeField] float facingSmoothTime;
     [SerializeField] PlayerWeapon[] attacks;
 
+    [Space]
+    [SerializeField] Vector3 rootRotationOffset;
+
     CharacterMovement movement;
 
     float angle;
@@ -89,6 +92,6 @@ public class EnemyActions : MonoBehaviour
         float targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
-        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle);
+        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
     }
 }
