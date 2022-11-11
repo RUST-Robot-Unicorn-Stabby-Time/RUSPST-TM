@@ -109,12 +109,51 @@ public class ConveyorBuilder : MonoBehaviour
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
         mesh.RecalculateBounds();
-        filter.mesh = mesh;
+
+        if (filter.mesh)
+        {
+            if (Application.isPlaying)
+            {
+                Destroy(filter.mesh);
+            }
+            else
+            {
+                DestroyImmediate(filter.mesh);
+            }
+        }
+
+        if (Application.isPlaying)
+        {
+            filter.mesh = mesh;
+        }
+        else
+        {
+            filter.sharedMesh = mesh;
+        }
 
         if (TryGetComponent(out BoxCollider collider))
         {
             collider.center = mesh.bounds.center;
             collider.size = mesh.bounds.size;
+        }
+    }
+
+    [ContextMenu("Clear All Procedual Meshes")]
+    public void ClearAllProcedualMeshes ()
+    {
+        foreach (var mesh in FindObjectsOfType<Mesh>())
+        {
+            if (string.IsNullOrEmpty(mesh.name))
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(mesh);
+                }
+                else
+                {
+                    DestroyImmediate(mesh);
+                }
+            }
         }
     }
 }
