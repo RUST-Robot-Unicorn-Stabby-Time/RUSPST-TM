@@ -24,6 +24,7 @@ public static class EQS
         }
 
         List<EQSResult> results = new List<EQSResult>();
+        float max = 0.0f;
 
         Vector3 corner = position - new Vector3(searchRadius, 0.0f, searchRadius);
         for (int x = 0; x < searchRadius / gridSize.x * 2.0f + 1.0f; x++)
@@ -42,11 +43,17 @@ public static class EQS
                         result.point = hit.point;
 
                         CalculateScore(ref result, agentSettings, position);
+                        max = Mathf.Max(max, result.score);
 
                         results.Add(result);
                     }
                 }
             }
+        }
+
+        foreach (var result in results)
+        {
+            result.score /= max;
         }
 
         cachedResults.Add(cacheKey, results);
@@ -61,8 +68,9 @@ public static class EQS
 
         #region Line of Sight
         bool hasLOS = false;
-        Ray ray = new Ray(result.point + agentSettings.LOSOffset, position - (result.point + agentSettings.LOSOffset));
-        if (Physics.Raycast(ray, out var hit))
+        Vector3 direction = position - (result.point + agentSettings.LOSOffset);
+        Ray ray = new Ray(result.point + agentSettings.LOSOffset + direction * agentSettings.LOSDeadRadius, direction);
+        if (Physics.Raycast(ray, out var hit, 100.0f, agentSettings.LOSMask))
         {
             if ((position - hit.point).sqrMagnitude < agentSettings.LOSPassDistance * agentSettings.LOSPassDistance)
             {
@@ -99,6 +107,8 @@ public class EQSAgentSettings
     public float LOSPassMulti = 1.0f;
     public float LOSFailMulti = 0.2f;
     public float LOSPassDistance = 1.0f;
+    public float LOSDeadRadius = 1.2f;
+    public LayerMask LOSMask = 1;
 
     [Space]
     [Header("DEADZONE SETTINGS")]
@@ -115,7 +125,7 @@ public class EQSAgentSettings
     public float scoreMaxThreshold = 0.1f;
 }
 
-public struct EQSResult
+public class EQSResult
 {
     public Vector3 point;
     public float score;

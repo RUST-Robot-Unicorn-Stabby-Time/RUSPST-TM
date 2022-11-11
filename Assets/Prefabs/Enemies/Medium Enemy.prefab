@@ -601,6 +601,7 @@ MonoBehaviour:
   animation: {fileID: 1238709611342763734}
   characterMovement: {fileID: 1930406527230750633}
   impulseForce: {x: 0, y: 0, z: 0}
+  freezeMovement: 1
   attackAnimName: Attack
   attackAnimLayer: 0
   shakeSource: {fileID: 0}
@@ -5759,9 +5760,13 @@ MonoBehaviour:
     LOSPassMulti: 1
     LOSFailMulti: 0.2
     LOSPassDistance: 1
-    deadzoneRadius: 4
+    LOSDeadRadius: 1.2
+    LOSMask:
+      serializedVersion: 2
+      m_Bits: 1
+    deadzoneRadius: 2
     deadzoneMulti: 0.2
-    dfRadius: 12
+    dfRadius: 3
     dfStrength: 0.1
     scoreMaxThreshold: 0.1
   threshold: 0.9
@@ -5822,7 +5827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointKey: Target
-  compareDistance: 0
+  compareDistance: 5
   direction: 1
 --- !u!1 &3616069848971190901
 GameObject:
@@ -6058,9 +6063,13 @@ MonoBehaviour:
     LOSPassMulti: 1
     LOSFailMulti: 0.2
     LOSPassDistance: 1
-    deadzoneRadius: 4
+    LOSDeadRadius: 1.2
+    LOSMask:
+      serializedVersion: 2
+      m_Bits: 1
+    deadzoneRadius: 2
     deadzoneMulti: 0.2
-    dfRadius: 12
+    dfRadius: 3
     dfStrength: 0.1
     scoreMaxThreshold: 0.1
   threshold: 0.9
@@ -6530,7 +6539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointKey: EQS
-  goodEnoughDistance: 2
+  goodEnoughDistance: 1
 --- !u!1 &8502738087540701919
 GameObject:
   m_ObjectHideFlags: 0
@@ -6621,7 +6630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointKey: EQS
-  goodEnoughDistance: 2
+  goodEnoughDistance: 1
 --- !u!1 &8641929264483320925
 GameObject:
   m_ObjectHideFlags: 0
