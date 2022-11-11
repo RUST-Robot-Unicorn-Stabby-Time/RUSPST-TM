@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -29,8 +31,10 @@ public class ConveyorBuilder : MonoBehaviour
     public void Bake()
     {
         if (!middle || !end) return;
+        if (Application.isPlaying) return;
 
         MeshFilter filter = GetComponent<MeshFilter>();
+
 
         Quaternion r = Quaternion.Euler(rotation);
         float smin = float.MaxValue;
@@ -108,28 +112,8 @@ public class ConveyorBuilder : MonoBehaviour
         mesh.triangles = tris.ToArray();
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
-        mesh.RecalculateBounds();
 
-        if (filter.mesh)
-        {
-            if (Application.isPlaying)
-            {
-                Destroy(filter.mesh);
-            }
-            else
-            {
-                DestroyImmediate(filter.mesh);
-            }
-        }
-
-        if (Application.isPlaying)
-        {
-            filter.mesh = mesh;
-        }
-        else
-        {
-            filter.sharedMesh = mesh;
-        }
+        filter.sharedMesh = mesh;
 
         if (TryGetComponent(out BoxCollider collider))
         {
@@ -141,19 +125,29 @@ public class ConveyorBuilder : MonoBehaviour
     [ContextMenu("Clear All Procedual Meshes")]
     public void ClearAllProcedualMeshes ()
     {
-        foreach (var mesh in FindObjectsOfType<Mesh>())
+        List<Mesh> phantomMeshes = new List<Mesh>();
+
+        foreach (var mesh in Resources.FindObjectsOfTypeAll<Mesh>())
         {
             if (string.IsNullOrEmpty(mesh.name))
             {
-                if (Application.isPlaying)
-                {
-                    Destroy(mesh);
-                }
-                else
-                {
-                    DestroyImmediate(mesh);
-                }
+                phantomMeshes.Add(mesh);
             }
+        }
+
+        print(phantomMeshes.Count);
+        foreach (var mesh in phantomMeshes)
+        {
+            DestroyImmediate(mesh);
+        }
+    }
+
+    [UnityEditor.MenuItem("Tools/Bake All Conveyors")]
+    public static void Uhhh ()
+    {
+        foreach (var conveyor in FindObjectsOfType<ConveyorBuilder>())
+        {
+            conveyor.Bake();
         }
     }
 }

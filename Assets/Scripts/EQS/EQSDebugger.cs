@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class EQSDebugger : MonoBehaviour
 {
-    [SerializeField] float range;
-    [SerializeField] float height;
+    public float range;
+    public float height;
 
     [Space]
-    [SerializeField] EQSAgentSettings agentSettings;
+    public EQSAgentSettings agentSettings;
 
     [Space]
     [SerializeField] bool drawVisuals;

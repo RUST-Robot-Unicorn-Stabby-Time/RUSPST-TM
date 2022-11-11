@@ -20,6 +20,8 @@ public class EnemyActions : MonoBehaviour
     public static event System.Action AllEnemiesDeadEvent;
     public static HashSet<EnemyActions> Enemies = new HashSet<EnemyActions>();
 
+    HashSet<PlayerWeapon> weapons;
+
     public Vector3 FaceDirection { get; set; }
     public static int EnemiesAttacking { get; set; }
 
@@ -34,6 +36,7 @@ public class EnemyActions : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<CharacterMovement>();
+        weapons = new HashSet<PlayerWeapon>(GetComponentsInChildren<PlayerWeapon>());
     }
 
     private void OnEnable()
@@ -89,9 +92,15 @@ public class EnemyActions : MonoBehaviour
 
     private void LateUpdate()
     {
+        foreach (var weapon in weapons)
+        {
+            if (weapon.Attacking && weapon.FreezeMovement) return;
+        }
+
         float targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
+        transform.rotation = Quaternion.Euler(Vector3.up * angle);
         facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
     }
 }
