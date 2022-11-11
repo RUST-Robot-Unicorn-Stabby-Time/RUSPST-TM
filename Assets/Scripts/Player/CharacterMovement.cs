@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [SelectionBase]
@@ -24,6 +25,8 @@ public sealed class CharacterMovement : MonoBehaviour
     [SerializeField] float groundCheckRadius = 0.2f;
     [SerializeField] LayerMask groundCheckMask = 0b1;
 
+    HashSet<PlayerWeapon> weapons;
+
     bool previousJumpState;
     float lastJumpTime;
 
@@ -41,6 +44,7 @@ public sealed class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         DrivingRigidbody = GetComponent<Rigidbody>();
+        weapons = new HashSet<PlayerWeapon>(GetComponentsInChildren<PlayerWeapon>());
     }
 
     private void FixedUpdate()
@@ -77,6 +81,14 @@ public sealed class CharacterMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
+        foreach (var weapon in weapons)
+        {
+            if (weapon.Attacking && weapon.FreezeMovement)
+            {
+                MoveDirection = Vector3.zero;
+            }
+        }
+
         if (IsGrounded)
         {
             float moveSpeed = this.moveSpeed.GetFor(this);
@@ -132,6 +144,10 @@ public sealed class CharacterMovement : MonoBehaviour
             if (hit.rigidbody)
             {
                 LocalVelocity = hit.rigidbody.velocity;
+            }
+            else
+            {
+                LocalVelocity = Vector3.zero;
             }
             return hit.distance;
         }
