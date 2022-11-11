@@ -30,14 +30,14 @@ public class PauseMenu : MonoBehaviour
     //Pause and Play
     public void Resume()
     {
-        PlayerController.ReleaseControl(false);
+        PlayerController.UnlockControls(false);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
     void Pause()
     {
-        PlayerController.ReleaseControl(true);
+        PlayerController.UnlockControls(true);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
