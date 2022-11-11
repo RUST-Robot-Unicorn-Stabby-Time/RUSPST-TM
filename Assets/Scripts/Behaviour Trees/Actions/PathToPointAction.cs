@@ -12,6 +12,19 @@ public class PathToPointAction : BehaviourBase
     NavMeshPath path;
     Vector3 lastQueriedPoint = Vector3.zero;
 
+    private void OnDrawGizmos()
+    {
+        if (path != null)
+        {
+            Gizmos.color = Color.yellow;
+
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                Gizmos.DrawLine(path.corners[i], path.corners[i + 1]);
+            }
+        }
+    }
+
     protected override EvaluationResult OnExecute()
     {
         Vector3 point;

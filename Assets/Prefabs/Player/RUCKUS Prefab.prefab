@@ -485,6 +485,8 @@ MonoBehaviour:
   impulseForce: {x: 0, y: 0, z: 0}
   attackAnimName: Attack
   attackAnimLayer: 1
+  shakeSource: {fileID: 0}
+  shakeDelay: 0
 --- !u!1 &2289158183802184872
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +536,8 @@ MonoBehaviour:
   impulseForce: {x: 0, y: 0, z: 0}
   attackAnimName: Slam
   attackAnimLayer: 1
+  shakeSource: {fileID: 0}
+  shakeDelay: 0
 --- !u!1 &2427917710022389404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,7 +1473,7 @@ MonoBehaviour:
   - key: Health
     baseValue: 100
   - key: Damage
-    baseValue: 10000
+    baseValue: 25
   - key: Speed
     baseValue: 10
   - key: Acceleration
