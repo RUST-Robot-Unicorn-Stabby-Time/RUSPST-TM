@@ -32,12 +32,12 @@ public class CameraController : MonoBehaviour
     {
         playerAnimator = GetComponent<PlayerAnimator>();
 
-        PlayerController.ReleaseControlEvent += OnPause;
+        PlayerController.UnlockControlsEvent += OnPause;
     }
 
     private void OnDestroy()
     {
-        PlayerController.ReleaseControlEvent -= OnPause;
+        PlayerController.UnlockControlsEvent -= OnPause;
     }
 
     private void OnPause(bool isPaused)
