@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelEndUI : MonoBehaviour
 {
@@ -37,5 +38,15 @@ public class LevelEndUI : MonoBehaviour
 
         winScreen.SetActive(true);
         PlayerController.ReleaseControl(true);
+    }
+
+    public void LoadLobby ()
+    {
+        SceneManager.LoadSceneAsync("LobbyRoom");
+    }
+
+    public void LoadMainMenu ()
+    {
+        SceneManager.LoadSceneAsync("Main Menu");
     }
 }
