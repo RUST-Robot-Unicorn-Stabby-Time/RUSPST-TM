@@ -18,8 +18,6 @@ public class ConveyorBuilder : MonoBehaviour
     [SerializeField] int repeatX;
     [SerializeField] bool reverse;
 
-    public List<ConveyorBuilder> builders;
-
     public float Length { get => length; set => length = value; }
 
     private void OnValidate()
@@ -37,24 +35,6 @@ public class ConveyorBuilder : MonoBehaviour
 
         MeshFilter filter = GetComponent<MeshFilter>();
 
-        if (!builders.Contains(this))
-        {
-            builders.Add(this);
-        }
-
-        foreach (var builder in builders)
-        {
-            if (builder == this) continue;
-
-            if (Mathf.Abs(builder.length - length) < 0.1f)
-            {
-                if (builder.repeatX == repeatX)
-                {
-                    filter.sharedMesh = builder.GetComponent<MeshFilter>().sharedMesh;
-                    return;
-                }
-            }
-        }
 
         Quaternion r = Quaternion.Euler(rotation);
         float smin = float.MaxValue;
