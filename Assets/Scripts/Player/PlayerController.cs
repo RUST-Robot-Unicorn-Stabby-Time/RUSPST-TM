@@ -17,8 +17,9 @@ public class PlayerController : MonoBehaviour
 
     public static HashSet<PlayerController> AlivePlayers { get; } = new HashSet<PlayerController>();
     public static event System.Action AllPlayersDeadEvent;
+    public static int ControlUnlocks { get; private set; }
 
-    public static event System.Action<bool> ReleaseControlEvent;
+    public static event System.Action<bool> UnlockControlsEvent;
 
     public Vector3 MovementDirection
     {
@@ -28,9 +29,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public static void ReleaseControl (bool state)
+    public static void UnlockControls (bool state)
     {
-        ReleaseControlEvent?.Invoke(state);
+        if (state) ControlUnlocks++;
+        else ControlUnlocks--;
+        UnlockControlsEvent?.Invoke(state);
     }
 
     private void Awake()
@@ -38,17 +41,17 @@ public class PlayerController : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
         hitReact = GetComponent<HitReact>();
 
-        ReleaseControlEvent += OnPause;
+        UnlockControlsEvent += OnControlsUnlocked;
     }
 
     private void OnDestroy()
     {
-        ReleaseControlEvent -= OnPause;
+        UnlockControlsEvent -= OnControlsUnlocked;
     }
 
-    private void OnPause(bool isPaused)
+    private void OnControlsUnlocked(bool isPaused)
     {
-        enabled = !isPaused;
+        enabled = ControlUnlocks == 0;
     }
 
     private void OnEnable()

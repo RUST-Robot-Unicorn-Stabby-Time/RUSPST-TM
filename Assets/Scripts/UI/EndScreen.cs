@@ -7,13 +7,13 @@ public class EndScreen : MonoBehaviour
 {
     private void OnEnable()
     {
-        PlayerController.ReleaseControl(true);
+        PlayerController.UnlockControls(true);
         transform.SetParent(null);
     }
 
     private void OnDisable()
     {
-        PlayerController.ReleaseControl(false);
+        PlayerController.UnlockControls(false);
     }
 
     public void LoadScene (string name)
