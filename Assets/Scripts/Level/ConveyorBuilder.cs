@@ -122,7 +122,14 @@ public class ConveyorBuilder : MonoBehaviour
             }
         }
 
+        if (Application.isPlaying)
+        {
             filter.mesh = mesh;
+        }
+        else
+        {
+            filter.sharedMesh = mesh;
+        }
 
         if (TryGetComponent(out BoxCollider collider))
         {
