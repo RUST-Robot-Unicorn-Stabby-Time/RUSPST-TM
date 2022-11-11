@@ -51,6 +51,7 @@ public class ExitDoor : MonoBehaviour
                 }
 
                 enabled = false;
+                return;
             }
         }
     }

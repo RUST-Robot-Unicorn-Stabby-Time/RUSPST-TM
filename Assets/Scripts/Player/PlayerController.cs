@@ -57,12 +57,25 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         AlivePlayers.Add(this);
+
+        if (TryGetComponent(out Health health))
+        {
+            health.DeathEvent += OnDeath;
+        }
+    }
+
+    private void OnDeath(DamageArgs obj)
+    {
+        AlivePlayers.Remove(this);
+        if (AlivePlayers.Count == 0) AllPlayersDeadEvent?.Invoke();
     }
 
     private void OnDisable()
     {
-        AlivePlayers.Remove(this);
-        if (AlivePlayers.Count == 0) AllPlayersDeadEvent?.Invoke();
+        if (TryGetComponent(out Health health))
+        {
+            health.DeathEvent -= OnDeath;
+        }
     }
 
     public void OnMove(InputValue value) => moveInput = value.Get<Vector2>();
