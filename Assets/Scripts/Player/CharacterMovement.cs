@@ -36,6 +36,7 @@ public sealed class CharacterMovement : MonoBehaviour
     public bool JumpState { get; set; }
     public float DistanceToGround { get; private set; }
     public bool IsGrounded => DistanceToGround < springDistance;
+    public Vector3 LocalVelocity { get; private set; }
 
     private void Awake()
     {
@@ -79,7 +80,7 @@ public sealed class CharacterMovement : MonoBehaviour
         if (IsGrounded)
         {
             float moveSpeed = this.moveSpeed.GetFor(this);
-            Vector3 target = MoveDirection * moveSpeed;
+            Vector3 target = MoveDirection * moveSpeed + LocalVelocity;
             Vector3 current = DrivingRigidbody.velocity;
 
             Vector3 delta = Vector3.ClampMagnitude(target - current, moveSpeed);
@@ -128,6 +129,10 @@ public sealed class CharacterMovement : MonoBehaviour
     {
         if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * groundCheckRadius, groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
         {
+            if (hit.rigidbody)
+            {
+                LocalVelocity = hit.rigidbody.velocity;
+            }
             return hit.distance;
         }
         else return float.PositiveInfinity;
