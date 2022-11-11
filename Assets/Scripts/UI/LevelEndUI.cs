@@ -36,5 +36,6 @@ public class LevelEndUI : MonoBehaviour
         if (!isLastLevel) return;
 
         winScreen.SetActive(true);
+        PlayerController.ReleaseControl(true);
     }
 }
