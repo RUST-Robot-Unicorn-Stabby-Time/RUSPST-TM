@@ -16,6 +16,8 @@ public class ConveyorBuilder : MonoBehaviour
     [SerializeField] int repeatX;
     [SerializeField] bool reverse;
 
+    public float Length { get => length; set => length = value; }
+
     private void OnValidate()
     {
         if (!Application.isPlaying)
@@ -24,7 +26,7 @@ public class ConveyorBuilder : MonoBehaviour
         }
     }
 
-    private void Bake()
+    public void Bake()
     {
         if (!middle || !end) return;
 
