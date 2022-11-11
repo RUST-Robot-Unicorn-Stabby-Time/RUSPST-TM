@@ -49,7 +49,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void UpdatePlayerModel()
     {
-        Vector3 planarVelocity = movement.DrivingRigidbody.velocity;
+        Vector3 planarVelocity = movement.DrivingRigidbody.velocity - movement.LocalVelocity;
         planarVelocity -= transform.up * Vector3.Dot(transform.up, planarVelocity);
 
         float speed = planarVelocity.magnitude;

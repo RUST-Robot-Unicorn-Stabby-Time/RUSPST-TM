@@ -23,22 +23,28 @@ public class PathToPointAction : BehaviourBase
 
         if ((lastQueriedPoint - point).sqrMagnitude > goodEnoughDistance * goodEnoughDistance || path == null)
         {
+            if (path == null) path = new NavMeshPath();
             NavMesh.CalculatePath(Actions.transform.position - Vector3.up, point, 0, path);
             corner = 0;
             lastQueriedPoint = point;
         }
 
+        Vector3 v;
         if (corner < path.corners.Length)
         {
-            Vector3 v = (path.corners[corner] - Actions.transform.position);
-            Actions.MoveDirection = v.normalized;
-            Actions.FaceDirection = v.normalized;
+            v = (path.corners[corner] - Actions.transform.position);
 
             if (v.sqrMagnitude < goodEnoughDistance * goodEnoughDistance)
             {
                 corner++;
             }
         }
+        else
+        {
+            v = (point - Actions.transform.position);
+        }
+        Actions.MoveDirection = v.normalized;
+        Actions.FaceDirection = v.normalized;
 
         return EvaluationResult.Success;
     }

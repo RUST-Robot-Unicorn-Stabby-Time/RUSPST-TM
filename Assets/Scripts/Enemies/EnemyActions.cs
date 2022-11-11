@@ -7,6 +7,9 @@ public class EnemyActions : MonoBehaviour
     [SerializeField] float facingSmoothTime;
     [SerializeField] PlayerWeapon[] attacks;
 
+    [Space]
+    [SerializeField] Vector3 rootRotationOffset;
+
     CharacterMovement movement;
 
     float angle;
@@ -26,7 +29,7 @@ public class EnemyActions : MonoBehaviour
     public bool Reload { get; set; } 
     public bool Ability { get; set; }
 
-    public Vector2 MoveDirection { get; set; }
+    public Vector3 MoveDirection { get; set; }
 
     private void Awake()
     {
@@ -80,13 +83,15 @@ public class EnemyActions : MonoBehaviour
 
     private void Update()
     {
+        movement.MoveDirection = MoveDirection;
         MoveDirection = Vector3.zero;
+    }
 
+    private void LateUpdate()
+    {
         float targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
-        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle);
-
-        movement.MoveDirection = MoveDirection;
+        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
     }
 }

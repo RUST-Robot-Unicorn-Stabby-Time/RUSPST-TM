@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -29,6 +31,7 @@ public class ConveyorBuilder : MonoBehaviour
     public void Bake()
     {
         if (!middle || !end) return;
+        if (Application.isPlaying) return;
 
         MeshFilter filter = GetComponent<MeshFilter>();
 
@@ -108,13 +111,42 @@ public class ConveyorBuilder : MonoBehaviour
         mesh.triangles = tris.ToArray();
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
-        mesh.RecalculateBounds();
-        filter.mesh = mesh;
+
+        filter.sharedMesh = mesh;
 
         if (TryGetComponent(out BoxCollider collider))
         {
             collider.center = mesh.bounds.center;
             collider.size = mesh.bounds.size;
+        }
+    }
+
+    [ContextMenu("Clear All Procedual Meshes")]
+    public void ClearAllProcedualMeshes ()
+    {
+        List<Mesh> phantomMeshes = new List<Mesh>();
+
+        foreach (var mesh in Resources.FindObjectsOfTypeAll<Mesh>())
+        {
+            if (string.IsNullOrEmpty(mesh.name))
+            {
+                phantomMeshes.Add(mesh);
+            }
+        }
+
+        print(phantomMeshes.Count);
+        foreach (var mesh in phantomMeshes)
+        {
+            DestroyImmediate(mesh);
+        }
+    }
+
+    [UnityEditor.MenuItem("Tools/Bake All Conveyors")]
+    public static void Uhhh ()
+    {
+        foreach (var conveyor in FindObjectsOfType<ConveyorBuilder>())
+        {
+            conveyor.Bake();
         }
     }
 }

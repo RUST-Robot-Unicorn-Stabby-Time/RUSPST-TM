@@ -17,8 +17,9 @@ public class PlayerController : MonoBehaviour
 
     public static HashSet<PlayerController> AlivePlayers { get; } = new HashSet<PlayerController>();
     public static event System.Action AllPlayersDeadEvent;
+    public static int ControlUnlocks { get; private set; }
 
-    public static event System.Action<bool> ReleaseControlEvent;
+    public static event System.Action<bool> UnlockControlsEvent;
 
     public Vector3 MovementDirection
     {
@@ -28,9 +29,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public static void ReleaseControl (bool state)
+    public static void UnlockControls (bool state)
     {
-        ReleaseControlEvent?.Invoke(state);
+        if (state) ControlUnlocks++;
+        else ControlUnlocks--;
+        UnlockControlsEvent?.Invoke(state);
     }
 
     private void Awake()
@@ -38,28 +41,43 @@ public class PlayerController : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
         hitReact = GetComponent<HitReact>();
 
-        ReleaseControlEvent += OnPause;
+        UnlockControlsEvent += (s) => OnControlsUnlocked();
     }
 
     private void OnDestroy()
     {
-        ReleaseControlEvent -= OnPause;
+        UnlockControlsEvent -= (s) => OnControlsUnlocked();
     }
 
-    private void OnPause(bool isPaused)
+    private void OnControlsUnlocked()
     {
-        enabled = !isPaused;
+        enabled = ControlUnlocks == 0;
     }
 
     private void OnEnable()
     {
         AlivePlayers.Add(this);
+
+        if (TryGetComponent(out Health health))
+        {
+            health.DeathEvent += OnDeath;
+        }
+
+        OnControlsUnlocked();
+    }
+
+    private void OnDeath(DamageArgs obj)
+    {
+        AlivePlayers.Remove(this);
+        if (AlivePlayers.Count == 0) AllPlayersDeadEvent?.Invoke();
     }
 
     private void OnDisable()
     {
-        AlivePlayers.Remove(this);
-        if (AlivePlayers.Count == 0) AllPlayersDeadEvent?.Invoke();
+        if (TryGetComponent(out Health health))
+        {
+            health.DeathEvent -= OnDeath;
+        }
     }
 
     public void OnMove(InputValue value) => moveInput = value.Get<Vector2>();

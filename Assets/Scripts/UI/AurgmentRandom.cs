@@ -59,7 +59,7 @@ public class AurgmentRandom : MonoBehaviour
 
     private void Start()
     {
-		PlayerController.ReleaseControl(true);
+		PlayerController.UnlockControls(true);
 	}
 
 	public void ButtonPushed(int choice)
@@ -67,7 +67,7 @@ public class AurgmentRandom : MonoBehaviour
 		ArtifactSelector.ActiveArtifacts.Add(selectedArtifact[choice]);
 		ArtifactSelector.UpdateArtifacts();
 		AugmentationUI.SetActive(false);
-		PlayerController.ReleaseControl(false);
+		PlayerController.UnlockControls(false);
 		Time.timeScale = 1f;
 	}
 }

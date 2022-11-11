@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(UnlockControls))]
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
@@ -30,14 +31,12 @@ public class PauseMenu : MonoBehaviour
     //Pause and Play
     public void Resume()
     {
-        PlayerController.ReleaseControl(false);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
     void Pause()
     {
-        PlayerController.ReleaseControl(true);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
