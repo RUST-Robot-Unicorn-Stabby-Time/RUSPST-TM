@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     public PlayerWeapon[] weapons;
 
+    PlayerInput input;
     Vector2 moveInput;
     CharacterMovement movement;
     HitReact hitReact;
@@ -38,10 +39,17 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        ControlUnlocks = 0;
         movement = GetComponent<CharacterMovement>();
         hitReact = GetComponent<HitReact>();
+        input = GetComponent<PlayerInput>();
 
         UnlockControlsEvent += (s) => OnControlsUnlocked();
+    }
+
+    private void Start()
+    {
+        OnControlsUnlocked();
     }
 
     private void OnDestroy()
@@ -51,7 +59,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnControlsUnlocked()
     {
-        enabled = ControlUnlocks == 0;
+        print(ControlUnlocks);
+        input.enabled = ControlUnlocks == 0;
     }
 
     private void OnEnable()

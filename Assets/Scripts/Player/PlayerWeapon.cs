@@ -8,6 +8,7 @@ public class PlayerWeapon : MonoBehaviour
     public new Animator animation;
     public CharacterMovement characterMovement;
     public Vector3 impulseForce;
+    public bool freezeMovement;
 
     [Space]
     public string attackAnimName;
@@ -25,6 +26,9 @@ public class PlayerWeapon : MonoBehaviour
     public event System.Action BeginAttackEvent;
     public event System.Action FinishAttackEvent;
 
+    public bool Attacking { get; private set; }
+    public bool FreezeMovement => freezeMovement;
+
     public void Awake()
     {
         playerAnimator = transform.root.GetComponentInChildren<PlayerAnimator>();
@@ -41,7 +45,11 @@ public class PlayerWeapon : MonoBehaviour
 
     private IEnumerator AttackRoutine()
     {
+        if (Attacking) yield break;
+
         BeginAttackEvent?.Invoke();
+
+        Attacking = true;
 
         lastClickTime = Time.time;
         animation.Play(attackAnimName, attackAnimLayer, 0.0f);
@@ -71,6 +79,8 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         playerAnimator.DirectionLock = null;
+
+        Attacking = false;
 
         FinishAttackEvent?.Invoke();
     }

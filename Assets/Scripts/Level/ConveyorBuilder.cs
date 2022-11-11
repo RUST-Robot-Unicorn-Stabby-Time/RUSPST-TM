@@ -35,6 +35,7 @@ public class ConveyorBuilder : MonoBehaviour
 
         MeshFilter filter = GetComponent<MeshFilter>();
 
+
         Quaternion r = Quaternion.Euler(rotation);
         float smin = float.MaxValue;
         float smax = float.MinValue;
