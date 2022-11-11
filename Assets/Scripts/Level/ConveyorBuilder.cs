@@ -112,6 +112,7 @@ public class ConveyorBuilder : MonoBehaviour
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
 
+        if (!filter.sharedMesh) DestroyImmediate(filter.sharedMesh);
         filter.sharedMesh = mesh;
 
         if (TryGetComponent(out BoxCollider collider))
@@ -144,7 +145,7 @@ public class ConveyorBuilder : MonoBehaviour
     [UnityEditor.MenuItem("Tools/Bake All Conveyors")]
     public static void Uhhh ()
     {
-        foreach (var conveyor in FindObjectsOfType<ConveyorBuilder>())
+        foreach (var conveyor in FindObjectsOfType<ConveyorBuilder>(true))
         {
             conveyor.Bake();
         }
