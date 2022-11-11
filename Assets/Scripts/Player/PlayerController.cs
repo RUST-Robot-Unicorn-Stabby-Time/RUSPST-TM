@@ -41,15 +41,15 @@ public class PlayerController : MonoBehaviour
         movement = GetComponent<CharacterMovement>();
         hitReact = GetComponent<HitReact>();
 
-        UnlockControlsEvent += OnControlsUnlocked;
+        UnlockControlsEvent += (s) => OnControlsUnlocked();
     }
 
     private void OnDestroy()
     {
-        UnlockControlsEvent -= OnControlsUnlocked;
+        UnlockControlsEvent -= (s) => OnControlsUnlocked();
     }
 
-    private void OnControlsUnlocked(bool isPaused)
+    private void OnControlsUnlocked()
     {
         enabled = ControlUnlocks == 0;
     }
@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
         {
             health.DeathEvent += OnDeath;
         }
+
+        OnControlsUnlocked();
     }
 
     private void OnDeath(DamageArgs obj)
