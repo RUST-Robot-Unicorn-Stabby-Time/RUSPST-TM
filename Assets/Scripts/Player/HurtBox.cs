@@ -14,6 +14,7 @@ public class HurtBox : MonoBehaviour
 
     [Space]
     public GameObject hitFXPrefab;
+    public Hitstop hitstop;
 
     HashSet<Collider> hitObjects = new HashSet<Collider>();
     HashSet<Health> hurtObjects = new HashSet<Health>();
@@ -60,6 +61,8 @@ public class HurtBox : MonoBehaviour
 
             Vector3 direction = (collider.transform.position - transform.position).normalized;
             if (hitFXPrefab) Instantiate(hitFXPrefab, collider.ClosestPoint(transform.position), Quaternion.Euler(direction));
+
+            hitstop.Play();
 
             hitObjects.Add(collider);
         }
