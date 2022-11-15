@@ -17,15 +17,12 @@ public class ConveyorBuilder : MonoBehaviour
     [SerializeField] float uvOffset = 0.9142822f;
     [SerializeField] int repeatX;
     [SerializeField] bool reverse;
-
+    
     public float Length { get => length; set => length = value; }
 
     private void OnValidate()
     {
-        if (!Application.isPlaying)
-        {
-            Bake();
-        }
+        Bake();
     }
 
     public void Bake()
@@ -35,6 +32,15 @@ public class ConveyorBuilder : MonoBehaviour
 
         MeshFilter filter = GetComponent<MeshFilter>();
 
+        foreach (var builder in FindObjectsOfType<ConveyorBuilder>(true))
+        {
+            MeshFilter other = builder.GetComponent<MeshFilter>();
+            if (Mathf.Abs(builder.length - length) < 0.1f && builder.repeatX == repeatX && other.sharedMesh)
+            {
+                filter.sharedMesh = other.sharedMesh;
+                return;
+            }
+        }
 
         Quaternion r = Quaternion.Euler(rotation);
         float smin = float.MaxValue;
@@ -113,6 +119,7 @@ public class ConveyorBuilder : MonoBehaviour
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
 
+        if (filter.sharedMesh) DestroyImmediate(filter.sharedMesh);
         filter.sharedMesh = mesh;
 
         if (TryGetComponent(out BoxCollider collider))
@@ -123,7 +130,7 @@ public class ConveyorBuilder : MonoBehaviour
     }
 
     [ContextMenu("Clear All Procedual Meshes")]
-    public void ClearAllProcedualMeshes ()
+    public void ClearAllProcedualMeshes()
     {
         List<Mesh> phantomMeshes = new List<Mesh>();
 
@@ -143,9 +150,9 @@ public class ConveyorBuilder : MonoBehaviour
     }
 
     [UnityEditor.MenuItem("Tools/Bake All Conveyors")]
-    public static void Uhhh ()
+    public static void Uhhh()
     {
-        foreach (var conveyor in FindObjectsOfType<ConveyorBuilder>())
+        foreach (var conveyor in FindObjectsOfType<ConveyorBuilder>(true))
         {
             conveyor.Bake();
         }
