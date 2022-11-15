@@ -56,9 +56,16 @@ public class PathToPointAction : BehaviourBase
         {
             v = (point - Actions.transform.position);
         }
-        Actions.MoveDirection = v.normalized;
-        Actions.FaceDirection = v.normalized;
 
+        if (v.magnitude > goodEnoughDistance * goodEnoughDistance)
+        {
+            Actions.MoveDirection = v.normalized;
+            Actions.FaceDirection = v.normalized;
+        }
+        else
+        {
+            Actions.MoveDirection = Vector3.zero;
+        }
         return EvaluationResult.Success;
     }
 }

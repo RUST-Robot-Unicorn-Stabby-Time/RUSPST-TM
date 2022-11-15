@@ -52,4 +52,6 @@ public class Blackboard : ScriptableObject
             values.Add(key, value);
         }
     }
+
+    public bool ValueExists(string key) => values.ContainsKey(key);
 }

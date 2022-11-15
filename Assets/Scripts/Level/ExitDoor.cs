@@ -12,15 +12,21 @@ public class ExitDoor : MonoBehaviour
     [HideInInspector] public GameGenerator generator;
     [HideInInspector] public UnityEvent finishEvent;
 
+    bool lastWave;
+
     private void OnEnable()
     {
-        EnemyActions.AllEnemiesDeadEvent += OnAllEnemiesDead;
+        EnemyWave.lastWaveSpawned += OnLastWaveSpawned;
+        EnemyActions.AllEnemiesDeadEvent += FinishLevel;
     }
 
     private void OnDisable()
     {
-        EnemyActions.AllEnemiesDeadEvent -= OnAllEnemiesDead;
+        EnemyWave.lastWaveSpawned -= OnLastWaveSpawned;
+        EnemyActions.AllEnemiesDeadEvent -= FinishLevel;
     }
+
+    private void OnLastWaveSpawned() => lastWave = true;
 
     private void Start()
     {
@@ -56,8 +62,10 @@ public class ExitDoor : MonoBehaviour
         }
     }
 
-    private void OnAllEnemiesDead()
+    private void FinishLevel()
     {
+        if (!lastWave) return;
+
         foreach (var go in enableOnExit)
         {
             go.SetActive(true);
