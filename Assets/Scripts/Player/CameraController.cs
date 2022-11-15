@@ -33,6 +33,8 @@ public class CameraController : MonoBehaviour
         playerAnimator = GetComponent<PlayerAnimator>();
 
         PlayerController.UnlockControlsEvent += OnPause;
+
+        ssRotation = new Vector2(transform.eulerAngles.y, 0.0f);
     }
 
     private void OnDestroy()
