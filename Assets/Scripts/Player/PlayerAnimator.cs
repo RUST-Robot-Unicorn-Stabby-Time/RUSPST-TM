@@ -25,6 +25,8 @@ public class PlayerAnimator : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<CharacterMovement>();
+        targetRotation = root.rotation;
+        rootRotation = root.rotation;
     }
 
     private void OnEnable()
