@@ -18,6 +18,12 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] Cinemachine.CinemachineCollisionImpulseSource shakeSource;
     [SerializeField] float shakeDelay;
 
+    [Space]
+    [SerializeField] GameObject hitPrefab;
+    [SerializeField] Transform hitPoint;
+    [SerializeField] Vector3 hitOffset;
+    [SerializeField] float hitFXdelay;
+
     private float lastClickTime = 0f;
 
     PlayerAnimator playerAnimator;
@@ -65,6 +71,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         bool shooketh = false;
+        bool fxSpawned = false;
         float time = 0.0f;
         while (time < cooldown)
         {
@@ -72,6 +79,15 @@ public class PlayerWeapon : MonoBehaviour
             {
                 if (shakeSource) shakeSource.GenerateImpulse();
                 shooketh = true;
+            }
+
+            if (hitPrefab)
+            {
+                if (time > hitFXdelay && !fxSpawned)
+                {
+                    Instantiate(hitPrefab, hitPoint.position + hitOffset, hitPoint.rotation * hitPrefab.transform.rotation);
+                    fxSpawned = true;
+                }
             }
 
             time += Time.deltaTime;

@@ -46,7 +46,7 @@ public class EnemyWave : MonoBehaviour
             return;
         }
 
-        transform.GetChild(siblingIndex + 1).gameObject.SetActive(true);
+        transform.parent.GetChild(siblingIndex + 1).gameObject.SetActive(true);
         Destroy(gameObject);
     }
 
