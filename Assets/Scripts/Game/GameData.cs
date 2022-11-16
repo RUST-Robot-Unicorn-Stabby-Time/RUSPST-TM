@@ -52,30 +52,37 @@ public class GameData : ScriptableObject
             levelPath = levelList[currentLevel];
         }
 
-        AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(levelPath);
-        Context.StartCoroutine(LoadRoutine(loadingOperation));
+        Context.StartCoroutine(LoadRoutine(levelPath));
 
         currentLevel++;
     }
 
-    private IEnumerator LoadRoutine(AsyncOperation loadingOperation)
+    private IEnumerator LoadRoutine(string levelPath)
     {
         SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
-        
+
+        AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(levelPath);
+
         StartLevelLoading?.Invoke();
 
         LoadPercent = 0.0f;
+        Time.timeScale = 0.0f;
 
         while (!loadingOperation.isDone)
         {
             LoadPercent = loadingOperation.progress;
-            LoadingProgress?.Invoke(loadingOperation.progress);
+            LoadingProgress?.Invoke(loadingOperation.progress * 0.9f);
             yield return null;
         }
 
-        SceneManager.UnloadSceneAsync("LoadScene");
+        LoadPercent = 0.9f;
+
+        yield return new WaitForSeconds(3.0f);
 
         LoadPercent = 0.0f;
+        Time.timeScale = 1.0f;
+
+        SceneManager.UnloadSceneAsync("LoadScene");
 
         FinishedLevelLoading?.Invoke();
     }
