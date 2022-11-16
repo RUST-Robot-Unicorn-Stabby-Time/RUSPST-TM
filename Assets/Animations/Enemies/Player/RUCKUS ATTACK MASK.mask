@@ -13,12 +13,8 @@ AvatarMask:
     m_Weight: 1
   - m_Path: DrRuckus
     m_Weight: 0
-  - m_Path: Hammer_OFFSET
-    m_Weight: 1
-  - m_Path: Hammer_OFFSET/Hammer
-    m_Weight: 1
   - m_Path: Hip_JNT
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Hip_JNT/Spine_1_JNT
     m_Weight: 1
   - m_Path: Hip_JNT/Spine_1_JNT/Spine_2_JNT
@@ -100,6 +96,8 @@ AvatarMask:
     m_Weight: 0
   - m_Path: OFFRoot/Root_CTRL
     m_Weight: 0
+  - m_Path: OFFRoot/Root_CTRL/Hammer
+    m_Weight: 1
   - m_Path: OFFRoot/Root_CTRL/OFFHip
     m_Weight: 0
   - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL
@@ -200,49 +198,47 @@ AvatarMask:
     m_Weight: 0
   - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFSpine_1/Spine_1_CTRL/OFFSpine_2/Spine_2_CTRL/OFFSpine_3/Spine_3_CTRL/OFFChest/Chest_CTRL/OFFShoulder_R/Shoulder_R_CTRL/OFFElbow_R/Elbow_R_CTRL/OFFWrist_R/Wrist_R_CTRL/OFFHand_R/Hand_R_CTRL/OFFThumb_1_R/Thumb_1_R_CTRL/OFFThumb_2_R/Thumb_2_R_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L/Foot_L_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L/Foot_L_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L/Foot_L_CTRL/Toe_L_OFFSET
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L/Foot_L_CTRL/Toe_L_OFFSET
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L/Foot_L_CTRL/Toe_L_OFFSET/Toe_L_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_L/Thigh_L_CTRL/OFFKnee_L/Knee_L_CTRL/OFFAnkle_L/Ankle_L_CTRL/OFFFoot_L/Foot_L_CTRL/Toe_L_OFFSET/Toe_L_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R/Foot_R_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R/Foot_R_CTRL
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R/Foot_R_CTRL/Toe_R_OFFSET
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R/Foot_R_CTRL/Toe_R_OFFSET
     m_Weight: 0
-  - m_Path: OFFRoot/Root_CTRL/OFFHip/Hip_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R/Foot_R_CTRL/Toe_R_OFFSET/Toe_R_CTRL
+  - m_Path: OFFRoot/Root_CTRL/OFFThigh_R/Thigh_R_CTRL/OFFKnee_R/Knee_R_CTRL/OFFAnkle_R/Ankle_R_CTRL/OFFFoot_R/Foot_R_CTRL/Toe_R_OFFSET/Toe_R_CTRL
     m_Weight: 0
   - m_Path: OFFRoot/Root_CTRL/PoleVector_Knee_L
     m_Weight: 0
   - m_Path: OFFRoot/Root_CTRL/PoleVector_Knee_R
-    m_Weight: 0
-  - m_Path: persp1
     m_Weight: 0
