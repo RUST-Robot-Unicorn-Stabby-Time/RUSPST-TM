@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
+[UnityEditor.InitializeOnLoad]
 [CreateAssetMenu(menuName = "Scriptable Objects/Game Data/Game Data")]
 public class GameData : ScriptableObject
 {
@@ -15,6 +16,8 @@ public class GameData : ScriptableObject
     public UnityEvent StartLevelLoading;
     public UnityEvent<float> LoadingProgress;
     public UnityEvent FinishedLevelLoading;
+
+    public static float LoadPercent { get; private set; }
 
     private LiterallyDoesNothing _context;
     private LiterallyDoesNothing Context
@@ -57,13 +60,22 @@ public class GameData : ScriptableObject
 
     private IEnumerator LoadRoutine(AsyncOperation loadingOperation)
     {
+        SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
+        
         StartLevelLoading?.Invoke();
+
+        LoadPercent = 0.0f;
 
         while (!loadingOperation.isDone)
         {
+            LoadPercent = loadingOperation.progress;
             LoadingProgress?.Invoke(loadingOperation.progress);
             yield return null;
         }
+
+        SceneManager.UnloadSceneAsync("LoadScene");
+
+        LoadPercent = 0.0f;
 
         FinishedLevelLoading?.Invoke();
     }
