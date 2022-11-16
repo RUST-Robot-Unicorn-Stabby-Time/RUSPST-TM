@@ -25,6 +25,7 @@ public class ConveyorBuilder : MonoBehaviour
         Bake();
     }
 
+    [ContextMenu("Bake")]
     public void Bake()
     {
         if (!middle || !end) return;
@@ -35,6 +36,7 @@ public class ConveyorBuilder : MonoBehaviour
         foreach (var builder in FindObjectsOfType<ConveyorBuilder>(true))
         {
             MeshFilter other = builder.GetComponent<MeshFilter>();
+            if (other == filter) continue;
             if (Mathf.Abs(builder.length - length) < 0.1f && builder.repeatX == repeatX && other.sharedMesh)
             {
                 filter.sharedMesh = other.sharedMesh;
@@ -118,6 +120,7 @@ public class ConveyorBuilder : MonoBehaviour
         mesh.triangles = tris.ToArray();
         mesh.normals = normals.ToArray();
         mesh.uv = uvs.ToArray();
+        mesh.RecalculateBounds();
 
         if (filter.sharedMesh) DestroyImmediate(filter.sharedMesh);
         filter.sharedMesh = mesh;
