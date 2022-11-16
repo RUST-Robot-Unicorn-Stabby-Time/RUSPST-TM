@@ -5,11 +5,13 @@ public static class EQS
 {
     public static readonly Vector2 gridSize = Vector2.one * 5.0f;
 
+    public static Dictionary<Object, System.Func<Vector3>> Blockers { get; } = new Dictionary<Object, System.Func<Vector3>>();
+
     static Dictionary<Vector3Int, List<EQSResult>> cachedResults { get; } = new Dictionary<Vector3Int, List<EQSResult>>();
     static int lastCacheFrame;
 
-    public static List<EQSResult> QueryEnviromentScores(Vector3 position, float searchRadius, float searchHeight) => QueryEnviromentScores(position, searchRadius, searchHeight, new EQSAgentSettings());
-    public static List<EQSResult> QueryEnviromentScores(Vector3 position, float searchRadius, float searchHeight, EQSAgentSettings agentSettings)
+    public static List<EQSResult> QueryEnviromentScores(Vector3 position, float searchRadius, float searchHeight, Object requester) => QueryEnviromentScores(position, searchRadius, searchHeight, requester, new EQSAgentSettings());
+    public static List<EQSResult> QueryEnviromentScores(Vector3 position, float searchRadius, float searchHeight, Object requester, EQSAgentSettings agentSettings)
     {
         if (Time.frameCount != lastCacheFrame)
         {
@@ -42,7 +44,7 @@ public static class EQS
                         EQSResult result = new EQSResult();
                         result.point = hit.point;
 
-                        CalculateScore(ref result, agentSettings, position);
+                        CalculateScore(ref result, agentSettings, position, requester);
                         max = Mathf.Max(max, result.score);
 
                         results.Add(result);
@@ -60,7 +62,7 @@ public static class EQS
         return results;
     }
 
-    private static void CalculateScore(ref EQSResult result, EQSAgentSettings agentSettings, Vector3 position)
+    private static void CalculateScore(ref EQSResult result, EQSAgentSettings agentSettings, Vector3 position, Object requester)
     {
         result.score = 1.0f;
 
@@ -90,6 +92,20 @@ public static class EQS
 
         #region Distance Field
         result.score *= 1.0f / (agentSettings.dfStrength * Mathf.Abs(distance - agentSettings.dfRadius) + 1.0f);
+        #endregion
+
+        #region Blockers
+        foreach (var blocker in Blockers)
+        {
+            if (blocker.Key != requester)
+            {
+                if ((blocker.Value() - result.point).sqrMagnitude < agentSettings.blockerRange * agentSettings.blockerRange)
+                {
+                    result.score *= agentSettings.blockerScale;
+                    break;
+                }
+            }
+        }
         #endregion
     }
 }
@@ -123,6 +139,11 @@ public class EQSAgentSettings
     [Space]
     [Header("POST PROCESSING")]
     public float scoreMaxThreshold = 0.1f;
+
+    [Space]
+    [Header("BLOCKERS")]
+    public float blockerRange = 3.0f;
+    public float blockerScale = 0.2f;
 }
 
 public class EQSResult

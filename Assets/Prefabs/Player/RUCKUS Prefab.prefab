@@ -483,6 +483,7 @@ MonoBehaviour:
   animation: {fileID: 9009997851254827001}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
+  freezeMovement: 0
   attackAnimName: Attack
   attackAnimLayer: 1
   shakeSource: {fileID: 0}
@@ -534,6 +535,7 @@ MonoBehaviour:
   animation: {fileID: 9009997851254827001}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
+  freezeMovement: 0
   attackAnimName: Slam
   attackAnimLayer: 1
   shakeSource: {fileID: 0}
@@ -1507,6 +1509,7 @@ MonoBehaviour:
   upGravity: 2
   downGravity: 3
   jumpSpringPauseTime: 0.1
+  maxSlopeAngle: 45
   springDistance: 1.2
   springForce: 250
   springDamper: 15
@@ -2521,6 +2524,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147484983
   hitFXPrefab: {fileID: 3759166513171687259, guid: add4b3f5636110841a2a75bfd6a4e4cb, type: 3}
+  hitstop:
+    duration: 0.1
 --- !u!1 &7020586328114534750
 GameObject:
   m_ObjectHideFlags: 0

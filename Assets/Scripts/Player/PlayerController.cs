@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnControlsUnlocked()
     {
-        print(ControlUnlocks);
         input.enabled = ControlUnlocks == 0;
     }
 
