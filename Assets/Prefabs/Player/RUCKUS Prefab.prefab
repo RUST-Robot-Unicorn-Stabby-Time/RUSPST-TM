@@ -353,7 +353,7 @@ MonoBehaviour:
   animation: {fileID: 5662067639383416816}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
-  freezeMovement: 0
+  freezeMovement: 1
   attackAnimName: Attack
   attackAnimLayer: 1
   shakeSource: {fileID: 0}
@@ -478,7 +478,7 @@ MonoBehaviour:
   animation: {fileID: 5662067639383416816}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
-  freezeMovement: 0
+  freezeMovement: 1
   attackAnimName: Slam
   attackAnimLayer: 1
   shakeSource: {fileID: 0}
@@ -1348,6 +1348,7 @@ MonoBehaviour:
   upGravity: 2
   downGravity: 3
   jumpSpringPauseTime: 0.1
+  maxSlopeAngle: 45
   springDistance: 1.2
   springForce: 250
   springDamper: 15
@@ -2725,7 +2726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80aaee30e08b8784b9b944aadf1df70c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80aaee30e08b8784b9b944aadf1df70c, type: 3}
       propertyPath: m_LocalRotation.w
