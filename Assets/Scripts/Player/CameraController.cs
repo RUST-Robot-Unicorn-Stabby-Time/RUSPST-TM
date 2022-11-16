@@ -42,9 +42,9 @@ public class CameraController : MonoBehaviour
         PlayerController.UnlockControlsEvent -= OnPause;
     }
 
-    private void OnPause()
+    private void OnPause(bool isPaused)
     {
-        enabled = PlayerController.ControlUnlocks == 0;
+        enabled = !isPaused;
     }
     private void OnEnable()
     {
