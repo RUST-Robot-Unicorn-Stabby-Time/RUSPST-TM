@@ -6,14 +6,14 @@ using UnityEngine;
 public class EnemyWave : MonoBehaviour
 {
     public int passCount;
-    public EnemyWave nextWave;
 
     static int enemiesLeft;
     static event System.Action nextWaveEvent;
+    public static event System.Action lastWaveSpawned;
 
     private void Awake()
     {
-        if (nextWave) nextWave.gameObject.SetActive(false);
+        gameObject.SetActive(transform.GetSiblingIndex() == 0);
     }
 
     private void OnEnable()
@@ -39,9 +39,14 @@ public class EnemyWave : MonoBehaviour
 
     private void AdvanceWave()
     {
-        if (!nextWave) return;
+        int siblingIndex = transform.GetSiblingIndex();
+        if (siblingIndex + 2 >= transform.parent.childCount)
+        {
+            lastWaveSpawned?.Invoke();
+            return;
+        }
 
-        nextWave.gameObject.SetActive(true);
+        transform.GetChild(siblingIndex + 1).gameObject.SetActive(true);
         Destroy(gameObject);
     }
 

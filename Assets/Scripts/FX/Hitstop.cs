@@ -7,6 +7,6 @@ public class Hitstop
 
     public void Play ()
     {
-        HitstopController.Instance.Play(duration);
+        HitstopController.Instance?.Play(duration);
     }
 }

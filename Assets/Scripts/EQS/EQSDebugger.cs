@@ -17,7 +17,7 @@ public class EQSDebugger : MonoBehaviour
     {
         float maxScore = float.MinValue;
 
-        var results = EQS.QueryEnviromentScores(transform.position, range, height, agentSettings);
+        var results = EQS.QueryEnviromentScores(transform.position, range, height, this, agentSettings);
 
         foreach (var result in results)
         {

@@ -6,6 +6,7 @@ public class EnemyActions : MonoBehaviour
     [SerializeField] Transform facingContainer;
     [SerializeField] float facingSmoothTime;
     [SerializeField] PlayerWeapon[] attacks;
+    [SerializeField] float attackRange;
 
     [Space]
     [SerializeField] Vector3 rootRotationOffset;
@@ -55,16 +56,27 @@ public class EnemyActions : MonoBehaviour
         attacking = false;
     }
 
-    public void Attack (int index)
+    public void Attack (Vector3 targetPoint, int index)
     {
         if (index < 0 || index >= attacks.Length)
         {
             return;
         }
 
-        attacks[index].Attack();
-        EnemiesAttacking++;
-        attacking = true;
+        Vector3 direction = (targetPoint - transform.position).normalized;
+        transform.rotation = Quaternion.LookRotation(direction);
+
+        if ((targetPoint - transform.position).sqrMagnitude > attackRange * attackRange)
+        {
+            FaceDirection = direction;
+            MoveDirection = direction;
+        }
+        else
+        {
+            attacks[index].Attack();
+            EnemiesAttacking++;
+            attacking = true;
+        }
     }
 
     private void OnDisable()

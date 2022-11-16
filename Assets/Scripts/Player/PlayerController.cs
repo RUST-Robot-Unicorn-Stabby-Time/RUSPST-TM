@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     public PlayerWeapon[] weapons;
 
+    PlayerInput input;
     Vector2 moveInput;
     CharacterMovement movement;
     HitReact hitReact;
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public static event System.Action AllPlayersDeadEvent;
     public static int ControlUnlocks { get; private set; }
 
-    public static event System.Action UnlockControlsEvent;
+    public static event System.Action<bool> UnlockControlsEvent;
 
     public Vector3 MovementDirection
     {
@@ -33,26 +34,32 @@ public class PlayerController : MonoBehaviour
     {
         if (state) ControlUnlocks++;
         else ControlUnlocks--;
-        UnlockControlsEvent?.Invoke();
-        Debug.Log(ControlUnlocks);
+        UnlockControlsEvent?.Invoke(state);
     }
 
     private void Awake()
     {
+        ControlUnlocks = 0;
         movement = GetComponent<CharacterMovement>();
         hitReact = GetComponent<HitReact>();
+        input = GetComponent<PlayerInput>();
 
-        UnlockControlsEvent += OnControlsUnlocked;
+        UnlockControlsEvent += (s) => OnControlsUnlocked();
+    }
+
+    private void Start()
+    {
+        OnControlsUnlocked();
     }
 
     private void OnDestroy()
     {
-        UnlockControlsEvent -= OnControlsUnlocked;
+        UnlockControlsEvent -= (s) => OnControlsUnlocked();
     }
 
     private void OnControlsUnlocked()
     {
-        if (this) enabled = ControlUnlocks == 0;
+        input.enabled = ControlUnlocks == 0;
     }
 
     private void OnEnable()
@@ -75,8 +82,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (AlivePlayers.Contains(this)) AlivePlayers.Remove(this);
-
         if (TryGetComponent(out Health health))
         {
             health.DeathEvent -= OnDeath;
