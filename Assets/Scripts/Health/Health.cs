@@ -66,10 +66,10 @@ public class Health : MonoBehaviour
 
     public void Damage(DamageArgs damageArgs)
     {
-        DamageEvent?.Invoke(damageArgs);
-
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
+
+        DamageEvent?.Invoke(damageArgs);
 
         if (hitFX) Instantiate(hitFX, transform.position, transform.rotation);
 
