@@ -12,12 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cfd09a188dc4444967747c1f8ec7a9, type: 3}
   m_Name: Game Data
   m_EditorClassIdentifier: 
-  levelList:
-  - RibRoom
-  - StomachRoom
-  - Bladderroom
-  - IntestineRoom
-  finalScene: Boss_Room2
+  levelList: []
+  finalScene: BossRoom
   currentLevel: 0
   StartLevelLoading:
     m_PersistentCalls:

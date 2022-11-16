@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6568101983471697496}
+  - {fileID: 368065033305847306}
   m_Father: {fileID: 2451203371184189318}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -269.534, y: 61.03, z: 61.029}
@@ -3842,7 +3843,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -3869,7 +3870,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
     - serializedVersion: 3
-      emitter: {fileID: 0}
+      emitter: {fileID: 7373134080847189219}
       type: 2
       properties: 0
       emitProbability: 0.5
@@ -9698,13 +9699,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6864805687817327925}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0042933524, y: 0.0029468536, z: -0.52004623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.007024646, y: 0.0069332123, z: 22.03067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6568101983471697496}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -269.534, y: 61.03, z: 61.029}
+  m_Father: {fileID: 2167930608207985031}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7373134080847189219
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9957,7 +9958,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14581,8 +14582,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.002731353, y: 0.003988266, z: 22.550714}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 368065033305847306}
+  m_Children: []
   m_Father: {fileID: 2167930608207985031}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -269.534, y: 61.03, z: 61.029}
