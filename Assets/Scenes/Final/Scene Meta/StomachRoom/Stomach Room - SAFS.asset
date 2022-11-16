@@ -60,7 +60,7 @@ MonoBehaviour:
     m_Value: 50
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 50
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
@@ -225,7 +225,7 @@ MonoBehaviour:
     showEyeDropper: 1
   bottom:
     m_OverrideState: 1
-    m_Value: {r: 0.022774458, g: 1, b: 0, a: 1}
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
     m_Value: 0
   limitMin:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1.5
   limitMax:
     m_OverrideState: 1
     m_Value: 14
