@@ -15,6 +15,7 @@ public class OptionsMenu : MonoBehaviour
     [Header("Sliders")]
     public Slider fovSlider;
     public Slider SensetivitySlider;
+    public Slider LoadSlider;
 
     [Header("Audio")]
     public Slider masterVolume;
@@ -27,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Text masterVolumeText;
     public TMP_Text musicVolumeText;
     public TMP_Text SFXVolume;
+    public TMP_Text LoadText;
 
     [Header("Resolution Dropdown")]
     public TMP_Dropdown resolutionDropdown;
@@ -74,6 +76,9 @@ public class OptionsMenu : MonoBehaviour
         masterVolume.value = OptionsData.instance.maxVolume;
         musicVolume.value = OptionsData.instance.musicVolume;
         fxVolume.value = OptionsData.instance.sfxFloat;
+
+        LoadSlider.value = OptionsData.instance.loadTime;
+        LoadText.text = $"{Mathf.Round(OptionsData.instance.loadTime * 10.0f) / 10.0f}s";
     }
 
     public void Update()
@@ -94,6 +99,8 @@ public class OptionsMenu : MonoBehaviour
         OptionsData.instance.maxVolume = masterVolume.value;
         OptionsData.instance.musicVolume = musicVolume.value;
         OptionsData.instance.sfxFloat = fxVolume.value;
+
+        OptionsData.instance.loadTime = LoadSlider.value;
     }
 
     public void OnDisable()

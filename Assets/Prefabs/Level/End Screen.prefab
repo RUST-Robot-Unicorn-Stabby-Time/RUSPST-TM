@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 8281156264690974629}
   - component: {fileID: 5316964588979425103}
   - component: {fileID: 2239420094155282981}
+  - component: {fileID: 1983252418}
   m_Layer: 5
   m_Name: Win Screen
   m_TagString: Untagged
@@ -444,6 +445,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1983252418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820921110698870162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac56d6e727500fa43ad09b6406723b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3198400822668232172
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +812,7 @@ GameObject:
   - component: {fileID: 6797460459883621560}
   - component: {fileID: 1443750653996982620}
   - component: {fileID: 9144586752017104890}
+  - component: {fileID: 1146576618}
   m_Layer: 5
   m_Name: Lose Screen
   m_TagString: Untagged
@@ -890,6 +904,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1146576618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4418801201854358672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac56d6e727500fa43ad09b6406723b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4593547208875582085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,10 +1170,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EndScreen, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 3100115521257978033}
+        m_TargetAssemblyTypeName: LevelEndUI, Assembly-CSharp
+        m_MethodName: LoadLobby
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1277,10 +1303,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EndScreen, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 3100115521257978033}
+        m_TargetAssemblyTypeName: LevelEndUI, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1411,7 +1437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winScreen: {fileID: 2820921110698870162}
   loseScreen: {fileID: 4418801201854358672}
-  showWinScreen: 0
+  isLastLevel: 0
 --- !u!1 &8375337091553579988
 GameObject:
   m_ObjectHideFlags: 0

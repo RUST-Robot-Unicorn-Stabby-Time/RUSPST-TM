@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         hitReact = GetComponent<HitReact>();
         input = GetComponent<PlayerInput>();
 
-        UnlockControlsEvent += (s) => OnControlsUnlocked();
+        UnlockControlsEvent += OnControlsUnlocked;
     }
 
     private void Start()
@@ -54,10 +54,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnlockControlsEvent -= (s) => OnControlsUnlocked();
+        UnlockControlsEvent -= OnControlsUnlocked;
     }
 
-    private void OnControlsUnlocked()
+    private void OnControlsUnlocked(bool state = false)
     {
         input.enabled = ControlUnlocks == 0;
     }
@@ -82,6 +82,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        AlivePlayers.Remove(this);
+
         if (TryGetComponent(out Health health))
         {
             health.DeathEvent -= OnDeath;
