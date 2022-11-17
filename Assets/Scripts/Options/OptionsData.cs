@@ -16,6 +16,8 @@ public class OptionsData
     public int xResolution = 1280;
     public int yResolution = 720;
 
+    public float loadTime = 10.0f;
+
     public int fullscreen = (int)FullScreenMode.Windowed;
 
     public static string OptionsPath => Application.persistentDataPath + "/options.json";
