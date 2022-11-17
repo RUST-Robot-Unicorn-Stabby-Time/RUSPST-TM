@@ -59,9 +59,9 @@ public class GameData : ScriptableObject
 
     private IEnumerator LoadRoutine(string levelPath)
     {
-        SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
-
         AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(levelPath);
+
+        SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
 
         StartLevelLoading?.Invoke();
 
@@ -71,13 +71,18 @@ public class GameData : ScriptableObject
         while (!loadingOperation.isDone)
         {
             LoadPercent = loadingOperation.progress;
-            LoadingProgress?.Invoke(loadingOperation.progress * 0.9f);
             yield return null;
         }
 
-        LoadPercent = 0.9f;
-
-        yield return new WaitForSeconds(3.0f);
+        float loadTime = OptionsData.instance.loadTime;
+        float jamesTime = 0.0f;
+        while (jamesTime < loadTime)
+        {
+            float percent = jamesTime / loadTime;
+            LoadPercent = percent + (Mathf.Sin(35 * percent) / 11.0f);
+            jamesTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
 
         LoadPercent = 0.0f;
         Time.timeScale = 1.0f;
