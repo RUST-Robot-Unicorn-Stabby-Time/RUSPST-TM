@@ -15,7 +15,7 @@ public class PlayerWeapon : MonoBehaviour
     public int attackAnimLayer;
 
     [Space]
-    [SerializeField] Cinemachine.CinemachineCollisionImpulseSource shakeSource;
+    [SerializeField] Cinemachine.CinemachineImpulseSource shakeSource;
     [SerializeField] float shakeDelay;
 
     [Space]
@@ -85,7 +85,7 @@ public class PlayerWeapon : MonoBehaviour
             {
                 if (time > hitFXdelay && !fxSpawned)
                 {
-                    Instantiate(hitPrefab, hitPoint.position + hitOffset, hitPoint.rotation * hitPrefab.transform.rotation);
+                    Instantiate(hitPrefab, hitPoint.position + hitPoint.rotation * hitOffset, hitPoint.rotation * hitPrefab.transform.rotation);
                     fxSpawned = true;
                 }
             }
