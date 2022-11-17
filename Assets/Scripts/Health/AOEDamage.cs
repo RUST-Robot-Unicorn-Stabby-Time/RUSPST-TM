@@ -16,7 +16,7 @@ public class AOEDamage : MonoBehaviour
         foreach (var query in Physics.OverlapSphere(transform.position, range, collisionMask))
         {
             if (query.transform.root == transform.root) continue;
-            if (rootMask != (rootMask | (1 << query.transform.root.gameObject.layer))) continue;
+            if (rootMask != (rootMask | (1 << query.attachedRigidbody.gameObject.layer))) continue;
 
             float distance = (query.transform.position - transform.position).magnitude;
             if (distance > range) continue;
