@@ -642,7 +642,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5440892788659258392}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3100115521257978033, guid: c4150a18571938443a35440f9eeb105a, type: 3}
+        m_TargetAssemblyTypeName: LevelEndUI, Assembly-CSharp
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5440892788679576678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +1090,6 @@ MonoBehaviour:
   masterVolumeText: {fileID: 5440892789612879313}
   musicVolumeText: {fileID: 5440892790652927056}
   SFXVolume: {fileID: 5440892789691162002}
-  resolution: {fileID: 0}
   resolutionDropdown: {fileID: 5440892790580314371}
   cinemachine: {fileID: 0}
 --- !u!1 &5440892789060607912
@@ -4132,6 +4143,7 @@ GameObject:
   - component: {fileID: 5440892789723210806}
   - component: {fileID: 5440892789723210807}
   - component: {fileID: 5440892789723210792}
+  - component: {fileID: 1669790853}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -4202,6 +4214,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1669790853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440892789723210793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac56d6e727500fa43ad09b6406723b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5440892789731448164
 GameObject:
   m_ObjectHideFlags: 0
@@ -4389,7 +4413,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 449.88782, y: 155.271}
-  m_SizeDelta: {x: -1910, y: -1070}
+  m_SizeDelta: {x: -1910, y: -988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5440892789868249675
 CanvasRenderer:

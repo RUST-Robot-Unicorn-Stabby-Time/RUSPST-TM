@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
+[UnityEditor.InitializeOnLoad]
 [CreateAssetMenu(menuName = "Scriptable Objects/Game Data/Game Data")]
 public class GameData : ScriptableObject
 {
@@ -15,6 +16,8 @@ public class GameData : ScriptableObject
     public UnityEvent StartLevelLoading;
     public UnityEvent<float> LoadingProgress;
     public UnityEvent FinishedLevelLoading;
+
+    public static float LoadPercent { get; private set; }
 
     private LiterallyDoesNothing _context;
     private LiterallyDoesNothing Context
@@ -49,21 +52,37 @@ public class GameData : ScriptableObject
             levelPath = levelList[currentLevel];
         }
 
-        AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(levelPath);
-        Context.StartCoroutine(LoadRoutine(loadingOperation));
+        Context.StartCoroutine(LoadRoutine(levelPath));
 
         currentLevel++;
     }
 
-    private IEnumerator LoadRoutine(AsyncOperation loadingOperation)
+    private IEnumerator LoadRoutine(string levelPath)
     {
+        SceneManager.LoadScene("LoadScene", LoadSceneMode.Additive);
+
+        AsyncOperation loadingOperation = SceneManager.LoadSceneAsync(levelPath);
+
         StartLevelLoading?.Invoke();
+
+        LoadPercent = 0.0f;
+        Time.timeScale = 0.0f;
 
         while (!loadingOperation.isDone)
         {
-            LoadingProgress?.Invoke(loadingOperation.progress);
+            LoadPercent = loadingOperation.progress;
+            LoadingProgress?.Invoke(loadingOperation.progress * 0.9f);
             yield return null;
         }
+
+        LoadPercent = 0.9f;
+
+        yield return new WaitForSeconds(3.0f);
+
+        LoadPercent = 0.0f;
+        Time.timeScale = 1.0f;
+
+        SceneManager.UnloadSceneAsync("LoadScene");
 
         FinishedLevelLoading?.Invoke();
     }
