@@ -41,7 +41,8 @@ public class HurtBox : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             if (collider.transform.root == transform.root) continue;
-            if (rootMask != (rootMask | (1 << collider.transform.root.gameObject.layer))) continue;
+            if (!collider.attachedRigidbody) continue;
+            if (rootMask != (rootMask | (1 << collider.attachedRigidbody.gameObject.layer))) continue;
             if (hitObjects.Contains(collider)) continue;
 
             if (collider.TryGetComponentInParent(out Health health))
