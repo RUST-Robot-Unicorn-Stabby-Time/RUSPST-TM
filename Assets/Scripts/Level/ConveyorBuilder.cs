@@ -152,6 +152,7 @@ public class ConveyorBuilder : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     [UnityEditor.MenuItem("Tools/Bake All Conveyors")]
     public static void Uhhh()
     {
@@ -160,4 +161,5 @@ public class ConveyorBuilder : MonoBehaviour
             conveyor.Bake();
         }
     }
+#endif
 }
