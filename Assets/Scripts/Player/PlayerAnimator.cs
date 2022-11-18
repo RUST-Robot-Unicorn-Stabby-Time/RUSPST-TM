@@ -31,17 +31,17 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        movement.JumpEvent += OnJump;
+        movement.JumpEvent += OnJumpEvent;
     }
 
-    private void OnJump()
+    private void OnJumpEvent()
     {
         target.Play("Jump", 0, 0.0f);
     }
 
     private void OnDisable()
     {
-        movement.JumpEvent -= OnJump;
+        movement.JumpEvent -= OnJumpEvent;
     }
 
     private void LateUpdate()
