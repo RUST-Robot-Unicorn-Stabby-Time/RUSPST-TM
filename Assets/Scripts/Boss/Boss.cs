@@ -25,6 +25,8 @@ public class Boss : MonoBehaviour
     private void OnEnable()
     {
         health.DamageEvent += OnDamage;
+
+        FindObjectOfType<ExitDoor>().WinConditions.Add(() => !this);
     }
 
     private void OnDisable()
