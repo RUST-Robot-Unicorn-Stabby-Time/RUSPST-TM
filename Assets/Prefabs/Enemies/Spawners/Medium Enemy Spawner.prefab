@@ -51,8 +51,7 @@ MonoBehaviour:
   postDelay: 3.3
   root: {fileID: 8635816575540441456}
   animator: {fileID: 3620726239328296643}
-  landAnimation: Land
-  enemyPrefab: {fileID: 1930406527230750610, guid: a9c0fba94dce4a44983a822f31ae8ba3, type: 3}
+  landFlag: 
   landEvent:
     m_PersistentCalls:
       m_Calls:
@@ -265,15 +264,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4186110975975493712, guid: 74daa3eb376fa8646a900fd1fed07d2a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 34.500423
       objectReference: {fileID: 0}
     - target: {fileID: -4186110975975493712, guid: 74daa3eb376fa8646a900fd1fed07d2a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.015
+      value: 0.9999981
       objectReference: {fileID: 0}
     - target: {fileID: -4186110975975493712, guid: 74daa3eb376fa8646a900fd1fed07d2a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.127
+      value: -18.497873
       objectReference: {fileID: 0}
     - target: {fileID: -4186110975975493712, guid: 74daa3eb376fa8646a900fd1fed07d2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

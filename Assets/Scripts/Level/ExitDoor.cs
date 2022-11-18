@@ -8,25 +8,10 @@ public class ExitDoor : MonoBehaviour
     [SerializeField] GameObject[] enableOnExit;
     [SerializeField] float distance;
     public FinishAction action;
-    [HideInInspector] public GameData data;
-    [HideInInspector] public GameGenerator generator;
-    [HideInInspector] public UnityEvent finishEvent;
+    public string nextRoomName;
+    public UnityEvent finishEvent;
 
-    bool lastWave;
-
-    private void OnEnable()
-    {
-        EnemyWave.lastWaveSpawned += OnLastWaveSpawned;
-        EnemyActions.AllEnemiesDeadEvent += FinishLevel;
-    }
-
-    private void OnDisable()
-    {
-        EnemyWave.lastWaveSpawned -= OnLastWaveSpawned;
-        EnemyActions.AllEnemiesDeadEvent -= FinishLevel;
-    }
-
-    private void OnLastWaveSpawned() => lastWave = true;
+    public List<System.Func<bool>> WinConditions { get; private set; } = new List<System.Func<bool>>();
 
     private void Start()
     {
@@ -38,6 +23,11 @@ public class ExitDoor : MonoBehaviour
 
     private void Update()
     {
+        foreach (var condition in WinConditions)
+        {
+            if (!condition()) return;
+        }
+
         foreach (var player in PlayerController.AlivePlayers)
         {
             if ((player.transform.position - transform.position).sqrMagnitude < distance * distance)
@@ -45,10 +35,7 @@ public class ExitDoor : MonoBehaviour
                 switch (action)
                 {
                     case FinishAction.NextRoom:
-                        data.LoadNextLevel();
-                        break;
-                    case FinishAction.GenerateGame:
-                        generator.GenerateGame();
+                        FindObjectOfType<SceneLoader>().LoadScene(nextRoomName);
                         break;
                     case FinishAction.Custom:
                     default:
@@ -60,11 +47,6 @@ public class ExitDoor : MonoBehaviour
                 return;
             }
         }
-    }
-
-    private void FinishLevel()
-    {
-        if (!lastWave) return;
 
         foreach (var go in enableOnExit)
         {
@@ -75,7 +57,6 @@ public class ExitDoor : MonoBehaviour
     public enum FinishAction
     {
         NextRoom,
-        GenerateGame,
         Custom
     }
 }

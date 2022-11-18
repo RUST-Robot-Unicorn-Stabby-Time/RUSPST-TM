@@ -17,6 +17,7 @@ public class EnemyActions : MonoBehaviour
     float faceVelocity;
     bool attacking;
 
+    public static event System.Action<EnemyActions> EnemySpawnedEvent;
     public static event System.Action<EnemyActions> EnemyDiedEvent;
     public static event System.Action AllEnemiesDeadEvent;
     public static HashSet<EnemyActions> Enemies = new HashSet<EnemyActions>();
@@ -43,11 +44,18 @@ public class EnemyActions : MonoBehaviour
     private void OnEnable()
     {
         Enemies.Add(this);
+        EnemySpawnedEvent?.Invoke(this);
 
         foreach (var attack in attacks)
         {
             attack.FinishAttackEvent += OnFinishAttack;
         }
+    }
+
+    private void Start()
+    {
+        ExitDoor door = FindObjectOfType<ExitDoor>();
+        if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
     }
 
     private void OnFinishAttack()
@@ -81,6 +89,8 @@ public class EnemyActions : MonoBehaviour
 
     private void OnDisable()
     {
+        if (gameObject.activeSelf) return;
+
         Enemies.Remove(this);
         EnemyDiedEvent?.Invoke(this);
         if (Enemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
