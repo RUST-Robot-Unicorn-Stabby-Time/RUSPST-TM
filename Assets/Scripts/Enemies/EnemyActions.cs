@@ -52,6 +52,12 @@ public class EnemyActions : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        ExitDoor door = FindObjectOfType<ExitDoor>();
+        if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
+    }
+
     private void OnFinishAttack()
     {
         EnemiesAttacking--;
@@ -83,6 +89,8 @@ public class EnemyActions : MonoBehaviour
 
     private void OnDisable()
     {
+        if (gameObject.activeSelf) return;
+
         Enemies.Remove(this);
         EnemyDiedEvent?.Invoke(this);
         if (Enemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
