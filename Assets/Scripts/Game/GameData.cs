@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-[UnityEditor.InitializeOnLoad]
 [CreateAssetMenu(menuName = "Scriptable Objects/Game Data/Game Data")]
 public class GameData : ScriptableObject
 {

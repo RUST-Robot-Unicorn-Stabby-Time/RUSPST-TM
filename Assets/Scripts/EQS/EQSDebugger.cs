@@ -13,6 +13,7 @@ public class EQSDebugger : MonoBehaviour
     [SerializeField] bool drawVisuals;
     [SerializeField] bool drawHandles;
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         float maxScore = float.MinValue;
@@ -40,4 +41,5 @@ public class EQSDebugger : MonoBehaviour
             }
         }
     }
+#endif
 }

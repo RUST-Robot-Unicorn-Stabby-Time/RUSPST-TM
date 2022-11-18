@@ -15,15 +15,17 @@ public class EnemyCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        EnemyActions.EnemyDiedEvent += OnEnemyDied;
+        EnemyActions.EnemySpawnedEvent += OnEnemyCountChanged;
+        EnemyActions.EnemyDiedEvent += OnEnemyCountChanged;
     }
 
     private void OnDisable()
     {
-        EnemyActions.EnemyDiedEvent -= OnEnemyDied;
+        EnemyActions.EnemySpawnedEvent -= OnEnemyCountChanged;
+        EnemyActions.EnemyDiedEvent -= OnEnemyCountChanged;
     }
 
-    private void OnEnemyDied(EnemyActions obj)
+    private void OnEnemyCountChanged(EnemyActions obj)
     {
         text.text = string.Format(template, EnemyActions.Enemies.Count);
     }
