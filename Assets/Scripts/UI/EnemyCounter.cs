@@ -29,6 +29,7 @@ public class EnemyCounter : MonoBehaviour
 
     private void OnEnemyCountChanged(EnemyActions obj)
     {
+        if (!wave) return;
         text.text = string.Format(template, wave.EnemiesLeft);
     }
 }
