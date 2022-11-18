@@ -15,8 +15,17 @@ public class PlayerWeapon : MonoBehaviour
     public int attackAnimLayer;
 
     [Space]
-    [SerializeField] Cinemachine.CinemachineCollisionImpulseSource shakeSource;
+    [SerializeField] Cinemachine.CinemachineImpulseSource shakeSource;
     [SerializeField] float shakeDelay;
+
+    [Space]
+    [SerializeField] GameObject hitPrefab;
+    [SerializeField] Transform hitPoint;
+    [SerializeField] Vector3 hitOffset;
+    [SerializeField] float hitFXdelay;
+
+    [Space]
+    [SerializeField] SoundProfile[] attackSounds;
 
     private float lastClickTime = 0f;
 
@@ -49,6 +58,8 @@ public class PlayerWeapon : MonoBehaviour
 
         BeginAttackEvent?.Invoke();
 
+        foreach (var sound in attackSounds) sound.Play();
+
         Attacking = true;
 
         lastClickTime = Time.time;
@@ -65,6 +76,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         bool shooketh = false;
+        bool fxSpawned = false;
         float time = 0.0f;
         while (time < cooldown)
         {
@@ -72,6 +84,15 @@ public class PlayerWeapon : MonoBehaviour
             {
                 if (shakeSource) shakeSource.GenerateImpulse();
                 shooketh = true;
+            }
+
+            if (hitPrefab)
+            {
+                if (time > hitFXdelay && !fxSpawned)
+                {
+                    Instantiate(hitPrefab, hitPoint.position + hitPoint.rotation * hitOffset, hitPoint.rotation * hitPrefab.transform.rotation);
+                    fxSpawned = true;
+                }
             }
 
             time += Time.deltaTime;

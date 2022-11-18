@@ -19,6 +19,9 @@ public sealed class CharacterMovement : MonoBehaviour
     [SerializeField] float jumpSpringPauseTime = 0.1f;
 
     [Space]
+    [SerializeField] float maxSlopeAngle;
+
+    [Space]
     [SerializeField] float springDistance = 1.2f;
     [SerializeField] float springForce = 250.0f;
     [SerializeField] float springDamper = 15.0f;
@@ -139,15 +142,20 @@ public sealed class CharacterMovement : MonoBehaviour
 
     public float GetDistanceToGround()
     {
-        if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * groundCheckRadius, groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
+        float skinWidth = 0.1f;
+        if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * (groundCheckRadius + skinWidth), groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
         {
-            if (hit.rigidbody)
+            LocalVelocity = Vector3.zero;
+            if (hit.distance < springDistance)
             {
-                LocalVelocity = hit.rigidbody.velocity;
-            }
-            else
-            {
-                LocalVelocity = Vector3.zero;
+                if (Mathf.Cos(Vector3.Dot(Vector3.up, hit.normal)) * Mathf.Rad2Deg > maxSlopeAngle)
+                {
+                    return float.PositiveInfinity;
+                }
+                if (hit.rigidbody)
+                {
+                    LocalVelocity = hit.rigidbody.velocity;
+                }
             }
             return hit.distance;
         }
