@@ -3108,7 +3108,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3100115521257978033, guid: c4150a18571938443a35440f9eeb105a, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LevelEndUI, Assembly-CSharp
         m_MethodName: LoadMainMenu
         m_Mode: 1
@@ -3346,6 +3346,7 @@ GameObject:
   - component: {fileID: 5440892788969172918}
   - component: {fileID: 5440892788969172919}
   - component: {fileID: 3439441071839634912}
+  - component: {fileID: 411560409}
   m_Layer: 5
   m_Name: OptionsMenuPanel
   m_TagString: Untagged
@@ -3442,6 +3443,18 @@ MonoBehaviour:
   resolutionDropdown: {fileID: 5440892790580314371}
   cinemachine: {fileID: 0}
 --- !u!114 &3439441071839634912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440892788969172904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac56d6e727500fa43ad09b6406723b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &411560409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

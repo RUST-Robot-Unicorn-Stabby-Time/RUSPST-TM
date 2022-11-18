@@ -6,11 +6,13 @@ public class EnemyCounter : MonoBehaviour
 {
     [SerializeField] string template = "{0}";
 
+    EnemyWave wave;
     TMP_Text text;
 
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
+        wave = FindObjectOfType<EnemyWave>();
     }
 
     private void OnEnable()
@@ -27,6 +29,6 @@ public class EnemyCounter : MonoBehaviour
 
     private void OnEnemyCountChanged(EnemyActions obj)
     {
-        text.text = string.Format(template, EnemyActions.Enemies.Count);
+        text.text = string.Format(template, wave.EnemiesLeft);
     }
 }
