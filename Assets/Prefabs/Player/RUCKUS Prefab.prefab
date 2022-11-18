@@ -405,7 +405,7 @@ MonoBehaviour:
   animation: {fileID: 5662067639383416816}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
-  freezeMovementTime: 0
+  freezeMovementTime: 1
   attackAnimName: Attack
   attackAnimLayer: 0
   shakeSource: {fileID: 0}
@@ -536,7 +536,7 @@ MonoBehaviour:
   animation: {fileID: 5662067639383416816}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
-  freezeMovementTime: 0
+  freezeMovementTime: 1
   attackAnimName: Slam
   attackAnimLayer: 0
   shakeSource: {fileID: 382750368}
@@ -1836,8 +1836,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4727405997622631697}
-  m_LocalRotation: {x: 0.18220948, y: 0.0000008378913, z: -0.00000015966177, w: 0.98325974}
-  m_LocalPosition: {x: -0.00000083465966, y: 1.9911299, z: -1.7550354}
+  m_LocalRotation: {x: 0.13094337, y: -0.00000009899941, z: 0.00000001358606, w: 0.9913899}
+  m_LocalPosition: {x: 0.0000013111066, y: 1.9911294, z: -1.7550354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4727405997754288941}
@@ -2749,6 +2749,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1385452332969680324, guid: 72d569639c2e3154abc0d13c7e8edf5b, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 5136991736613105196, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     - target: {fileID: 4245068132382707324, guid: 72d569639c2e3154abc0d13c7e8edf5b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2807,6 +2811,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
+    - target: {fileID: 575408055934707058, guid: 7c609c034fafa734583975221afe9229, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -6284120009911835661, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     - target: {fileID: 3008330094841074716, guid: 7c609c034fafa734583975221afe9229, type: 3}
       propertyPath: m_Name
       value: Hardware Overclock
@@ -2925,6 +2933,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7522782726021727457, guid: c347d7e9a4858354a8d29e62daede818, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -262484171651407337, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c347d7e9a4858354a8d29e62daede818, type: 3}
 --- !u!4 &3101862912574164181 stripped
@@ -4414,6 +4426,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
+    - target: {fileID: 1816681729696567394, guid: 332e28b58f3498f4583111d009a03628, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -6034966996046885204, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     - target: {fileID: 3388696536021911290, guid: 332e28b58f3498f4583111d009a03628, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4488,6 +4504,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5737820077727221214, guid: a3c5340f0e0a5004f8621aaae8b6ac23, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 2358490249553995201, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     - target: {fileID: 8331416959709193071, guid: a3c5340f0e0a5004f8621aaae8b6ac23, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -4598,6 +4618,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8880645407864500745, guid: cfe81c163e196c3489ed894f18391a03, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -7744379705910439549, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfe81c163e196c3489ed894f18391a03, type: 3}
 --- !u!4 &1269372391578567755 stripped
@@ -4612,6 +4636,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
+    - target: {fileID: 2195670145892030693, guid: 992c647af81731646b54a2c1aa395584, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -6062040743687253388, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     - target: {fileID: 3157525148797102491, guid: 992c647af81731646b54a2c1aa395584, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4678,6 +4706,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
+    - target: {fileID: 2220198986800227331, guid: 2cf8e92384fa50c4abd4aace3b73f921, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -5438949496041201225, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     - target: {fileID: 4227119521675609513, guid: 2cf8e92384fa50c4abd4aace3b73f921, type: 3}
       propertyPath: m_Name
       value: Chemical Ventilator
@@ -4796,6 +4828,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7916107711445602101, guid: 231cbf496b45a7f479854de98d12ccce, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: -2269478690449931398, guid: 7324b363a2ab74e4a8ad34ebced0caca, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 231cbf496b45a7f479854de98d12ccce, type: 3}
 --- !u!4 &6171453938821905759 stripped
