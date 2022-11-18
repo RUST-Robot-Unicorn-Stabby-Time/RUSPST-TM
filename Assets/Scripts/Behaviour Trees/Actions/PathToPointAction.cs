@@ -8,7 +8,6 @@ public class PathToPointAction : BehaviourBase
     [SerializeField] string pointKey = "EQS";
     [SerializeField] float goodEnoughDistance = 1.0f;
 
-    int corner = 0;
     NavMeshPath path;
     Vector3 lastQueriedPoint = Vector3.zero;
 
@@ -37,20 +36,31 @@ public class PathToPointAction : BehaviourBase
         if ((lastQueriedPoint - point).sqrMagnitude > goodEnoughDistance * goodEnoughDistance || path == null)
         {
             if (path == null) path = new NavMeshPath();
-            NavMesh.CalculatePath(Actions.transform.position - Vector3.up, point, 0, path);
-            corner = 0;
-            lastQueriedPoint = point;
+
+            Vector3 start = Actions.transform.position - Vector3.up;
+            Vector3 end = point - Vector3.up;
+            NavMeshHit hit;
+
+            if (NavMesh.SamplePosition(start, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                start = hit.position;
+            }
+
+            if (NavMesh.SamplePosition(end, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                end = hit.position;
+            }
+
+            if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
+            {
+                lastQueriedPoint = point;
+            }
         }
 
         Vector3 v;
-        if (corner < path.corners.Length)
+        if (path.corners.Length > 1)
         {
-            v = (path.corners[corner] - Actions.transform.position);
-
-            if (v.sqrMagnitude < goodEnoughDistance * goodEnoughDistance)
-            {
-                corner++;
-            }
+            v = (path.corners[1] - Actions.transform.position);
         }
         else
         {
