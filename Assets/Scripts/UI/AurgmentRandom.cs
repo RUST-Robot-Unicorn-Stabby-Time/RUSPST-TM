@@ -53,8 +53,11 @@ public class AurgmentRandom : MonoBehaviour
 		}
 
 		arg1.sprite = list[selectedArtifact[0]].icon;
+		arg1.transform.parent.GetComponent<ArgumentDescription>().SetArtifact(list[selectedArtifact[0]]);
 		arg2.sprite = list[selectedArtifact[1]].icon;
+		arg2.transform.parent.GetComponent<ArgumentDescription>().SetArtifact(list[selectedArtifact[1]]);
 		arg3.sprite = list[selectedArtifact[2]].icon;
+		arg3.transform.parent.GetComponent<ArgumentDescription>().SetArtifact(list[selectedArtifact[2]]);
 	}
 
     private void Start()
