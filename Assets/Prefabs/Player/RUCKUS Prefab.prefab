@@ -353,7 +353,7 @@ MonoBehaviour:
   animation: {fileID: 5662067639383416816}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
-  freezeMovement: 0
+  freezeMovementTime: 0
   attackAnimName: Attack
   attackAnimLayer: 0
   shakeSource: {fileID: 0}
@@ -362,6 +362,7 @@ MonoBehaviour:
   hitPoint: {fileID: 0}
   hitOffset: {x: 0, y: 0, z: 0}
   hitFXdelay: 0
+  attackSounds: []
 --- !u!95 &5662067639383416816
 Animator:
   serializedVersion: 3
@@ -483,7 +484,7 @@ MonoBehaviour:
   animation: {fileID: 5662067639383416816}
   characterMovement: {fileID: 4727405997358133128}
   impulseForce: {x: 0, y: 0, z: 0}
-  freezeMovement: 1
+  freezeMovementTime: 0
   attackAnimName: Slam
   attackAnimLayer: 0
   shakeSource: {fileID: 382750368}
@@ -492,6 +493,7 @@ MonoBehaviour:
   hitPoint: {fileID: 4867890946616873805}
   hitOffset: {x: 0, y: 0, z: 0}
   hitFXdelay: 1
+  attackSounds: []
 --- !u!114 &382750368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,8 +1733,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4727405997622631697}
-  m_LocalRotation: {x: 0.13094315, y: 0.00000008940696, z: -0.000000014901159, w: 0.9913899}
-  m_LocalPosition: {x: -0.00000023841864, y: 1.9911296, z: -1.7550395}
+  m_LocalRotation: {x: 0.18220948, y: 0.0000008378913, z: -0.00000015966177, w: 0.98325974}
+  m_LocalPosition: {x: -0.00000083465966, y: 1.9911299, z: -1.7550354}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4727405997754288941}
@@ -2588,14 +2590,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Biofuel Reactor
       objectReference: {fileID: 0}
-    - target: {fileID: 214716851014353592, guid: 72d569639c2e3154abc0d13c7e8edf5b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1385452332969680324, guid: 72d569639c2e3154abc0d13c7e8edf5b, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 7290735526680708657, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     - target: {fileID: 4245068132382707324, guid: 72d569639c2e3154abc0d13c7e8edf5b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2654,17 +2648,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
-    - target: {fileID: 575408055934707058, guid: 7c609c034fafa734583975221afe9229, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 76170623746148100, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     - target: {fileID: 3008330094841074716, guid: 7c609c034fafa734583975221afe9229, type: 3}
       propertyPath: m_Name
       value: Hardware Overclock
-      objectReference: {fileID: 0}
-    - target: {fileID: 3008330094841074716, guid: 7c609c034fafa734583975221afe9229, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6221581267000683485, guid: 7c609c034fafa734583975221afe9229, type: 3}
       propertyPath: m_RootOrder
@@ -2772,14 +2758,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tesla Coil
       objectReference: {fileID: 0}
-    - target: {fileID: 7420371625058878981, guid: c347d7e9a4858354a8d29e62daede818, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7522782726021727457, guid: c347d7e9a4858354a8d29e62daede818, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: -4027782761925783342, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c347d7e9a4858354a8d29e62daede818, type: 3}
 --- !u!4 &3101862912574164181 stripped
@@ -3750,10 +3728,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
-    - target: {fileID: 1816681729696567394, guid: 332e28b58f3498f4583111d009a03628, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: -1017680077313230671, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     - target: {fileID: 3388696536021911290, guid: 332e28b58f3498f4583111d009a03628, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -3802,10 +3776,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sub-Zero Coolant
       objectReference: {fileID: 0}
-    - target: {fileID: 8602675164605897124, guid: 332e28b58f3498f4583111d009a03628, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 332e28b58f3498f4583111d009a03628, type: 3}
 --- !u!4 &4107719156689381526 stripped
@@ -3824,14 +3794,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nuclear Battery
       objectReference: {fileID: 0}
-    - target: {fileID: 1211645494701806869, guid: a3c5340f0e0a5004f8621aaae8b6ac23, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5737820077727221214, guid: a3c5340f0e0a5004f8621aaae8b6ac23, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 2996831518872736237, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     - target: {fileID: 8331416959709193071, guid: a3c5340f0e0a5004f8621aaae8b6ac23, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3894,10 +3856,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Virus Injector
       objectReference: {fileID: 0}
-    - target: {fileID: 852915075165106719, guid: cfe81c163e196c3489ed894f18391a03, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5617853095048629586, guid: cfe81c163e196c3489ed894f18391a03, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -3942,10 +3900,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8880645407864500745, guid: cfe81c163e196c3489ed894f18391a03, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 3963494263502079292, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfe81c163e196c3489ed894f18391a03, type: 3}
 --- !u!4 &1269372391578567755 stripped
@@ -3960,10 +3914,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
-    - target: {fileID: 2195670145892030693, guid: 992c647af81731646b54a2c1aa395584, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 3687894641307221578, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     - target: {fileID: 3157525148797102491, guid: 992c647af81731646b54a2c1aa395584, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4012,10 +3962,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Steampunk Cogs
       objectReference: {fileID: 0}
-    - target: {fileID: 6652547439963830442, guid: 992c647af81731646b54a2c1aa395584, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 992c647af81731646b54a2c1aa395584, type: 3}
 --- !u!4 &4895010566057947248 stripped
@@ -4030,17 +3976,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7283781252566006255}
     m_Modifications:
-    - target: {fileID: 2220198986800227331, guid: 2cf8e92384fa50c4abd4aace3b73f921, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 8951568759443478826, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     - target: {fileID: 4227119521675609513, guid: 2cf8e92384fa50c4abd4aace3b73f921, type: 3}
       propertyPath: m_Name
       value: Chemical Ventilator
-      objectReference: {fileID: 0}
-    - target: {fileID: 4227119521675609513, guid: 2cf8e92384fa50c4abd4aace3b73f921, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8611233290804162903, guid: 2cf8e92384fa50c4abd4aace3b73f921, type: 3}
       propertyPath: m_RootOrder
@@ -4104,10 +4042,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Modification Station
       objectReference: {fileID: 0}
-    - target: {fileID: 348126020885594735, guid: 231cbf496b45a7f479854de98d12ccce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3221879286157772376, guid: 231cbf496b45a7f479854de98d12ccce, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4152,10 +4086,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7916107711445602101, guid: 231cbf496b45a7f479854de98d12ccce, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 6978029023634796209, guid: 7f76817c9c72c3e49ba564ea297e6c9c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 231cbf496b45a7f479854de98d12ccce, type: 3}
 --- !u!4 &6171453938821905759 stripped
