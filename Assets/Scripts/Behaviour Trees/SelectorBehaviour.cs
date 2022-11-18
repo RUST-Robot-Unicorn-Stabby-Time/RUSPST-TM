@@ -4,6 +4,7 @@ public class SelectorBehaviour : CompositeBehaviour
     {
         foreach (var child in GetChildBehaviours())
         {
+            if (child.isActiveAndEnabled)
             if (child.Execute() == EvaluationResult.Success) return EvaluationResult.Success;
         }
 

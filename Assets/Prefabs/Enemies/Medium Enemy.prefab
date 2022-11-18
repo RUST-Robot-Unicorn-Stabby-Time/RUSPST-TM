@@ -106,7 +106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5519645822026975437
 Transform:
   m_ObjectHideFlags: 0
@@ -5852,7 +5852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518cd40cfa1c02e41a41068b42c64106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 30
+  range: Infinity
   destinationKey: Target
 --- !u!1 &2997793094282535853
 GameObject:
@@ -6820,7 +6820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointKey: EQS
-  goodEnoughDistance: 1
+  goodEnoughDistance: 0.3
 --- !u!1 &8124155353359726999
 GameObject:
   m_ObjectHideFlags: 0
