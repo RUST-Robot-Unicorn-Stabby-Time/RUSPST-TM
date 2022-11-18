@@ -29,7 +29,7 @@ public class SceneLoader : MonoBehaviour
         while (!loadOperation.isDone)
         {
             LoadPercent = loadOperation.progress;
-            yield break;
+            yield return null;
         }
 
         LoadPercent = 1.0f;
