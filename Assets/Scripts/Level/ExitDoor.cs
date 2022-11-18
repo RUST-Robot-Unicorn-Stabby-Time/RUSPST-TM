@@ -8,7 +8,7 @@ public class ExitDoor : MonoBehaviour
     [SerializeField] GameObject[] enableOnExit;
     [SerializeField] float distance;
     public FinishAction action;
-    public string nextRoomName;
+    [SceneReference] public string nextRoomName;
     public UnityEvent finishEvent;
 
     public List<System.Func<bool>> WinConditions { get; private set; } = new List<System.Func<bool>>();
