@@ -15,6 +15,6 @@ public class LoadBar : MonoBehaviour
 
     private void Update()
     {
-        image.fillAmount = GameData.LoadPercent;
+        image.fillAmount = SceneLoader.LoadPercent;
     }
 }

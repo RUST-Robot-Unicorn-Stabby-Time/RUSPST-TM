@@ -8,7 +8,7 @@ public class PlayerWeapon : MonoBehaviour
     public new Animator animation;
     public CharacterMovement characterMovement;
     public Vector3 impulseForce;
-    public bool freezeMovement;
+    public float freezeMovementTime;
 
     [Space]
     public string attackAnimName;
@@ -24,6 +24,9 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] Vector3 hitOffset;
     [SerializeField] float hitFXdelay;
 
+    [Space]
+    [SerializeField] SoundProfile[] attackSounds;
+
     private float lastClickTime = 0f;
 
     PlayerAnimator playerAnimator;
@@ -33,7 +36,7 @@ public class PlayerWeapon : MonoBehaviour
     public event System.Action FinishAttackEvent;
 
     public bool Attacking { get; private set; }
-    public bool FreezeMovement => freezeMovement;
+    public bool FreezeMovement => Time.time < lastClickTime + freezeMovementTime;
 
     public void Awake()
     {
@@ -54,6 +57,8 @@ public class PlayerWeapon : MonoBehaviour
         if (Attacking) yield break;
 
         BeginAttackEvent?.Invoke();
+
+        foreach (var sound in attackSounds) sound.Play();
 
         Attacking = true;
 
