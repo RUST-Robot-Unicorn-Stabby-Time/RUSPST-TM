@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
 {
     [SerializeField] int stages;
     [SerializeField] UnityEvent[] stageEvent;
+    [SerializeField][SceneReference] string nextScene;
 
     Health health;
 
@@ -32,6 +33,8 @@ public class Boss : MonoBehaviour
     private void OnDisable()
     {
         health.DamageEvent -= OnDamage;
+
+        FindObjectOfType<SceneLoader>().LoadScene(nextScene);
     }
 
     private void OnDamage(DamageArgs args)

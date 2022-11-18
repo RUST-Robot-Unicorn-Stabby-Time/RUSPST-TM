@@ -17,9 +17,7 @@ public class ExitDoorEditor : Editor
         switch (door.action)
         {
             case ExitDoor.FinishAction.NextRoom:
-                var sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(door.nextRoomName);
-                sceneAsset = EditorGUILayout.ObjectField(sceneAsset, typeof(SceneAsset), false) as SceneAsset;
-                door.nextRoomName = sceneAsset ? AssetDatabase.GetAssetPath(sceneAsset) : string.Empty;
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("nextRoomName"));
                 break;
             case ExitDoor.FinishAction.Custom:
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("finishEvent"));
