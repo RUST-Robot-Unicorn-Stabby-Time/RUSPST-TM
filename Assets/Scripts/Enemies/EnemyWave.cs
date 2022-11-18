@@ -1,62 +1,45 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyWave : MonoBehaviour
 {
-    public int passCount;
-
-    static int enemiesLeft;
-    static event System.Action nextWaveEvent;
-    public static event System.Action lastWaveSpawned;
+    int wave = 0;
 
     private void Awake()
     {
-        gameObject.SetActive(transform.GetSiblingIndex() == 0);
+        if (transform.childCount <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        FindObjectOfType<ExitDoor>().WinConditions.Add(() => wave >= transform.childCount);
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(i == 0);
+        }
+
+        transform.GetChild(0).DetachChildren();
     }
 
     private void OnEnable()
     {
-        enemiesLeft = passCount;
-        EnemyActions.EnemyDiedEvent += EnemyDeathEvent;
-        
-        while(transform.childCount > 0)
-        {
-            GameObject enemy = transform.GetChild(0).gameObject;
-            enemy.SetActive(true);
-            enemy.transform.SetParent(null);
-        }
-
-        nextWaveEvent += AdvanceWave;
+        EnemyActions.AllEnemiesDeadEvent += OnAllEnemiesDead;
     }
 
     private void OnDisable()
     {
-        nextWaveEvent -= AdvanceWave;
-        EnemyActions.EnemyDiedEvent -= EnemyDeathEvent;
+        EnemyActions.AllEnemiesDeadEvent -= OnAllEnemiesDead;
     }
 
-    private void AdvanceWave()
+    private void OnAllEnemiesDead()
     {
-        int siblingIndex = transform.GetSiblingIndex();
-        if (siblingIndex + 2 >= transform.parent.childCount)
-        {
-            lastWaveSpawned?.Invoke();
-            return;
-        }
+        wave++;
 
-        transform.parent.GetChild(siblingIndex + 1).gameObject.SetActive(true);
-        Destroy(gameObject);
-    }
+        if (wave >= transform.childCount) return;
 
-    public static void EnemyDeathEvent (EnemyActions enemy)
-    {
-        enemiesLeft--;
-
-        if (enemiesLeft <= 0)
-        {
-            nextWaveEvent?.Invoke();
-        }
+        var waveContainer = transform.GetChild(wave);
+        waveContainer.gameObject.SetActive(true);
+        waveContainer.DetachChildren();
     }
 }

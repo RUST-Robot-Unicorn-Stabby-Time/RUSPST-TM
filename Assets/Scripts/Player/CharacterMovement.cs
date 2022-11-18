@@ -142,19 +142,20 @@ public sealed class CharacterMovement : MonoBehaviour
 
     public float GetDistanceToGround()
     {
-        if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * groundCheckRadius, groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
+        float skinWidth = 0.1f;
+        if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * (groundCheckRadius + skinWidth), groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
         {
-            if (Mathf.Cos(Vector3.Dot(Vector3.up, hit.normal)) * Mathf.Rad2Deg > maxSlopeAngle)
+            LocalVelocity = Vector3.zero;
+            if (hit.distance < springDistance)
             {
-                return float.PositiveInfinity;
-            }
-            if (hit.rigidbody)
-            {
-                LocalVelocity = hit.rigidbody.velocity;
-            }
-            else
-            {
-                LocalVelocity = Vector3.zero;
+                if (Mathf.Cos(Vector3.Dot(Vector3.up, hit.normal)) * Mathf.Rad2Deg > maxSlopeAngle)
+                {
+                    return float.PositiveInfinity;
+                }
+                if (hit.rigidbody)
+                {
+                    LocalVelocity = hit.rigidbody.velocity;
+                }
             }
             return hit.distance;
         }
