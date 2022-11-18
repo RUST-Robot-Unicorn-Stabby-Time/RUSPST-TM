@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class Artifact : MonoBehaviour
 {
     public string displayName;
+    [TextArea]public string description;
     public Sprite icon;
     public Color baseColor;
     public int priority;
