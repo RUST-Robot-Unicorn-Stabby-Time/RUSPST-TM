@@ -16,12 +16,12 @@ public class HealthUI : MonoBehaviour
     void Update()
     {
         healthBar.fillAmount = health.currentHealth;
-        previousHealthBar.fillAmount = health.currentHealth + (health.damageTaken / health.maxHealth.GetFor(this));
+        if (previousHealthBar) previousHealthBar.fillAmount = health.currentHealth + (health.damageTaken / health.maxHealth.GetFor(this));
 
         if (health.currentHealth <= 0)
         {
             healthBar.fillAmount = 0;
-            previousHealthBar.fillAmount = 0;
+            if (previousHealthBar) previousHealthBar.fillAmount = 0;
         }
     }
 }

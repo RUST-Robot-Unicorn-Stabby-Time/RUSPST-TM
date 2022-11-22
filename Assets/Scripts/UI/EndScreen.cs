@@ -18,7 +18,7 @@ public class EndScreen : MonoBehaviour
 
     public void LoadScene (string name)
     {
-        SceneManager.LoadScene(name);
+        FindObjectOfType<SceneLoader>().LoadScene (name);
     }
 
     public void Quit ()

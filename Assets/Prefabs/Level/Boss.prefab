@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5803109206066659199}
   - component: {fileID: 8728798452757827865}
   - component: {fileID: 756330393582911330}
+  - component: {fileID: 5354068330297509191}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
@@ -132,6 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  nextScene: Assets/Scenes/Final/BossRoom_FinalCutscene.unity
 --- !u!95 &5803109206066659199
 Animator:
   serializedVersion: 3
@@ -209,6 +211,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5354068330297509191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883936526719482611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1c15bb73292c646aa806e0204e9326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  previousHealthBar: {fileID: 0}
 --- !u!64 &4857354400797568946
 MeshCollider:
   m_ObjectHideFlags: 0
