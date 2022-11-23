@@ -17,6 +17,20 @@ public class QuickActions : EditorWindow
 
     Vector2 scrollPos;
 
+    [MenuItem("Actions/Zero Group")]
+    public static void ZeroGroup ()
+    {
+        foreach (var sel in Selection.gameObjects)
+        {
+            Vector3 offset = sel.transform.position;
+            foreach (Transform child in sel.transform)
+            {
+                child.position += offset;
+            }
+            sel.transform.position = Vector3.zero;
+        }
+    }
+
     private void OnGUI()
     {
         GUIStyle s = new GUIStyle();

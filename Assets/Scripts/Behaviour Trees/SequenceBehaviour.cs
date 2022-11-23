@@ -4,6 +4,7 @@ public class SequenceBehaviour : CompositeBehaviour
     {
         foreach (var child in GetChildBehaviours())
         {
+            if (child.isActiveAndEnabled)
             if (child.Execute() == EvaluationResult.Failure) return EvaluationResult.Failure;
         }
 
