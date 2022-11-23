@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7493636156660239851}
   - component: {fileID: 5787519098817528398}
   - component: {fileID: 8625962001842976388}
+  - component: {fileID: 2019368067870244556}
   m_Layer: 0
   m_Name: ToolBox
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7833288954491279185}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 26.02874, y: 3.9175417, z: 9.0759115}
-  m_LocalScale: {x: 0.31148925, y: 0.3349951, z: 0.8213374}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2019368067870244556
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833288954491279185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7675006590446261492, guid: 791cb49503f7fd741ace82c2034da386, type: 3}

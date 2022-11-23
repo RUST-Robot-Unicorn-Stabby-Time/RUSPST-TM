@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4046909527774779565}
   - component: {fileID: 3599792741469442143}
   - component: {fileID: 6528399495664023598}
+  - component: {fileID: 8251910142591740821}
   m_Layer: 0
   m_Name: Horse_enemy_Edited_Resized
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8251910142591740821
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261180797482674701}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2831161736392667993, guid: 3ad06f8a3db36aa48bd01dff417e5b6e, type: 3}
 --- !u!1 &5822505283019399698
 GameObject:
   m_ObjectHideFlags: 0
