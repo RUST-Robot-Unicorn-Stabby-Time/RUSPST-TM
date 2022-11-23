@@ -9,7 +9,6 @@ public class VirusInjector : Artifact
     public float critDamageScale;
     [Range(0.0f, 1.0f)]public float critChance;
 
-    StatModification modification;
     float damageScale;
 
     protected override void Awake()

@@ -9,6 +9,7 @@ public class PlayerWeapon : MonoBehaviour
     public CharacterMovement characterMovement;
     public Vector3 impulseForce;
     public float freezeMovementTime;
+    public float directionLockDelay;
 
     [Space]
     public string attackAnimName;
@@ -70,11 +71,7 @@ public class PlayerWeapon : MonoBehaviour
             rigidbody.velocity += transform.TransformVector(impulseForce);
         }
 
-        if (playerAnimator)
-        {
-            playerAnimator.DirectionLock = transform.forward;
-        }
-
+        Vector3 direction = transform.forward;
         bool shooketh = false;
         bool fxSpawned = false;
         float time = 0.0f;
@@ -84,6 +81,18 @@ public class PlayerWeapon : MonoBehaviour
             {
                 if (shakeSource) shakeSource.GenerateImpulse();
                 shooketh = true;
+            }
+
+            if (time < directionLockDelay)
+            {
+                if (playerAnimator)
+                {
+                    playerAnimator.DirectionLock = direction;
+                }
+            }
+            else
+            {
+                direction = transform.forward;
             }
 
             if (hitPrefab)
