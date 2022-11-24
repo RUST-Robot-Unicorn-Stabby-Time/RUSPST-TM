@@ -46557,6 +46557,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4727405997358133175, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
+      propertyPath: verticalRotationClamp.x
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727405997358133175, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
+      propertyPath: verticalRotationClamp.y
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4727405997622631699, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000023841864
@@ -46575,7 +46583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4727405997622631699, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.13094316
+      value: 0.13094315
       objectReference: {fileID: 0}
     - target: {fileID: 4727405997622631699, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
       propertyPath: m_LocalRotation.y
@@ -56090,7 +56098,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 82
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -56115,7 +56123,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
-  m_LocalRotation: {x: 0.092590794, y: 0.7010186, z: -0.09259082, w: 0.70101845}
+  m_LocalRotation: {x: 0.09259079, y: 0.7010186, z: -0.09259081, w: 0.70101845}
   m_LocalPosition: {x: -28.767744, y: 3.4001296, z: 7.4000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -66391,50 +66399,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1132077114358197316, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1132077114358197316, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1132077114358197316, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1132077114358197316, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1132077114358197316, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1353448434493965858, guid: c4150a18571938443a35440f9eeb105a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1547223225}
-    - target: {fileID: 2505032190564000433, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2505032190564000433, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2505032190564000433, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2505032190564000433, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2505032190564000433, guid: c4150a18571938443a35440f9eeb105a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3029283591044805853, guid: c4150a18571938443a35440f9eeb105a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
