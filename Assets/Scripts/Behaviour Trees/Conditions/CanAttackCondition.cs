@@ -8,6 +8,7 @@ public class CanAttackCondition : BehaviourBase
 
     protected override EvaluationResult OnExecute()
     {
+        if (Actions.IsAttacking) return EvaluationResult.Success;
         return EnemyActions.EnemiesAttacking <= ConcurrentAttackingEnemies ? EvaluationResult.Success : EvaluationResult.Failure;
     }
 }
