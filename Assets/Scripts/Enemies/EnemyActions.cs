@@ -16,7 +16,7 @@ public class EnemyActions : MonoBehaviour
     float angle;
     float faceVelocity;
     float targetAngle;
-    bool attacking;
+    public bool IsAttacking { get; set; }
 
     public static event System.Action<EnemyActions> EnemySpawnedEvent;
     public static event System.Action<EnemyActions> EnemyDiedEvent;
@@ -62,7 +62,7 @@ public class EnemyActions : MonoBehaviour
     private void OnFinishAttack()
     {
         EnemiesAttacking--;
-        attacking = false;
+        IsAttacking = false;
     }
 
     public void Attack (Vector3 targetPoint, int index)
@@ -81,7 +81,7 @@ public class EnemyActions : MonoBehaviour
         {
             attacks[index].Attack();
             EnemiesAttacking++;
-            attacking = true;
+            IsAttacking = true;
         }
     }
 
@@ -96,7 +96,7 @@ public class EnemyActions : MonoBehaviour
             attack.FinishAttackEvent -= OnFinishAttack;
         }
 
-        if (attacking)
+        if (IsAttacking)
         {
             EnemiesAttacking--;
         }
