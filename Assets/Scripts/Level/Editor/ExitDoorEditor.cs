@@ -17,6 +17,7 @@ public class ExitDoorEditor : Editor
         switch (door.action)
         {
             case ExitDoor.FinishAction.NextRoom:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneLoader"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("nextRoomName"));
                 break;
             case ExitDoor.FinishAction.Custom:

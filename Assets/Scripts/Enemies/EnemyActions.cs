@@ -47,10 +47,7 @@ public class EnemyActions : MonoBehaviour
         Enemies.Add(this);
         EnemySpawnedEvent?.Invoke(this);
 
-        foreach (var attack in attacks)
-        {
-            attack.FinishAttackEvent += OnFinishAttack;
-        }
+        EQS.Blockers.Add(this, () => transform.position);
     }
 
     private void Start()
@@ -59,18 +56,15 @@ public class EnemyActions : MonoBehaviour
         if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
     }
 
-    private void OnFinishAttack()
-    {
-        EnemiesAttacking--;
-        IsAttacking = false;
-    }
-
-    public void Attack (Vector3 targetPoint, int index)
+    public void Attack(Vector3 targetPoint, int index)
     {
         if (index < 0 || index >= attacks.Length)
         {
             return;
         }
+
+        IsAttacking = true;
+        EnemiesAttacking++;
 
         Vector3 direction = (targetPoint - transform.position).normalized;
 
@@ -80,7 +74,6 @@ public class EnemyActions : MonoBehaviour
         if ((targetPoint - transform.position).sqrMagnitude < attackRange * attackRange)
         {
             attacks[index].Attack();
-            EnemiesAttacking++;
             IsAttacking = true;
         }
     }
@@ -91,15 +84,7 @@ public class EnemyActions : MonoBehaviour
         EnemyDiedEvent?.Invoke(this);
         if (Enemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
 
-        foreach (var attack in attacks)
-        {
-            attack.FinishAttackEvent -= OnFinishAttack;
-        }
-
-        if (IsAttacking)
-        {
-            EnemiesAttacking--;
-        }
+        EQS.Blockers.Remove(this);
     }
 
     private void Update()
@@ -114,6 +99,9 @@ public class EnemyActions : MonoBehaviour
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
         transform.rotation = Quaternion.Euler(Vector3.up * angle);
-        //facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
+        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
+
+        EnemiesAttacking = 0;
+        IsAttacking = false;
     }
 }

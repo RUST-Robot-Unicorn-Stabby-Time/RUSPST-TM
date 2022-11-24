@@ -35,7 +35,7 @@ public class ExitDoor : MonoBehaviour
                 switch (action)
                 {
                     case FinishAction.NextRoom:
-                        FindObjectOfType<SceneLoader>().LoadScene(nextRoomName);
+                        LoadingScreen.LoadScene(nextRoomName);
                         break;
                     case FinishAction.Custom:
                     default:
