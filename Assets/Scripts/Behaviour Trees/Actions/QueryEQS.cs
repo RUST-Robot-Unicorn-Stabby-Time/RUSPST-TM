@@ -13,18 +13,7 @@ public class QueryEQS : BehaviourBase
     [SerializeField] EQSAgentSettings querySettings = new EQSAgentSettings();
     [SerializeField] [Range(0.0f, 1.0f)]float threshold = 0.9f;
 
-    Vector3 blocker;
     EQSDebugger debugger;
-
-    private void OnEnable()
-    {
-        EQS.Blockers.Add(this, () => blocker);
-    }
-
-    private void OnDisable()
-    {
-        EQS.Blockers.Remove(this);
-    }
 
     protected override EvaluationResult OnExecute()
     {
@@ -35,7 +24,7 @@ public class QueryEQS : BehaviourBase
         }
         else if (!Tree.blackboard.TryGetValue(sourceKey, out point)) return EvaluationResult.Failure;
 
-        var scores = EQS.QueryEnviromentScores(point, searchRadius, searchHeight, this, querySettings);
+        var scores = EQS.QueryEnviromentScores(point, searchRadius, searchHeight, Actions, querySettings);
         Vector3 best = scores[0].point;
         foreach (var score in scores)
         {
@@ -58,7 +47,6 @@ public class QueryEQS : BehaviourBase
         debugger.height = searchHeight;
         debugger.agentSettings = querySettings;
 
-        blocker = best;
         Tree.blackboard.SetValue(destinationKey, best);
         return EvaluationResult.Success;
     }
