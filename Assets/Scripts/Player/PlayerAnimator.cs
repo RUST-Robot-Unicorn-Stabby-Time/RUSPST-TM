@@ -14,6 +14,7 @@ public class PlayerAnimator : MonoBehaviour
     public float moveTiltSlope;
     public float turningTiltMax;
     public float turningTiltSlope;
+    public float moveThreshold = 0.2f;
 
     CharacterMovement movement;
 
@@ -62,18 +63,19 @@ public class PlayerAnimator : MonoBehaviour
 
         if (planarVelocity.sqrMagnitude > 0.01f || DirectionLock.HasValue)
         {
-            Quaternion targetRotation;
             if (DirectionLock.HasValue)
             {
-                targetRotation = Quaternion.LookRotation(DirectionLock.Value, transform.up);
+                float angle = Mathf.Atan2(DirectionLock.Value.x, DirectionLock.Value.z) * Mathf.Rad2Deg;
+                targetRotation = Quaternion.Euler(transform.up * angle);
             }
-            else
+            else if (planarVelocity.sqrMagnitude > moveThreshold * moveThreshold)
             {
-                targetRotation = Quaternion.LookRotation(planarVelocity, Vector3.up);
+                float angle = Mathf.Atan2(planarVelocity.x, planarVelocity.z) * Mathf.Rad2Deg;
+                targetRotation = Quaternion.Euler(transform.up * angle);
             }
 
             float angleDelta = Quaternion.Angle(targetRotation, rootRotation);
-            float rotationSpeed = angleDelta * this.rotationSpeed * (DirectionLock.HasValue ? 10.0f : speed);
+            float rotationSpeed = angleDelta * this.rotationSpeed * 10.0f;
             rootRotation = Quaternion.RotateTowards(rootRotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
