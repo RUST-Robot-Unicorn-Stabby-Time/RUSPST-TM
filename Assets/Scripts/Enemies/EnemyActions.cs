@@ -15,6 +15,8 @@ public class EnemyActions : MonoBehaviour
 
     float angle;
     float faceVelocity;
+    float targetAngle;
+    bool attacking;
 
     public static event System.Action<EnemyActions> EnemySpawnedEvent;
     public static event System.Action<EnemyActions> EnemyDiedEvent;
@@ -31,7 +33,6 @@ public class EnemyActions : MonoBehaviour
     public bool Aim { get; set; } 
     public bool Reload { get; set; } 
     public bool Ability { get; set; }
-    public bool IsAttacking { get; private set; }
 
     public Vector3 MoveDirection { get; set; }
 
@@ -61,29 +62,26 @@ public class EnemyActions : MonoBehaviour
     private void OnFinishAttack()
     {
         EnemiesAttacking--;
-        IsAttacking = false;
+        attacking = false;
     }
 
     public void Attack (Vector3 targetPoint, int index)
     {
-        if (index < 0 || index >= attacks.Length || IsAttacking)
+        if (index < 0 || index >= attacks.Length)
         {
             return;
         }
 
         Vector3 direction = (targetPoint - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(direction);
 
-        if ((targetPoint - transform.position).sqrMagnitude > attackRange * attackRange)
-        {
-            FaceDirection = direction;
-            MoveDirection = direction;
-        }
-        else
+        FaceDirection = direction;
+        MoveDirection = direction;
+
+        if ((targetPoint - transform.position).sqrMagnitude < attackRange * attackRange)
         {
             attacks[index].Attack();
             EnemiesAttacking++;
-            IsAttacking = true;
+            attacking = true;
         }
     }
 
@@ -98,7 +96,7 @@ public class EnemyActions : MonoBehaviour
             attack.FinishAttackEvent -= OnFinishAttack;
         }
 
-        if (IsAttacking)
+        if (attacking)
         {
             EnemiesAttacking--;
         }
@@ -112,15 +110,10 @@ public class EnemyActions : MonoBehaviour
 
     private void LateUpdate()
     {
-        foreach (var weapon in weapons)
-        {
-            if (weapon.Attacking && weapon.FreezeMovement) return;
-        }
-
-        float targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
+        targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
         transform.rotation = Quaternion.Euler(Vector3.up * angle);
-        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
+        //facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
     }
 }

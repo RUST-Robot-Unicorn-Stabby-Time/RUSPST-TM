@@ -10,7 +10,7 @@ public sealed class CharacterMovement : MonoBehaviour
     [SerializeField] Stat groundAcceleration = new Stat("Acceleration", 80.0f);
 
     [Space]
-    [SerializeField] float airMoveForce = 8.0f;
+    [SerializeField][Range(0.0f, 1.0f)] float airMoveScale = 8.0f;
 
     [Space]
     [SerializeField] float jumpHeight = 3.5f;
@@ -92,23 +92,18 @@ public sealed class CharacterMovement : MonoBehaviour
             }
         }
 
-        if (IsGrounded)
-        {
-            float moveSpeed = this.moveSpeed.GetFor(this);
-            Vector3 target = MoveDirection * moveSpeed + LocalVelocity;
-            Vector3 current = DrivingRigidbody.velocity;
+        float moveSpeed = this.moveSpeed.GetFor(this);
+        float acceleration = groundAcceleration.GetFor(this);
+        if (!IsGrounded) acceleration *= airMoveScale;
+        Vector3 target = MoveDirection * moveSpeed + LocalVelocity;
+        Vector3 current = DrivingRigidbody.velocity;
 
-            Vector3 delta = Vector3.ClampMagnitude(target - current, moveSpeed);
-            delta.y = 0.0f;
+        Vector3 delta = Vector3.ClampMagnitude(target - current, moveSpeed);
+        delta.y = 0.0f;
 
-            Vector3 force = delta / moveSpeed * groundAcceleration.GetFor(this);
+        Vector3 force = delta / moveSpeed * acceleration;
 
-            DrivingRigidbody.velocity += force * Time.deltaTime;
-        }
-        else
-        {
-            DrivingRigidbody.velocity += MoveDirection * airMoveForce * Time.deltaTime;
-        }
+        DrivingRigidbody.velocity += force * Time.deltaTime;
     }
 
     private void Jump()
