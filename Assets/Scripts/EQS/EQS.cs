@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class EQS
 {
-    public static readonly Vector2 gridSize = Vector2.one * 5.0f;
+    public static readonly Vector2 gridSize = Vector2.one * 2.0f;
 
     public static Dictionary<Object, System.Func<Vector3>> Blockers { get; } = new Dictionary<Object, System.Func<Vector3>>();
 

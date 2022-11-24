@@ -15,6 +15,7 @@ public class Health : MonoBehaviour
     [Space]
     public GameObject hitFX;
     public GameObject deadBody;
+    public float deadBodyExplosionForce;
     public Flash flash;
 
     public float decaySpeed = 2;
@@ -110,6 +111,7 @@ public class Health : MonoBehaviour
                 foreach (var bodypart in instance.GetComponentsInChildren<Rigidbody>())
                 {
                     bodypart.velocity = rigidbody.velocity * rigidbody.mass / bodypart.mass;
+                    bodypart.velocity += bodypart.transform.localPosition.normalized * deadBodyExplosionForce;
                 }
             }
         }
