@@ -38,6 +38,7 @@ public class PlayerWeapon : MonoBehaviour
 
     public bool Attacking { get; private set; }
     public bool FreezeMovement => Time.time < lastClickTime + freezeMovementTime;
+    public bool FreezeLook => Time.time > lastClickTime + directionLockDelay;
 
     public void Awake()
     {
