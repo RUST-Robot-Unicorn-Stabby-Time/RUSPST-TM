@@ -766,7 +766,7 @@ MonoBehaviour:
   groundAcceleration:
     key: Acceleration
     baseValue: 80
-  airMoveForce: 8
+  airMoveScale: 8
   jumpHeight: 3.5
   upGravity: 2
   downGravity: 3
@@ -798,6 +798,7 @@ MonoBehaviour:
   moveTiltSlope: 0.2
   turningTiltMax: 35
   turningTiltSlope: 0.2
+  moveThreshold: 0.2
 --- !u!114 &1923133990872210724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +820,7 @@ MonoBehaviour:
   damageTaken: 0
   hitFX: {fileID: 8090030948510138256, guid: ab9f4edfe275bf9478741e32b1d0b3cc, type: 3}
   deadBody: {fileID: 5771283405363519033, guid: f8856d159d84ea14596ccf3593c9f1be, type: 3}
+  flash: {fileID: 0}
   decaySpeed: 0
 --- !u!114 &1286541340551623220
 MonoBehaviour:
@@ -837,6 +839,7 @@ MonoBehaviour:
   characterMovement: {fileID: 1930406527230750633}
   impulseForce: {x: 0, y: 0, z: 0}
   freezeMovementTime: 2.5
+  directionLockDelay: 0.1
   attackAnimName: Attack
   attackAnimLayer: 0
   shakeSource: {fileID: 0}
@@ -7231,7 +7234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointKey: Target
-  compareDistance: 12
+  compareDistance: 1
   direction: 1
 --- !u!1 &8641929264483320925
 GameObject:

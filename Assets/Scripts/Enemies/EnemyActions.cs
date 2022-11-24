@@ -15,7 +15,8 @@ public class EnemyActions : MonoBehaviour
 
     float angle;
     float faceVelocity;
-    bool attacking;
+    float targetAngle;
+    public bool IsAttacking { get; set; }
 
     public static event System.Action<EnemyActions> EnemySpawnedEvent;
     public static event System.Action<EnemyActions> EnemyDiedEvent;
@@ -61,7 +62,7 @@ public class EnemyActions : MonoBehaviour
     private void OnFinishAttack()
     {
         EnemiesAttacking--;
-        attacking = false;
+        IsAttacking = false;
     }
 
     public void Attack (Vector3 targetPoint, int index)
@@ -72,18 +73,15 @@ public class EnemyActions : MonoBehaviour
         }
 
         Vector3 direction = (targetPoint - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(direction);
 
-        if ((targetPoint - transform.position).sqrMagnitude > attackRange * attackRange)
-        {
-            FaceDirection = direction;
-            MoveDirection = direction;
-        }
-        else
+        FaceDirection = direction;
+        MoveDirection = direction;
+
+        if ((targetPoint - transform.position).sqrMagnitude < attackRange * attackRange)
         {
             attacks[index].Attack();
             EnemiesAttacking++;
-            attacking = true;
+            IsAttacking = true;
         }
     }
 
@@ -98,7 +96,7 @@ public class EnemyActions : MonoBehaviour
             attack.FinishAttackEvent -= OnFinishAttack;
         }
 
-        if (attacking)
+        if (IsAttacking)
         {
             EnemiesAttacking--;
         }
@@ -112,15 +110,10 @@ public class EnemyActions : MonoBehaviour
 
     private void LateUpdate()
     {
-        foreach (var weapon in weapons)
-        {
-            if (weapon.Attacking && weapon.FreezeMovement) return;
-        }
-
-        float targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
+        targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
         transform.rotation = Quaternion.Euler(Vector3.up * angle);
-        facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
+        //facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
     }
 }
