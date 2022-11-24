@@ -34,7 +34,7 @@ public class Boss : MonoBehaviour
     {
         health.DamageEvent -= OnDamage;
 
-        FindObjectOfType<SceneLoader>().LoadScene(nextScene);
+        LoadingScreen.LoadScene(nextScene);
     }
 
     private void OnDamage(DamageArgs args)

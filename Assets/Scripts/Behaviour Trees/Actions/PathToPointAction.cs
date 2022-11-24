@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class PathToPointAction : BehaviourBase
 {
     [SerializeField] string pointKey = "EQS";
+    [SerializeField] string facingKey = "Target";
     [SerializeField] float goodEnoughDistance = 1.0f;
 
     NavMeshPath path;
@@ -26,12 +27,21 @@ public class PathToPointAction : BehaviourBase
 
     protected override EvaluationResult OnExecute()
     {
+        Transform target;
         Vector3 point;
-        if (Tree.blackboard.TryGetValue(pointKey, out Transform target))
+        if (Tree.blackboard.TryGetValue(pointKey, out target))
         {
             point = target.position;
         }
         else if (!Tree.blackboard.TryGetValue(pointKey, out point)) return EvaluationResult.Failure;
+        
+        Vector3 facePoint;
+        if (Tree.blackboard.TryGetValue(facingKey, out target))
+        {
+            facePoint = target.position;
+        }
+        else if (!Tree.blackboard.TryGetValue(facingKey, out facePoint)) return EvaluationResult.Failure;
+        Actions.FaceDirection = facePoint - Actions.transform.position;
 
         if ((lastQueriedPoint - point).sqrMagnitude > goodEnoughDistance * goodEnoughDistance || path == null)
         {
@@ -70,7 +80,6 @@ public class PathToPointAction : BehaviourBase
         if (v.magnitude > goodEnoughDistance * goodEnoughDistance)
         {
             Actions.MoveDirection = v.normalized;
-            Actions.FaceDirection = v.normalized;
         }
         else
         {
