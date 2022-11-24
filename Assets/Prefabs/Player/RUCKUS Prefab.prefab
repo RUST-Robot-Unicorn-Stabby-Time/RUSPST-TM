@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.3
   cameraTarget: {fileID: 4727405998465377771}
-  verticalRotationClamp: {x: -30, y: 30}
+  verticalRotationClamp: {x: -45, y: 45}
   modelFacing: {fileID: 907008018508198570}
   lookBones: []
   smoothTime: 0.25
@@ -1988,8 +1988,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4727405997622631697}
-  m_LocalRotation: {x: 0.13094333, y: -0.00000021234152, z: 0.000000028870996, w: 0.9913899}
-  m_LocalPosition: {x: 0.0000003427267, y: 1.9911289, z: -1.7550389}
+  m_LocalRotation: {x: 0.13094316, y: 0.00000008940696, z: -0.000000014901159, w: 0.9913899}
+  m_LocalPosition: {x: -0.00000023841864, y: 1.9911295, z: -1.7550395}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4727405997754288941}
@@ -2017,7 +2017,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 4727405998465377771}
   m_Follow: {fileID: 4727405998465377771}
   m_Lens:
-    FieldOfView: 82
+    FieldOfView: 90
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 1000
