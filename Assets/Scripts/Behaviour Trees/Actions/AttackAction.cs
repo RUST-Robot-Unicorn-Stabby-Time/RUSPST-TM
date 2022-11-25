@@ -6,6 +6,7 @@ public class AttackAction : BehaviourBase
 {
     [SerializeField] string targetKey;
     [SerializeField] int attackIndex;
+    [SerializeField] float distance;
 
     protected override EvaluationResult OnExecute()
     {
@@ -16,7 +17,12 @@ public class AttackAction : BehaviourBase
         }
         else if (!Tree.blackboard.TryGetValue(targetKey, out point)) return EvaluationResult.Failure;
 
-        Actions.Attack(point, attackIndex);
-        return EvaluationResult.Success;
+        if ((point - Actions.transform.position).sqrMagnitude < distance * distance)
+        {
+            Actions.Attack(attackIndex);
+            return EvaluationResult.Success;
+        }
+
+        return EvaluationResult.Failure;
     }
 }
