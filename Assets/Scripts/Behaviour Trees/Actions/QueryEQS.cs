@@ -25,12 +25,18 @@ public class QueryEQS : BehaviourBase
         else if (!Tree.blackboard.TryGetValue(sourceKey, out point)) return EvaluationResult.Failure;
 
         var scores = EQS.QueryEnviromentScores(point, searchRadius, searchHeight, Actions, querySettings);
-        Vector3 best = scores[0].point;
+        Vector3? best = null;
         foreach (var score in scores)
         {
             if (score.score < threshold) continue;
 
-            if ((score.point - Actions.transform.position).sqrMagnitude < (best - Actions.transform.position).sqrMagnitude)
+            if (!best.HasValue)
+            {
+                best = score.point;
+                continue;
+            }
+
+            if ((score.point - Actions.transform.position).sqrMagnitude < (best.Value - Actions.transform.position).sqrMagnitude)
             {
                 best = score.point;
             }
@@ -40,14 +46,21 @@ public class QueryEQS : BehaviourBase
         {
             debugger = new GameObject("Debugger").AddComponent<EQSDebugger>();
             debugger.transform.parent = transform;
-            debugger.transform.position = point;
         }
 
+        debugger.transform.position = point;
         debugger.range = searchRadius;
         debugger.height = searchHeight;
         debugger.agentSettings = querySettings;
 
-        Tree.blackboard.SetValue(destinationKey, best);
-        return EvaluationResult.Success;
+        if (best.HasValue)
+        {
+            Tree.blackboard.SetValue(destinationKey, best.Value);
+            return EvaluationResult.Success;
+        }
+        else
+        {
+            return EvaluationResult.Failure;
+        }
     }
 }

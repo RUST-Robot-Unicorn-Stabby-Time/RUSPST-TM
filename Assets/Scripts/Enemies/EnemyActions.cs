@@ -23,6 +23,7 @@ public class EnemyActions : MonoBehaviour
     public static event System.Action AllEnemiesDeadEvent;
     public static HashSet<EnemyActions> Enemies = new HashSet<EnemyActions>();
 
+    Blackboard blackboard;
     HashSet<PlayerWeapon> weapons;
 
     public Vector3 FaceDirection { get; set; }
@@ -40,6 +41,7 @@ public class EnemyActions : MonoBehaviour
     {
         movement = GetComponent<CharacterMovement>();
         weapons = new HashSet<PlayerWeapon>(GetComponentsInChildren<PlayerWeapon>());
+        blackboard = GetComponent<BehaviourTree>().blackboard;
     }
 
     private void OnEnable()
@@ -56,7 +58,7 @@ public class EnemyActions : MonoBehaviour
         if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
     }
 
-    public void Attack(Vector3 targetPoint, int index)
+    public void Attack(int index)
     {
         if (index < 0 || index >= attacks.Length)
         {
@@ -66,16 +68,8 @@ public class EnemyActions : MonoBehaviour
         IsAttacking = true;
         EnemiesAttacking++;
 
-        Vector3 direction = (targetPoint - transform.position).normalized;
-
-        FaceDirection = direction;
-        MoveDirection = direction;
-
-        if ((targetPoint - transform.position).sqrMagnitude < attackRange * attackRange)
-        {
-            attacks[index].Attack();
-            IsAttacking = true;
-        }
+        attacks[index].Attack();
+        IsAttacking = true;
     }
 
     private void OnDisable()
@@ -91,6 +85,8 @@ public class EnemyActions : MonoBehaviour
     {
         movement.MoveDirection = MoveDirection;
         MoveDirection = Vector3.zero;
+
+        blackboard.SetValue<Vector3>("position", transform.position);
     }
 
     private void LateUpdate()

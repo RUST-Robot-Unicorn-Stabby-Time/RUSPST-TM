@@ -29,6 +29,7 @@ public class LevelEndUI : MonoBehaviour
 
     private void AllPlayersDeadEvent()
     {
+        loseScreen.transform.SetParent(null);
         loseScreen.SetActive(true);
     }
 
@@ -36,6 +37,7 @@ public class LevelEndUI : MonoBehaviour
     {
         if (!isLastLevel) return;
 
+        winScreen.transform.SetParent(null);
         winScreen.SetActive(true);
     }
 
