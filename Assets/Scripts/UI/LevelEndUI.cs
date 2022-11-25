@@ -43,11 +43,11 @@ public class LevelEndUI : MonoBehaviour
 
     public void LoadLobby ()
     {
-        SceneManager.LoadSceneAsync("LobbyRoom");
+        LoadingScreen.LoadScene("LobbyRoom");
     }
 
     public void LoadMainMenu ()
     {
-        SceneManager.LoadSceneAsync("Main Menu");
+        LoadingScreen.LoadScene("MenuScene");
     }
 }
