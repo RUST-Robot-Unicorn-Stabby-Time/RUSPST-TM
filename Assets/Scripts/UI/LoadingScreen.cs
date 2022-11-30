@@ -12,18 +12,29 @@ public class LoadingScreen : MonoBehaviour
 
     public static void LoadScene(string sceneName)
     {
-        NextSceneName = sceneName;
-        SceneManager.LoadScene("LoadScene");
-    }
+        System.Action loadAction = () =>
+        {
+            NextSceneName = sceneName;
+            SceneManager.LoadScene("LoadScene");
+        };
 
-    private void Awake()
-    {
-        image = GetComponent<Image>();
+        var transitionScreen = FindObjectOfType<TransitionScreen>();
+        if (transitionScreen)
+        {
+            transitionScreen.Transition(loadAction);
+        }
+        else
+        {
+            loadAction();
+        }
     }
 
     private void Start()
     {
+        image = GetComponent<Image>();
         loadOperation = SceneManager.LoadSceneAsync(NextSceneName);
+
+        if (loadOperation == null) loadOperation = SceneManager.LoadSceneAsync("MenuScene");
     }
 
     private void Update()
