@@ -56,6 +56,9 @@ public class EnemyActions : MonoBehaviour
     {
         ExitDoor door = FindObjectOfType<ExitDoor>();
         if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
+
+        angle = transform.eulerAngles.y;
+        FaceDirection = transform.forward;
     }
 
     public void Attack(int index)
