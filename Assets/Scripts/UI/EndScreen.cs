@@ -16,12 +16,12 @@ public class EndScreen : MonoBehaviour
         PlayerController.UnlockControls(false);
     }
 
-    public void LoadScene (string name)
+    public void LoadScene(string name)
     {
-        FindObjectOfType<SceneLoader>().LoadScene (name);
+        LoadingScreen.LoadScene(name);
     }
 
-    public void Quit ()
+    public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

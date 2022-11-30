@@ -10,7 +10,7 @@ public sealed class CharacterMovement : MonoBehaviour
     [SerializeField] Stat groundAcceleration = new Stat("Acceleration", 80.0f);
 
     [Space]
-    [SerializeField] float airMoveForce = 8.0f;
+    [SerializeField][Range(0.0f, 1.0f)] float airMoveScale = 8.0f;
 
     [Space]
     [SerializeField] float jumpHeight = 3.5f;
@@ -30,6 +30,7 @@ public sealed class CharacterMovement : MonoBehaviour
 
     HashSet<PlayerWeapon> weapons;
 
+    Vector3 springDirection;
     bool previousJumpState;
     float lastJumpTime;
 
@@ -68,11 +69,14 @@ public sealed class CharacterMovement : MonoBehaviour
 
     private void ApplySpring()
     {
-        if (IsGrounded && Time.time > lastJumpTime + jumpSpringPauseTime)
+        if (Time.time > lastJumpTime + jumpSpringPauseTime)
         {
-            float contraction = 1.0f - (DistanceToGround / springDistance);
-            DrivingRigidbody.velocity += Vector3.up * contraction * springForce * Time.deltaTime;
-            DrivingRigidbody.velocity -= Vector3.up * DrivingRigidbody.velocity.y * springDamper * Time.deltaTime;
+            if (IsGrounded)
+            {
+                float contraction = 1.0f - (DistanceToGround / springDistance);
+                DrivingRigidbody.velocity += springDirection * contraction * springForce * Time.deltaTime;
+                DrivingRigidbody.velocity -= springDirection * DrivingRigidbody.velocity.y * springDamper * Time.deltaTime;
+            }
         }
     }
 
@@ -92,23 +96,18 @@ public sealed class CharacterMovement : MonoBehaviour
             }
         }
 
-        if (IsGrounded)
-        {
-            float moveSpeed = this.moveSpeed.GetFor(this);
-            Vector3 target = MoveDirection * moveSpeed + LocalVelocity;
-            Vector3 current = DrivingRigidbody.velocity;
+        float moveSpeed = this.moveSpeed.GetFor(this);
+        float acceleration = groundAcceleration.GetFor(this);
+        if (!IsGrounded) acceleration *= airMoveScale;
+        Vector3 target = MoveDirection * moveSpeed + LocalVelocity;
+        Vector3 current = DrivingRigidbody.velocity;
 
-            Vector3 delta = Vector3.ClampMagnitude(target - current, moveSpeed);
-            delta.y = 0.0f;
+        Vector3 delta = Vector3.ClampMagnitude(target - current, moveSpeed);
+        delta.y = 0.0f;
 
-            Vector3 force = delta / moveSpeed * groundAcceleration.GetFor(this);
+        Vector3 force = delta / moveSpeed * acceleration;
 
-            DrivingRigidbody.velocity += force * Time.deltaTime;
-        }
-        else
-        {
-            DrivingRigidbody.velocity += MoveDirection * airMoveForce * Time.deltaTime;
-        }
+        DrivingRigidbody.velocity += force * Time.deltaTime;
     }
 
     private void Jump()
@@ -143,14 +142,16 @@ public sealed class CharacterMovement : MonoBehaviour
     public float GetDistanceToGround()
     {
         float skinWidth = 0.1f;
+        springDirection = Vector3.zero;
         if (Physics.SphereCast(DrivingRigidbody.position + Vector3.up * (groundCheckRadius + skinWidth), groundCheckRadius, Vector3.down, out var hit, 1000.0f, groundCheckMask))
         {
             LocalVelocity = Vector3.zero;
             if (hit.distance < springDistance)
             {
+                springDirection = Vector3.up;
                 if (Mathf.Cos(Vector3.Dot(Vector3.up, hit.normal)) * Mathf.Rad2Deg > maxSlopeAngle)
                 {
-                    return float.PositiveInfinity;
+                    springDirection = hit.normal;
                 }
                 if (hit.rigidbody)
                 {

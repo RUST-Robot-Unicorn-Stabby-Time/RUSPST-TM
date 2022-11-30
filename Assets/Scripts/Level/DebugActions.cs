@@ -44,7 +44,7 @@ public class DebugActions : MonoBehaviour
         {
             foreach (var player in FindObjectsOfType<PlayerController>(true))
             {
-                player.GetComponent<Health>().Damage(new DamageArgs(null, 0, false));
+                player.GetComponent<Health>().Damage(new DamageArgs(null, 0, Vector3.zero, false));
             }
         }
 
@@ -52,7 +52,7 @@ public class DebugActions : MonoBehaviour
         {
             foreach (var enemy in FindObjectsOfType<EnemyActions>())
             {
-                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0, false));
+                enemy.GetComponent<Health>().Die(new DamageArgs(null, 0, Vector3.zero, false));
             }
         }
     }

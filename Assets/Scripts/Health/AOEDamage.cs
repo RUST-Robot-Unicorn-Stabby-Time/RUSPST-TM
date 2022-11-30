@@ -27,12 +27,8 @@ public class AOEDamage : MonoBehaviour
             Health health = query.GetComponentInParent<Health>();
             if (health)
             {
-                health.Damage(new DamageArgs(transform.root.gameObject, damage * scale, true));
-            }
-
-            if (query.attachedRigidbody)
-            {
-                query.attachedRigidbody.velocity += (query.transform.position - transform.position).normalized * force * scale / query.attachedRigidbody.mass;
+                Vector3 force = (query.transform.position - transform.position).normalized * this.force * scale;
+                health.Damage(new DamageArgs(transform.root.gameObject, damage * scale, force, true, true));
             }
         }
     }
