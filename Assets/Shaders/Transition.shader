@@ -3,15 +3,17 @@ Shader "Unlit/Transition"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (0, 0, 0, 1)
         _Percent ("Transition Percent", Range(0, 1)) = 0
         _Blend ("Blend", float) = 1000
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         LOD 100
         ZWrite Off
         ZTest Always
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -38,6 +40,7 @@ Shader "Unlit/Transition"
 
             float _Percent;
             float _Blend;
+            float3 _Color;
 
             v2f vert (appdata v)
             {
@@ -50,7 +53,8 @@ Shader "Unlit/Transition"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                return col;
+                float percent = _Percent * 1.2 - 0.1;
+                return float4(_Color, 1 - clamp((dot(col.xyz, float3(0.2126, 0.7152, 0.0722)) - percent) / _Blend, 0, 1));
             }
             ENDCG
         }
