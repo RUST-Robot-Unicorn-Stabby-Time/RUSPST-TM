@@ -41,7 +41,6 @@ public class EnemyActions : MonoBehaviour
     {
         movement = GetComponent<CharacterMovement>();
         weapons = new HashSet<PlayerWeapon>(GetComponentsInChildren<PlayerWeapon>());
-        blackboard = GetComponent<BehaviourTree>().blackboard;
     }
 
     private void OnEnable()
@@ -57,8 +56,7 @@ public class EnemyActions : MonoBehaviour
         ExitDoor door = FindObjectOfType<ExitDoor>();
         if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
 
-        angle = transform.eulerAngles.y;
-        FaceDirection = transform.forward;
+        blackboard = GetComponent<BehaviourTree>().blackboard;
     }
 
     public void Attack(int index)
@@ -89,7 +87,7 @@ public class EnemyActions : MonoBehaviour
         movement.MoveDirection = MoveDirection;
         MoveDirection = Vector3.zero;
 
-        blackboard.SetValue<Vector3>("position", transform.position);
+        blackboard.SetValue("position", transform.position);
     }
 
     private void LateUpdate()
