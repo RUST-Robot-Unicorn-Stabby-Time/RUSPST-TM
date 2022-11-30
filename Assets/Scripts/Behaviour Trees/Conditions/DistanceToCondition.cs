@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class DistanceToCondition : BehaviourBase
 {
-    [SerializeField] string pointKey = "Target";
+    [SerializeField] string aKey = "Target";
+    [SerializeField] string bKey = "position";
     [SerializeField] float compareDistance = 5.0f;
     [SerializeField] Direction direction = Direction.Greater;
 
     protected override EvaluationResult OnExecute()
     {
-        Vector3 point;
-        if (Tree.blackboard.TryGetValue(pointKey, out Transform pointTransform))
-        {
-            point = pointTransform.position;
-        }
-        else if (!Tree.blackboard.TryGetValue(pointKey, out point)) return EvaluationResult.Failure;
+        if (!GetPointFromBlackboard(aKey, out Vector3 a)) return EvaluationResult.Failure;
+        if (!GetPointFromBlackboard(bKey, out Vector3 b)) return EvaluationResult.Failure;
 
-        float distance = (point - Actions.transform.position).magnitude;
+        float distance = (a - b).magnitude;
         bool result = false;
         switch (direction)
         {

@@ -15,13 +15,15 @@ public class EnemyActions : MonoBehaviour
 
     float angle;
     float faceVelocity;
-    bool attacking;
+    float targetAngle;
+    public bool IsAttacking { get; set; }
 
     public static event System.Action<EnemyActions> EnemySpawnedEvent;
     public static event System.Action<EnemyActions> EnemyDiedEvent;
     public static event System.Action AllEnemiesDeadEvent;
     public static HashSet<EnemyActions> Enemies = new HashSet<EnemyActions>();
 
+    Blackboard blackboard;
     HashSet<PlayerWeapon> weapons;
 
     public Vector3 FaceDirection { get; set; }
@@ -46,45 +48,29 @@ public class EnemyActions : MonoBehaviour
         Enemies.Add(this);
         EnemySpawnedEvent?.Invoke(this);
 
-        foreach (var attack in attacks)
-        {
-            attack.FinishAttackEvent += OnFinishAttack;
-        }
+        EQS.Blockers.Add(this, () => transform.position);
     }
 
     private void Start()
     {
         ExitDoor door = FindObjectOfType<ExitDoor>();
         if (door) door.WinConditions.Add(() => this ? !gameObject.activeSelf : true);
+
+        blackboard = GetComponent<BehaviourTree>().blackboard;
     }
 
-    private void OnFinishAttack()
-    {
-        EnemiesAttacking--;
-        attacking = false;
-    }
-
-    public void Attack (Vector3 targetPoint, int index)
+    public void Attack(int index)
     {
         if (index < 0 || index >= attacks.Length)
         {
             return;
         }
 
-        Vector3 direction = (targetPoint - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(direction);
+        IsAttacking = true;
+        EnemiesAttacking++;
 
-        if ((targetPoint - transform.position).sqrMagnitude > attackRange * attackRange)
-        {
-            FaceDirection = direction;
-            MoveDirection = direction;
-        }
-        else
-        {
-            attacks[index].Attack();
-            EnemiesAttacking++;
-            attacking = true;
-        }
+        attacks[index].Attack();
+        IsAttacking = true;
     }
 
     private void OnDisable()
@@ -93,34 +79,26 @@ public class EnemyActions : MonoBehaviour
         EnemyDiedEvent?.Invoke(this);
         if (Enemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
 
-        foreach (var attack in attacks)
-        {
-            attack.FinishAttackEvent -= OnFinishAttack;
-        }
-
-        if (attacking)
-        {
-            EnemiesAttacking--;
-        }
+        EQS.Blockers.Remove(this);
     }
 
     private void Update()
     {
         movement.MoveDirection = MoveDirection;
         MoveDirection = Vector3.zero;
+
+        blackboard.SetValue("position", transform.position);
     }
 
     private void LateUpdate()
     {
-        foreach (var weapon in weapons)
-        {
-            if (weapon.Attacking && weapon.FreezeMovement) return;
-        }
-
-        float targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
+        targetAngle = Mathf.Atan2(FaceDirection.x, FaceDirection.z) * Mathf.Rad2Deg;
         angle = Mathf.SmoothDampAngle(angle, targetAngle, ref faceVelocity, facingSmoothTime);
 
         transform.rotation = Quaternion.Euler(Vector3.up * angle);
         facingContainer.rotation = Quaternion.Euler(Vector3.up * angle) * Quaternion.Euler(rootRotationOffset);
+
+        EnemiesAttacking = 0;
+        IsAttacking = false;
     }
 }

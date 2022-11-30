@@ -50,14 +50,10 @@ public class HurtBox : MonoBehaviour
                 if (hurtObjects.Contains(health)) continue;
                 hurtObjects.Add(health);
 
-                DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this), true);
+                Vector3 force = transform.TransformDirection(knockbackDirection).normalized * knockback.GetFor(this);
+                DamageArgs args = new DamageArgs(transform.root.gameObject, damage.GetFor(this), force, true);
                 health.Damage(args);
                 HitEvent?.Invoke(collider.gameObject, args);
-            }
-
-            if (collider.attachedRigidbody)
-            {
-                collider.attachedRigidbody.velocity += transform.TransformDirection(knockbackDirection).normalized * knockback.GetFor(this);
             }
 
             Vector3 direction = (collider.transform.position - transform.position).normalized;

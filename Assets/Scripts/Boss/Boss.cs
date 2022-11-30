@@ -26,15 +26,13 @@ public class Boss : MonoBehaviour
     private void OnEnable()
     {
         health.DamageEvent += OnDamage;
-
-        FindObjectOfType<ExitDoor>().WinConditions.Add(() => this ? !gameObject.activeSelf : true);
     }
 
     private void OnDisable()
     {
         health.DamageEvent -= OnDamage;
 
-        FindObjectOfType<SceneLoader>().LoadScene(nextScene);
+        LoadingScreen.LoadScene(nextScene);
     }
 
     private void OnDamage(DamageArgs args)
@@ -42,6 +40,7 @@ public class Boss : MonoBehaviour
         int stage = stages - (int)(health.currentHealth * stages) - 2;
         if (stage != currentStage)
         {
+            health.currentHealth = Mathf.Round(health.currentHealth * 3.0f) / 3.0f;
             stageEvent[stage]?.Invoke();
         }
         currentStage = stage;

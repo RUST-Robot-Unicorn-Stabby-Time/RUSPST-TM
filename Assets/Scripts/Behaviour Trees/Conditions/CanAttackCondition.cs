@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CanAttackCondition : BehaviourBase
 {
-    public static int ConcurrentAttackingEnemies = 2;
+    public static int ConcurrentAttackingEnemies = 3;
 
     protected override EvaluationResult OnExecute()
     {
+        if (Actions.IsAttacking) return EvaluationResult.Success;
         return EnemyActions.EnemiesAttacking <= ConcurrentAttackingEnemies ? EvaluationResult.Success : EvaluationResult.Failure;
     }
 }
