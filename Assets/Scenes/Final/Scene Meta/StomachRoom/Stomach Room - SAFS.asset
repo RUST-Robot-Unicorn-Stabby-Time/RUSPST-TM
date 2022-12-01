@@ -122,7 +122,7 @@ MonoBehaviour:
     m_Value: 50
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 40
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
@@ -184,6 +184,29 @@ MonoBehaviour:
   filter:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &-2064113282681243990
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5ab44aadfb1804db5fd470983ac1b8, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 0.8678781, y: 0.9885617, z: 1, w: -0.05514699}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.9506807, y: 1, z: 0.98846227, w: -0.073529415}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 0.9129173, y: 0.9768572, z: 1, w: 0.53308827}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +226,7 @@ MonoBehaviour:
   - {fileID: 5012231090235367464}
   - {fileID: -4930618838390118748}
   - {fileID: -5374737653341106996}
+  - {fileID: -2064113282681243990}
 --- !u!114 &1142777632297148762
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -277,19 +301,19 @@ MonoBehaviour:
     m_Value: 0
   top:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.30313277, g: 0.49056602, b: 0.4744304, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
   middle:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.12896049, g: 0.4339623, b: 0.2662934, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
   bottom:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0, g: 0.03773582, b: 0.0011611066, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
