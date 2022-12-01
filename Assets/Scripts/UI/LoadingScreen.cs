@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
 public class LoadingScreen : MonoBehaviour
 {
     AsyncOperation loadOperation;
@@ -15,13 +14,13 @@ public class LoadingScreen : MonoBehaviour
         System.Action loadAction = () =>
         {
             NextSceneName = sceneName;
-            SceneManager.LoadScene("LoadScene");
+            SceneManager.LoadScene(NextSceneName);
         };
 
         var transitionScreen = FindObjectOfType<TransitionScreen>();
         if (transitionScreen)
         {
-            transitionScreen.Transition(loadAction);
+            transitionScreen.TransitionOut(loadAction);
         }
         else
         {
@@ -31,7 +30,7 @@ public class LoadingScreen : MonoBehaviour
 
     private void Start()
     {
-        image = GetComponent<Image>();
+        image = GetComponentInChildren<Image>(true);
         loadOperation = SceneManager.LoadSceneAsync(NextSceneName);
 
         if (loadOperation == null) loadOperation = SceneManager.LoadSceneAsync("MenuScene");
