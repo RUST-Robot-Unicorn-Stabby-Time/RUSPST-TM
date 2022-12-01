@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EpilepsyWarning : MonoBehaviour
 {
@@ -16,11 +17,11 @@ public class EpilepsyWarning : MonoBehaviour
 
     Vector2 position;
     Vector2 direction;
-    TMPro.TMP_Text text;
+    Image image;
 
     private void Awake()
     {
-        text = GetComponent<TMPro.TMP_Text>();
+        image = GetComponent<Image>();
 
         direction = Vector2.one;
     }
@@ -30,7 +31,7 @@ public class EpilepsyWarning : MonoBehaviour
         var transform = this.transform as RectTransform;
 
         transform.localScale = Vector3.one * Mathf.Lerp(1.0f / scaleAmplitude, scaleAmplitude, Mathf.Sin(Time.time * scaleFrequency) * 0.5f + 0.5f);
-        text.color = Color.HSVToRGB(Time.time * colorScrollSpeed % 1.0f, 1.0f, 1.0f);
+        image.color = Color.HSVToRGB(Time.time * colorScrollSpeed % 1.0f, 1.0f, 1.0f);
 
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, Time.time * rotationSpeed);
         transform.localPosition = position;
