@@ -13,27 +13,37 @@ public class TransitionScreen : MonoBehaviour
         materaial = GetComponent<Image>().material;
     }
 
-    IEnumerator Start ()
+    void Start ()
     {
-        float percent = 0.0f;
+        StartCoroutine(TransitionRoutineIn());
+    }
+
+    public void TransitionOut(System.Action callback) => StartCoroutine(TransitionRoutineOut(callback));
+
+    public IEnumerator TransitionRoutineIn()
+    {
+        materaial.SetFloat("_Percent", 1.0f);
+        
+        float percent = -speed * 2.0f;
         while (percent < 1.0f)
         {
+            Time.timeScale = percent < 0.0f ? 0.0f : 1.0f;
+
             materaial.SetFloat("_Percent", 1.0f - percent);
-            percent += Time.deltaTime * speed;
+            percent += Time.unscaledDeltaTime * speed;
             yield return null;
         }
 
         materaial.SetFloat("_Percent", 0.0f);
     }
 
-    public void Transition(System.Action callback) => StartCoroutine(TransitionRoutine(callback));
-    public IEnumerator TransitionRoutine (System.Action callback)
+    public IEnumerator TransitionRoutineOut(System.Action callback)
     {
         float percent = 0.0f;
         while (percent < 1.0f)
         {
             materaial.SetFloat("_Percent", percent);
-            percent += Time.deltaTime * speed;
+            percent += Time.unscaledDeltaTime * speed;
             yield return null;
         }
 
