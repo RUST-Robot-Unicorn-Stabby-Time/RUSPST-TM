@@ -48,6 +48,6 @@ public class LevelEndUI : MonoBehaviour
 
     public void LoadMainMenu ()
     {
-        SceneManager.LoadSceneAsync("Main Menu");
+        SceneManager.LoadSceneAsync("MenuScene");
     }
 }
