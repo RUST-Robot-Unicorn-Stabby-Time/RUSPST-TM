@@ -26,13 +26,14 @@ public class Boss : MonoBehaviour
     private void OnEnable()
     {
         health.DamageEvent += OnDamage;
+        health.DeathEvent += (_) => LoadingScreen.LoadScene(nextScene);
     }
 
     private void OnDisable()
     {
         health.DamageEvent -= OnDamage;
 
-        LoadingScreen.LoadScene(nextScene);
+        health.DeathEvent -= (_) => LoadingScreen.LoadScene(nextScene);
     }
 
     private void OnDamage(DamageArgs args)
