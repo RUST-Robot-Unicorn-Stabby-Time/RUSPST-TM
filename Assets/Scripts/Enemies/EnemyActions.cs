@@ -76,6 +76,7 @@ public class EnemyActions : MonoBehaviour
     private void OnDisable()
     {
         Enemies.Remove(this);
+
         EnemyDiedEvent?.Invoke(this);
         if (Enemies.Count == 0) AllEnemiesDeadEvent?.Invoke();
 

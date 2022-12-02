@@ -11,7 +11,6 @@ public class OptionsData
 
     public float maxVolume = 1;
     public float musicVolume = 1;
-    public float sfxFloat = 1;
 
     public int xResolution = 1280;
     public int yResolution = 720;

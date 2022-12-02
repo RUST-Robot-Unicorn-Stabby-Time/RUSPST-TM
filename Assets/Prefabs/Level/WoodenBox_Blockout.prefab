@@ -51,8 +51,8 @@ MonoBehaviour:
     key: Health
     baseValue: 1
   currentHealth: 1
-  healingTimer: 6
-  healPercentage: 0.2
+  healingTimer: 0
+  healPercentage: 0
   damageTaken: 0
   hitFX: {fileID: 0}
   deadBody: {fileID: 4387462657307123794, guid: cd7b4a10d0bcdae4a87a7f2fd87ac9a3, type: 3}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 7072287996842206535}
   - component: {fileID: 276817517522401434}
   m_Layer: 10
-  m_Name: GameObject
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

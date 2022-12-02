@@ -8,7 +8,7 @@ public class HealthUI : MonoBehaviour
 
     protected Health health;
 
-    void Start()
+    void Awake()
     {
         health = GetComponent<Health>();
     }
