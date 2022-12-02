@@ -19,6 +19,8 @@ public class EnemyCounter : MonoBehaviour
     {
         EnemyActions.EnemySpawnedEvent += OnEnemyCountChanged;
         EnemyActions.EnemyDiedEvent += OnEnemyCountChanged;
+
+        OnEnemyCountChanged();
     }
 
     private void OnDisable()
@@ -27,9 +29,10 @@ public class EnemyCounter : MonoBehaviour
         EnemyActions.EnemyDiedEvent -= OnEnemyCountChanged;
     }
 
-    private void OnEnemyCountChanged(EnemyActions obj)
+    private void OnEnemyCountChanged(EnemyActions obj) => OnEnemyCountChanged();
+    private void OnEnemyCountChanged()
     {
         if (!wave) return;
-        text.text = string.Format(template, wave.EnemiesLeft);
+        text.text = string.Format(template, wave.EnemiesLeft - 1);
     }
 }

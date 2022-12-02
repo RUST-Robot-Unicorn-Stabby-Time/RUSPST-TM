@@ -14,7 +14,7 @@ public class OutOfBounds : MonoBehaviour
             float dot = Vector3.Dot(damagable.transform.position - transform.position, transform.forward);
             if (dot < 0.0f)
             {
-                damagable.Damage(new DamageArgs(gameObject, damage, false));
+                damagable.Damage(new DamageArgs(gameObject, damage, Vector3.zero, false));
                 damagable.transform.position = GetSpawnPoint();
             }
         }

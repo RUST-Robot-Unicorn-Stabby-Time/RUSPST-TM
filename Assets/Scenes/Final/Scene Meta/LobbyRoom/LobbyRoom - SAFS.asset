@@ -198,7 +198,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   enabled:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   colorMode:
     m_OverrideState: 0
@@ -240,10 +240,10 @@ MonoBehaviour:
     m_Value: 50
   meanFreePath:
     m_OverrideState: 0
-    m_Value: 400
+    m_Value: 35.93
     min: 1
   enableVolumetricFog:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   albedo:
     m_OverrideState: 0
@@ -319,6 +319,7 @@ MonoBehaviour:
   - {fileID: -7724654706381055090}
   - {fileID: -4151792930034644520}
   - {fileID: 7642060734654139733}
+  - {fileID: 4719654271978787100}
 --- !u!114 &1142777632297148762
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -342,6 +343,29 @@ MonoBehaviour:
   fogType:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &4719654271978787100
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5ab44aadfb1804db5fd470983ac1b8, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 0.89564365, y: 0.91904, z: 1, w: -0.036764637}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.93149817, z: 0.79067916, w: 0.05514707}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 0.9000005, y: 0.960836, z: 1, w: 0.27573532}
 --- !u!114 &7642060734654139733
 MonoBehaviour:
   m_ObjectHideFlags: 3

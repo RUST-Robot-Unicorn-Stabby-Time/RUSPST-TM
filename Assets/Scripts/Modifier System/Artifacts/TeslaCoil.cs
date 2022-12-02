@@ -36,7 +36,7 @@ public class TeslaCoil : Artifact
         
         if (args.damager.TryGetComponent(out Health health))
         {
-            health.Damage(new DamageArgs(transform.root.gameObject, args.damage * thorns, false));
+            health.Damage(new DamageArgs(transform.root.gameObject, args.damage * thorns, Vector3.zero, false));
         }
     }
 }

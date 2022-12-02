@@ -19,6 +19,7 @@ public class CompareEnemiesAroundTargetCondition : BehaviourBase
         int enemiesNearPlayer = 0;
         foreach (var enemy in EnemyActions.Enemies)
         {
+            if (enemy == Actions) continue;
             if ((enemy.transform.position - targetPoint).sqrMagnitude < range * range)
             {
                 enemiesNearPlayer++;

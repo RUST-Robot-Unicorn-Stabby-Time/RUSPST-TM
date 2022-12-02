@@ -47,6 +47,17 @@ public abstract class BehaviourBase : MonoBehaviour
         name = GetType().ToString();
     }
 
+    public bool GetPointFromBlackboard (string key, out Vector3 point)
+    {
+        if (Tree.blackboard.TryGetValue(key, out Transform pointTransform))
+        {
+            point = pointTransform.position;
+        }
+        else if (!Tree.blackboard.TryGetValue(key, out point)) return false;
+        
+        return true;
+    }
+
 #if UNITY_EDITOR
     static BehaviourBase()
     {

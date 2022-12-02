@@ -6,14 +6,14 @@ public class HealthUI : MonoBehaviour
     public Image healthBar;
     public Image previousHealthBar;
 
-    private Health health;
+    protected Health health;
 
-    void Start()
+    void Awake()
     {
         health = GetComponent<Health>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         healthBar.fillAmount = health.currentHealth;
         if (previousHealthBar) previousHealthBar.fillAmount = health.currentHealth + (health.damageTaken / health.maxHealth.GetFor(this));
