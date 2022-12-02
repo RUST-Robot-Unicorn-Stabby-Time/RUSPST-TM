@@ -39199,7 +39199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7484039058170199978, guid: a30c11211c3b6f147bbd40ada6b0fab3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.092590794
+      value: 0.09259079
       objectReference: {fileID: 0}
     - target: {fileID: 7484039058170199978, guid: a30c11211c3b6f147bbd40ada6b0fab3, type: 3}
       propertyPath: m_LocalRotation.y
@@ -39207,7 +39207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7484039058170199978, guid: a30c11211c3b6f147bbd40ada6b0fab3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.09259082
+      value: -0.09259081
       objectReference: {fileID: 0}
     - target: {fileID: 7484039058170199978, guid: a30c11211c3b6f147bbd40ada6b0fab3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -45258,6 +45258,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8530532997582296533, guid: 0280cd4e3ed85f240a16e609afbc6f93, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0280cd4e3ed85f240a16e609afbc6f93, type: 3}
 --- !u!1001 &1437942295
@@ -49142,7 +49146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4727405997622631699, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.13094316
+      value: 0.13094315
       objectReference: {fileID: 0}
     - target: {fileID: 4727405997622631699, guid: 9b226011c1e7bae46a0f518f0f06635c, type: 3}
       propertyPath: m_LocalRotation.y
@@ -65453,7 +65457,7 @@ BoxCollider:
   m_GameObject: {fileID: 2016142432}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 1.0000001}
   m_Center: {x: -1.0000005, y: 0.49999994, z: -0.4999999}
