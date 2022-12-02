@@ -19,12 +19,20 @@ public class EnemyCounter : MonoBehaviour
     {
         EnemyActions.EnemySpawnedEvent += OnEnemyCountChanged;
         EnemyActions.EnemyDiedEvent += OnEnemyCountChanged;
+        EnemyActions.AllEnemiesDeadEvent += OnAllEnemiesDead;
     }
+
 
     private void OnDisable()
     {
         EnemyActions.EnemySpawnedEvent -= OnEnemyCountChanged;
         EnemyActions.EnemyDiedEvent -= OnEnemyCountChanged;
+        EnemyActions.AllEnemiesDeadEvent -= OnAllEnemiesDead;
+    }
+
+    private void OnAllEnemiesDead()
+    {
+        text.text = string.Format(template, 0);
     }
 
     private void OnEnemyCountChanged(EnemyActions obj)

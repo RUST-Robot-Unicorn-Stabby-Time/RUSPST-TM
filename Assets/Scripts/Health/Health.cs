@@ -27,6 +27,8 @@ public class Health : MonoBehaviour
 
     new Rigidbody rigidbody;
 
+    public float LastDamageTime { get; private set; }
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -75,6 +77,8 @@ public class Health : MonoBehaviour
 
     public void Damage(DamageArgs damageArgs)
     {
+        LastDamageTime = Time.time;
+
         damageTaken = damageArgs.damage;
         currentHealth -= damageArgs.damage / maxHealth.GetFor(this);
 
@@ -106,11 +110,13 @@ public class Health : MonoBehaviour
         if (deadBody)
         {
             var instance = Instantiate(deadBody, transform.position, transform.rotation);
+            instance.transform.localScale = transform.localScale;
             if (rigidbody)
             {
-                foreach (var bodypart in instance.GetComponentsInChildren<Rigidbody>())
+                Rigidbody[] children = instance.GetComponentsInChildren<Rigidbody>();
+                foreach (var bodypart in children)
                 {
-                    bodypart.velocity = rigidbody.velocity * rigidbody.mass / bodypart.mass;
+                    bodypart.velocity = (rigidbody.velocity * rigidbody.mass / bodypart.mass) / children.Length;
                     bodypart.velocity += bodypart.transform.localPosition.normalized * deadBodyExplosionForce;
                 }
             }

@@ -5,6 +5,8 @@ using Cinemachine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
+using System;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -14,33 +16,40 @@ public class OptionsMenu : MonoBehaviour
 
     [Header("Sliders")]
     public Slider fovSlider;
-    public Slider SensetivitySlider;
-    public Slider LoadSlider;
+    public Slider sensetivitySlider;
 
     [Header("Audio")]
     public Slider masterVolume;
     public Slider musicVolume;
-    public Slider fxVolume;
+    public AudioMixer musicMixer;
 
     [Header("Text")]
-    public TMP_Text fovText;
-    public TMP_Text sensetivityText;
-    public TMP_Text masterVolumeText;
-    public TMP_Text musicVolumeText;
-    public TMP_Text SFXVolume;
-    public TMP_Text LoadText;
+    public TMP_InputField fovText;
+    public TMP_InputField sensetivityText;
+    public TMP_InputField masterVolumeText;
+    public TMP_InputField musicVolumeText;
 
     [Header("Resolution Dropdown")]
     public TMP_Dropdown resolutionDropdown;
-
-    [Header("Cinemachine Camera")]
-    public CinemachineVirtualCamera cinemachine;
 
     //Resolution List
     public static readonly Vector2Int[] Resolutions = new Vector2Int[]
     {
         new Vector2Int (1920, 1080)
     };
+
+    public OptionsPairing[] options;
+
+    private void Awake()
+    {
+        options = new OptionsPairing[]
+        {
+            new OptionsPairing(fovSlider, fovText, new Vector2(60, 100), new Vector2(60, 100), v => OptionsData.instance.fov = v, () => OptionsData.instance.fov),
+            new OptionsPairing(sensetivitySlider, sensetivityText, new Vector2(0, 100), new Vector2(0, 1), v => OptionsData.instance.sensitivity = v, () => OptionsData.instance.sensitivity),
+            new OptionsPairing(masterVolume, masterVolumeText, new Vector2(0, 100), new Vector2(0, 1), v => OptionsData.instance.maxVolume = v, () => OptionsData.instance.maxVolume),
+            new OptionsPairing(musicVolume, musicVolumeText, new Vector2(0, 100), new Vector2(-80, 0), v => OptionsData.instance.musicVolume = v, () => OptionsData.instance.musicVolume),
+        };
+    }
 
     //Open Options
     public void CloseOptions()
@@ -63,44 +72,27 @@ public class OptionsMenu : MonoBehaviour
 
         resolutionDropdown.AddOptions(resolutionLabels);
 
-        //Display current settings
-        fovText.text = Mathf.Round(OptionsData.instance.fov).ToString();
-        sensetivityText.text = Mathf.Round(100 * OptionsData.instance.sensitivity).ToString();
-        masterVolumeText.text = Mathf.Round(100 * OptionsData.instance.maxVolume).ToString();
-        musicVolumeText.text = (Mathf.Round(100 * OptionsData.instance.musicVolume)).ToString();
-        SFXVolume.text = (Mathf.Round(100 * OptionsData.instance.sfxFloat)).ToString();
+        foreach (var o in options)
+        {
+            o.field.text = Mathf.Round(Remap(o.GetCallback(), o.outRange, o.inRange)).ToString();
+            o.slider.value = Remap(o.GetCallback(), o.outRange, o.inRange);
 
-        //Display Slider
-        fovSlider.value = OptionsData.instance.fov;
-        SensetivitySlider.value = OptionsData.instance.sensitivity;
-        masterVolume.value = OptionsData.instance.maxVolume;
-        musicVolume.value = OptionsData.instance.musicVolume;
-        fxVolume.value = OptionsData.instance.sfxFloat;
+            o.slider.onValueChanged.AddListener((v) => OnOptionChanged(o, v));
+            o.field.onValueChanged.AddListener((v) => OnOptionChanged(o, float.Parse(v)));
+        }
+    }
 
-        LoadSlider.value = OptionsData.instance.loadTime;
-        LoadText.text = $"{Mathf.Round(OptionsData.instance.loadTime * 10.0f) / 10.0f}s";
+    private void OnOptionChanged(OptionsPairing option, float value)
+    {
+        option.slider.value = value;
+        option.field.text = Mathf.Round(value).ToString();
+        option.SetCallback(Remap(value, option.inRange, option.outRange));
     }
 
     public void Update()
     {
-        //Display current settings
-        fovText.text = Mathf.Round(fovSlider.value).ToString();
-        sensetivityText.text = Mathf.Round(100 * SensetivitySlider.value).ToString();
-        masterVolumeText.text = Mathf.Round(100 * masterVolume.value).ToString();
-        musicVolumeText.text = Mathf.Round(100 * musicVolume.value).ToString();
-        SFXVolume.text = Mathf.Round(100 * fxVolume.value).ToString();
-
-        //Display Slider
-        AudioListener.volume = masterVolume.value;
-
-        //Change Setting
-        OptionsData.instance.fov = fovSlider.value;
-        OptionsData.instance.sensitivity = SensetivitySlider.value;
-        OptionsData.instance.maxVolume = masterVolume.value;
-        OptionsData.instance.musicVolume = musicVolume.value;
-        OptionsData.instance.sfxFloat = fxVolume.value;
-
-        OptionsData.instance.loadTime = LoadSlider.value;
+        AudioListener.volume = OptionsData.instance.maxVolume;
+        musicMixer.SetFloat("MusicVol", OptionsData.instance.musicVolume);
     }
 
     public void OnDisable()
@@ -112,5 +104,33 @@ public class OptionsMenu : MonoBehaviour
     public void SetResolution(int index)
     {
         Screen.SetResolution(Resolutions[index].x, Resolutions[index].y, Screen.fullScreenMode);
+    }
+
+    public class OptionsPairing
+    {
+        public Slider slider;
+        public TMP_InputField field;
+
+        public Vector2 inRange;
+        public Vector2 outRange;
+
+        public System.Action<float> SetCallback;
+        public System.Func<float> GetCallback;
+
+        public OptionsPairing(Slider slider, TMP_InputField field, Vector2 inRange, Vector2 outRange, Action<float> setCallback, Func<float> getCallback)
+        {
+            this.slider = slider;
+            this.field = field;
+            this.inRange = inRange;
+            this.outRange = outRange;
+            SetCallback = setCallback;
+            GetCallback = getCallback;
+        }
+    }
+
+    public float Remap (float i, Vector2 f, Vector2 t)
+    {
+        float p = Mathf.InverseLerp(f.x, f.y, i);
+        return Mathf.Lerp(t.x, t.y, p);
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8531832963902791961}
   - component: {fileID: 8531832963902791967}
   m_Layer: 0
-  m_Name: Audio
+  m_Name: Game Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +137,7 @@ AudioSource:
   m_GameObject: {fileID: 8531832963902791960}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4270229051882621654, guid: 67d83223ffa79f3479d84c2acbf0ce5b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0946804ef1753984a9dc098c7f49adbc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5

@@ -85,7 +85,7 @@ public class QuickActions : EditorWindow
 
             if (GUILayout.Button(content, GUILayout.MaxHeight(30.0f)))
             {
-                EditorSceneManager.OpenScene("Assets/Scenes/Final/LobbyRoom.unity");
+                EditorSceneManager.OpenScene("Assets/Scenes/Final/EpilepsyScreen.unity");
                 EditorApplication.EnterPlaymode();
             }
         }
