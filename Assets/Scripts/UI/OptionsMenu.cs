@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.InputSystem;
 using UnityEngine.Audio;
 using System;
 
@@ -31,11 +28,15 @@ public class OptionsMenu : MonoBehaviour
 
     [Header("Resolution Dropdown")]
     public TMP_Dropdown resolutionDropdown;
+    public TMP_Dropdown fullscreenDropdown;
 
     //Resolution List
     public static readonly Vector2Int[] Resolutions = new Vector2Int[]
     {
-        new Vector2Int (1920, 1080)
+        new Vector2Int(1920, 1080),
+        new Vector2Int (1680, 1050),
+        new Vector2Int (1440, 900),
+        new Vector2Int (1280, 800),
     };
 
     public OptionsPairing[] options;
@@ -72,6 +73,17 @@ public class OptionsMenu : MonoBehaviour
 
         resolutionDropdown.AddOptions(resolutionLabels);
 
+        //Fullscreen mode
+        List<string> fullscreenLabels = new List<string>
+        {
+            "Fullscreen",
+            "Borderless",
+            "Windowed",
+        };
+
+        fullscreenDropdown.ClearOptions();
+        fullscreenDropdown.AddOptions(fullscreenLabels);
+
         foreach (var o in options)
         {
             o.field.text = Mathf.Round(Remap(o.GetCallback(), o.outRange, o.inRange)).ToString();
@@ -104,6 +116,29 @@ public class OptionsMenu : MonoBehaviour
     public void SetResolution(int index)
     {
         Screen.SetResolution(Resolutions[index].x, Resolutions[index].y, Screen.fullScreenMode);
+    }
+
+    //Set Fullscreen Mode
+    public void SetFullscreenMode(int index)
+    {
+        FullScreenMode fullScreenMode = FullScreenMode.FullScreenWindow;
+
+        switch (index)
+        {
+            case 0:
+                fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+            case 1:
+                fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 2:
+                fullScreenMode = FullScreenMode.Windowed;
+                break;
+        }
+
+        Debug.Log(fullScreenMode);
+        Screen.SetResolution(Screen.width, Screen.height, fullScreenMode);
+        OptionsData.instance.fullscreen = index;
     }
 
     public class OptionsPairing
